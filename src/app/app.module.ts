@@ -1,16 +1,48 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {HttpModule} from '@angular/http';
 
-import { AppComponent } from './app.component';
+import {StoreModule} from '@ngrx/store';
+import {menuReducer} from './reducers/menu.reducer';
+import {carTreeReducer, carTreeFilterReducer} from './reducers/cars-tree.reducer';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools'
+
+import {AppRoutesModule} from "./route/app.routing.module";
+
+import {BonusModule} from "./modules/bonus/bonus.module";
+
+import {AppComponent} from './app.component';
+import {HeaderComponent} from "./template/header/header.component";
+import {FooterComponent} from "./template/footer/footer.component";
+import {SidebarComponent} from "./template/sidebar/sidebar.component";
+import {MenuListComponent} from "./template/sidebar/menu-list/menu-list.component";
+import {MenuItemComponent} from "./template/sidebar/menu-item/menu-item.component";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent,
+    FooterComponent,
+    SidebarComponent,
+    MenuListComponent,
+    MenuItemComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    AppRoutesModule,
+    StoreModule.provideStore({
+      menus: menuReducer,
+      carTree: carTreeReducer,
+      carTreeFilter: carTreeFilterReducer
+    }),
+    StoreDevtoolsModule.instrumentOnlyWithExtension(),
+    BonusModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

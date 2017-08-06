@@ -1,0 +1,52 @@
+<div class="bonus_setting_page">
+  <form [formGroup]="nodSettingForm" (submit)="toNodMainPage(nodSettingForm.value)" novalidate>
+    <div class="form-group">
+      <label for="nod_number">NOD号:</label>
+      <input id="nod_number" type="text" pInputText="" formControlName="nod_number">
+      <div class="errorInfo" *ngIf="!nodSettingForm.controls['nod_number'].valid
+      && nodSettingForm.controls['nod_number'].dirty">
+        <div class="ui-message ui-messages-error ui-corner-all ui-error">
+          <i class="fa fa-close"></i>
+          NOD号选项必须填写
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="description">描述:</label>
+      <input id="description" type="text" pInputText="" formControlName="description">
+      <div class="errorInfo" *ngIf="!nodSettingForm.controls['description'].valid
+       && nodSettingForm.controls['description'].dirty">
+        <div class="ui-message ui-messages-error ui-corner-all ui-error">
+          <i class="fa fa-close"></i>
+          描述选项必须填写
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="department">使用部门:</label>
+      <p-dropdown id="department" [style]="{'width':'70%'}" [options]="departments" formControlName="department"
+                  [(ngModel)]="selectedDep" placeholder="请选择部门"></p-dropdown>
+      <div class="errorInfo" *ngIf="!nodSettingForm.controls['department'].valid
+      && nodSettingForm.controls['department'].dirty">
+        <div class="ui-message ui-messages-error ui-corner-all ui-error">
+          <i class="fa fa-close"></i>
+          使用部门选项必须选择
+        </div>
+      </div>
+    </div>
+    <!--<div>{{selectedDep?.deptName}}</div>-->
+    <div class="form-group">
+      <label for="year">年份:</label>
+      <p-dropdown id="year" [style]="{'width':'70%'}" [options]="years" formControlName="year"
+                  [(ngModel)]="selectedYear" placeholder="请选择年份"></p-dropdown>
+      <div class="errorInfo" *ngIf="!nodSettingForm.controls['year'].valid
+      && nodSettingForm.controls['year'].dirty">
+        <div class="ui-message ui-messages-error ui-corner-all ui-error">
+          <i class="fa fa-close"></i>
+          年份选项必须选择
+        </div>
+      </div>
+    </div>
+    <button pButton type="submit" [disabled]="!nodSettingForm.valid" label="下一步"></button>
+  </form>
+</div>

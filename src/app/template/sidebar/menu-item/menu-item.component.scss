@@ -1,0 +1,126 @@
+.icon {
+  display: inline-block;
+  position: relative;
+  background: url("../../../../assets/images/navIcon.png") no-repeat;
+  width: 16px;
+  height: 16px;
+  background-size: 90%;
+}
+
+.bonus_icon {
+  background-position: 0 1px;
+  top: 2px;
+  left:-3px;
+}
+
+.discount_icon {
+  background-position: 0 -16px;
+  top: 4px;
+  left: -3px;
+}
+
+.approval_icon {
+  background-position: 0 -32px;
+  top: 4px;
+  left: -3px;
+}
+
+.setting_icon {
+  background-position: 0 -47px;
+  top: 4px;
+  left: -3px;
+}
+
+.right_arrow {
+  font-size: 18px;
+  position: relative;
+  right: -44px;
+  top: 2px;
+}
+
+li {
+  line-height: 30px;
+  background-color: #f2f2f2;
+  border-bottom: 1px solid #dbdbdb;
+
+  &.sub_menu {
+
+  }
+
+  &.sub_menu_open {
+    background-color: #0061ac;
+
+    .icon {
+      display: inline-block;
+      position: relative;
+      background: url("../../../../assets/images/navIcon_active.png") no-repeat;
+      width: 16px;
+      height: 16px;
+      background-size: 90%;
+    }
+
+    .bonus_icon {
+      background-position: 0 1px;
+      top: 3px;
+      left:-3px;
+    }
+
+    .discount_icon {
+      background-position: 0 -16px;
+      top: 4px;
+      left:-3px;
+    }
+
+    .approval_icon {
+      background-position: 0 -32px;
+      top: 4px;
+      left:-3px;
+    }
+
+    .setting_icon {
+      background-position: 0 -47px;
+      top: 4px;
+      left:-3px;
+    }
+
+    .right_arrow {
+      transform: rotate(90deg);
+    }
+
+    a {
+      color: #fff;
+      text-decoration: none;
+    }
+    ul {
+      display: block;
+
+      a {
+        color: #888;
+
+        &:hover {
+          background-color: #84b3d7;
+          color: white;
+        }
+      }
+    }
+  }
+
+  a {
+    display: inline-block;
+    width: 100%;
+    color: #888;
+    font-size: 12px;
+    font-weight: 600;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  ul {
+    display: none;
+    li {
+
+    }
+  }
+}

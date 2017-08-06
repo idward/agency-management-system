@@ -1,0 +1,11 @@
+<li class="sub_menu" [class.sub_menu_open]="menu.selectedStatus">
+  <a href="" (click)="toggleMenu($event)">
+    <i class="icon {{menu.menuClass}}"></i>{{menu.menuName}}
+    <i class="fa fa-angle-right right_arrow"></i>
+  </a>
+  <ul>
+    <li *ngFor="let submenu of menu.subMenus">
+      <a routerLink="/bonus/{{submenu.menuPath}}">{{submenu.menuName}}</a>
+    </li>
+  </ul>
+</li>

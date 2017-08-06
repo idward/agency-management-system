@@ -1,0 +1,36 @@
+.header {
+  height: 70px;
+  overflow: hidden;
+  border-bottom: 1px solid #dbdbdb;
+
+  .logo {
+    img {
+      float: left;
+      width: 80px;
+      height: auto;
+      margin-top: 10px;
+      margin-left: 10px;
+    }
+
+    .app_name {
+      float: left;
+      margin-left: 10px;
+      margin-top: 15px;
+
+      h2 {
+        font-size: 18px;
+        font-weight: bold;
+        color: #015cab;
+      }
+
+      h4 {
+        color: #999;
+        margin-top: 5px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+    }
+  }
+
+}
+

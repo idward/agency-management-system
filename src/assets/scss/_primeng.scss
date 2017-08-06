@@ -1,0 +1,67 @@
+.nod_item_page {
+  .ui-button-text-only .ui-button-text {
+    padding: 2px 5px !important;
+  }
+}
+
+.ui-inputtext {
+  width: 90px;
+  margin-right: 5px;
+}
+
+.ui-chkbox .ui-chkbox-box {
+  margin-left: 5px;
+}
+
+.ui-treetable .ui-treetable-footer {
+  overflow: hidden;
+}
+
+.ui-treetable .ui-treetable-header {
+  overflow: hidden;
+}
+
+.ui-state-highlight {
+  background: none;
+  border-color: transparent;
+}
+
+.ui-treetable .ui-treetable-row.ui-treetable-row-selectable:not(.ui-state-highlight):hover {
+  background: none;
+}
+
+.nod_item_bottom {
+  .ui-widget-content {
+    border: none;
+  }
+
+  .ui-state-highlight {
+    color: #212121;
+  }
+
+  .ui-dialog-title {
+    font-size: 14px !important;
+    font-weight: bold;
+    line-height: 26px;
+  }
+
+  .ui-inputtext {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .header, .searchbox {
+    float: left;
+  }
+
+  .confirm_btn {
+    float: right;
+  }
+
+  .searchbox {
+    width: 200px;
+    margin-left: 20px;
+    font-weight:normal;
+  }
+}
+

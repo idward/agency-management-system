@@ -1,0 +1,108 @@
+<div class="nod_item_page">
+  <div class="nod_item_toolbars">
+    <div class="left_area">
+      <p-dropdown [style]="{'width':'100px'}" [options]=""
+                  placeholder="请选择Item"></p-dropdown>
+      <button pButton type="button" (click)="createItem()" label="+ 创建Item"></button>
+    </div>
+    <div class="right_area">
+      <button pButton type="button" (click)="saveDraft()" label="保存草稿"></button>
+      <button pButton type="button" (click)="previewAllItems()" label="预览"></button>
+      <button pButton type="button" (click)="sendItemsData()" label="提交"></button>
+    </div>
+  </div>
+  <div class="nod_item_content">
+    <div class="nod_item_top">
+      <label>开始时间：</label>
+      <p-calendar [(ngModel)]="startTime"></p-calendar>
+      <label>结束时间：</label>
+      <p-calendar [(ngModel)]="endTime"></p-calendar>
+      <label>发放截止时间:</label>
+      <p-calendar [(ngModel)]="releaseTime"></p-calendar>
+      <label>描述:</label>
+      <input type="text" pInputText="">
+      <label>业务类型:</label>
+      <p-dropdown [style]="{'width':'100px'}" [options]="" placeholder="促销方式"></p-dropdown>
+      <p-checkbox name="fast_process" value="" label="快速流程" [(ngModel)]="isFastProcess"></p-checkbox>
+      <p-checkbox name="fast_process" value="" label="是否审批DB" [(ngModel)]="isApproval"></p-checkbox>
+    </div>
+    <div class="nod_item_dataArea">
+      <p-treeTable [value]="files" selectionMode="checkbox" [(selection)]="selectedFiles"
+                   [style]="{'margin-top':'50px'}">
+        <p-header>
+          <div style="float: right;">
+            <button pButton type="button" (click)="caoche_amount = !caoche_amount" label="拷车促销金额"></button>
+            <button pButton type="button" (click)="jiaoche_amount = !jiaoche_amount" label="交车促销金额"></button>
+            <button pButton type="button" (click)="store_amount = !store_amount" label="经销商库存金额"></button>
+          </div>
+        </p-header>
+        <p-footer>
+          <button pButton type="button" style="float: left;" (click)="editCarCategory($event)" label="编辑车型车系"></button>
+          <button pButton type="button" style="float: right;" (click)="toggleNonCash()" label="非现金"></button>
+          <button pButton type="button" style="float: right;" (click)="toggleCash()" label="现金"></button>
+        </p-footer>
+        <p-column field="name" [style]="{'width':'270px'}" header="品牌/车系/车型">
+          <ng-template let-node="rowData" pTemplate="body">
+            <input type="text" [(ngModel)]="node.data.name" style="width:100%;border:none;">
+          </ng-template>
+        </p-column>
+        <p-column field="msrp" header="MSRP">
+          <ng-template let-node="rowData" pTemplate="body">
+            <input type="text" [(ngModel)]="node.data.msrp" style="width:100%;border:none;">
+          </ng-template>
+        </p-column>
+        <p-column field="kaoche_bili" header="拷车促销比例">
+          <ng-template let-node="rowData" pTemplate="body">
+            <input type="text" [(ngModel)]="node.data.kaoche_bili" style="width:100%;border:none;">
+          </ng-template>
+        </p-column>
+        <p-column field="kaoche_jine" *ngIf="caoche_amount" header="拷车促销金额">
+          <ng-template let-node="rowData" pTemplate="body">
+            <input type="text" [(ngModel)]="node.data.kaoche_jine" style="width:100%;border:none;">
+          </ng-template>
+        </p-column>
+        <p-column field="jiaoche_bili" header="交车促销比例">
+          <ng-template let-node="rowData" pTemplate="body">
+            <input type="text" [(ngModel)]="node.data.jiaoche_bili" style="width:100%;border:none;">
+          </ng-template>
+        </p-column>
+        <p-column field="jiaoche_jine" *ngIf="jiaoche_amount" header="交车促销金额">
+          <ng-template let-node="rowData" pTemplate="body">
+            <input type="text" [(ngModel)]="node.data.jiaoche_jine" style="width:100%;border:none;">
+          </ng-template>
+        </p-column>
+        <p-column field="store_bili" header="经销商库存比例">
+          <ng-template let-node="rowData" pTemplate="body">
+            <input type="text" [(ngModel)]="node.data.store_bili" style="width:100%;border:none;">
+          </ng-template>
+        </p-column>
+        <p-column field="store_jine" *ngIf="store_amount" header="经销商库存金额">
+          <ng-template let-node="rowData" pTemplate="body">
+            <input type="text" [(ngModel)]="node.data.store_jine" style="width:100%;border:none;">
+          </ng-template>
+        </p-column>
+      </p-treeTable>
+    </div>
+    <div class="nod_item_bottom">
+      <p-dialog [modal]="true" [draggable]="false" [(visible)]="display"
+                [closable]="false" [width]="500">
+        <p-header>
+          <div class="header">品牌/车系/车型</div>
+          <div class="searchbox">
+            <div class="ui-inputgroup">
+              <input type="text" id="searchkey" pInputText placeholder="请输入查询关键字" [(ngModel)]="keyword">
+              <button pButton type="button" icon="fa-search" class="ui-button-secondary"></button>
+            </div>
+          </div>
+          <div class="confirm_btn">
+            <span style="float: right;cursor: pointer;" (click)="onHide()">确认 ></span>
+          </div>
+        </p-header>
+
+        <p-tree [value]="carTree | async" selectionMode="checkbox" [(selection)]="selectedCars"
+                (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnSelect($event)"></p-tree>
+        <!--<div>Selected Nodes: <span *ngFor="let file of selectedCars">{{file.label}} </span></div>-->
+      </p-dialog>
+    </div>
+  </div>
+</div>

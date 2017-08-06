@@ -1,0 +1,4 @@
+<ul class="menu_bonus">
+  <app-menu-item *ngFor="let menu of menusData; let i = index" [itemId]="i" [menu]="menu" [open]="open"
+                 (toggleChildEvt)="toggleMenu($event)"></app-menu-item>
+</ul>
