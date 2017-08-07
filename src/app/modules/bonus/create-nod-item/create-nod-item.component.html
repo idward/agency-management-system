@@ -27,7 +27,7 @@
       <p-checkbox name="fast_process" value="" label="是否审批DB" [(ngModel)]="isApproval"></p-checkbox>
     </div>
     <div class="nod_item_dataArea">
-      <p-treeTable [value]="files" selectionMode="checkbox" [(selection)]="selectedFiles"
+      <p-treeTable [value]="files | async" selectionMode="checkbox" [(selection)]="selectedFiles"
                    [style]="{'margin-top':'50px'}">
         <p-header>
           <div style="float: right;">

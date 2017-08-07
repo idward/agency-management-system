@@ -17,8 +17,9 @@ export class CreateNodItemComponent implements OnInit {
   releaseTime: Date;
   isFastProcess: boolean;
   isApproval: boolean;
-  files: TreeNode[];
+  files: Observable<TreeNode[]>;
   selectedFiles: TreeNode[];
+  tempCarsData: TreeNode[] = [];
   caoche_amount: boolean = false;
   jiaoche_amount: boolean = false;
   store_amount: boolean = false;
@@ -34,6 +35,11 @@ export class CreateNodItemComponent implements OnInit {
               private store$: Store<TreeNode[]>) {
     const carTreeData$ = this.store$.select('carTree').startWith([]);
     const carTreeFilter$ = this.store$.select('carTreeFilter');
+    const carDatas$ = this.store$.select('carDatas');
+    const carDatasFilter$ = this.store$.select('carDatasFilter');
+
+    this.files = Observable.zip(carDatas$, carDatasFilter$,
+      (datas: TreeNode[], filter: any) => filter(datas));
 
     this.carTree = Observable.combineLatest(carTreeData$, carTreeFilter$,
       (datas: TreeNode[], filter: any) => filter(datas));
@@ -41,8 +47,10 @@ export class CreateNodItemComponent implements OnInit {
 
   ngOnInit() {
     this._bonusService.getData();
-    this._carTreeService.getFilesystem()
-      .subscribe(data => this.files = data);
+    // this._carTreeService.getFilesystem()
+    //   .subscribe(datas => {
+    //     this.store$.dispatch({type: 'GET_CARS', payload: datas})
+    //   });
   }
 
   createItem() {
@@ -68,19 +76,33 @@ export class CreateNodItemComponent implements OnInit {
 
     this.display = true;
 
+    if (this.tempCarsData.length > 0) {
+      this.store$.dispatch({type: 'GET_CARS', payload: this.tempCarsData});
+    }
+
     this.carTree.subscribe(cars => {
       this.cars = cars;
     });
 
-    if(!_.isNil(this.selectedCars) && this.cars.length > 0){
-      this.store$.dispatch({type:'CARTREE_SELECTED'});
+    if (!_.isNil(this.selectedCars) && this.cars.length > 0) {
+      console.log('ssssssssss');
+      this.store$.dispatch({type: 'CARTREE_SELECTED'});
     }
+    // else if (_.isNil(this.selectedCars) && this.cars.length > 0) {
+    //   this.store$.dispatch({type: 'GET_CARTREE', payload: this.tempCarsData});
+    // }
 
     if (this.cars.length === 0 && !this.carTreeSubscription) {
-      this.store$.dispatch({type: 'GET_CARTREE', payload: this.createCarTree(this.files)});
+      this._carTreeService.getFilesystem()
+        .subscribe(datas => {
+          this.tempCarsData = datas;
+          this.store$.dispatch({type: 'GET_CARS', payload: datas});
+          this.store$.dispatch({type: 'GET_CARTREE', payload: this.createCarTree(datas)});
+        });
+
       this.carTreeSubscription = this.carTree
         .subscribe(cars => {
-          console.log(cars);
+          //console.log('carTree', cars);
         });
     }
 
@@ -94,6 +116,9 @@ export class CreateNodItemComponent implements OnInit {
   onHide() {
     this.display = false;
     this.keyword = '';
+    console.log(this.tempCarsData);
+    console.log('selectedCars:', this.selectedCars);
+    this.store$.dispatch({type: 'CAR_SELECTED', payload: this.selectedCars});
   }
 
   toggleCash() {
@@ -133,13 +158,11 @@ export class CreateNodItemComponent implements OnInit {
     return Observable.throw(err.message || err);
   }
 
-  nodeSelect(data:any){
-    console.log(data);
+  nodeSelect(data: any) {
     data.node.selected = true;
   }
 
-  nodeUnSelect(data:any){
-    console.log(data);
+  nodeUnSelect(data: any) {
     data.node.selected = false;
   }
 
