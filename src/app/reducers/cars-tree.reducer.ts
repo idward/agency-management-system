@@ -50,13 +50,11 @@ function filterItemBySelected(item:TreeNode):TreeNode{
         const newItem = {};
 
         if(children.length === item.children.length){
-          newItem['selected'] = true;
           newItem['partialSelected'] = false;
-          //newItem['styleClass'] = 'ui-treenode-label ui-corner-all ui-state-highlight';
+          newItem['selected'] = true;
         } else {
-          newItem['selected'] = false;
           newItem['partialSelected'] = true;
-          //newItem['styleClass'] = 'ui-treenode-label ui-corner-all';
+          newItem['selected'] = false;
         }
         newItem['label'] = item.label;
         newItem['data'] = item.data;
@@ -101,10 +99,18 @@ function filterItem(item:TreeNode, keyword:string):TreeNode {
       });
       if (children.length > 0) {
         const newItem = {};
+
+        if(children.length === item.children.length){
+          newItem['selected'] = true;
+          newItem['partialSelected'] = false;
+        } else {
+          newItem['selected'] = false;
+          newItem['partialSelected'] = true;
+        }
+
         newItem['label'] = item.label;
         newItem['data'] = item.data;
         newItem['expanded'] = true;
-        newItem['selected'] = false;
         newItem['children'] = children;
         return newItem;
       }

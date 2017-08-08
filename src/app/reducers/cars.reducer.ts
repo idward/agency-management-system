@@ -21,6 +21,7 @@ export function carsFilterReducer(state = (cars: TreeNode[]) => cars, action: Ac
 }
 
 function filterSelectedItems(datas: any, selectedDatas: any): TreeNode[] {
+  selectedDatas = selectedDatas.filter(data => data.selected === true);
   let selectedLabel = selectedDatas ? selectedDatas.map(data => data.label) : [];
   const filterItems: TreeNode[] = [];
   datas[0].forEach(data => {

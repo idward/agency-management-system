@@ -85,12 +85,10 @@ export class CreateNodItemComponent implements OnInit {
     });
 
     if (!_.isNil(this.selectedCars) && this.cars.length > 0) {
-      console.log('ssssssssss');
       this.store$.dispatch({type: 'CARTREE_SELECTED'});
+    } else if (_.isNil(this.selectedCars) && this.cars.length > 0) {
+      this.store$.dispatch({type: 'SEARCH_KEYWORDS', payload: ''});
     }
-    // else if (_.isNil(this.selectedCars) && this.cars.length > 0) {
-    //   this.store$.dispatch({type: 'GET_CARTREE', payload: this.tempCarsData});
-    // }
 
     if (this.cars.length === 0 && !this.carTreeSubscription) {
       this._carTreeService.getFilesystem()
@@ -102,7 +100,7 @@ export class CreateNodItemComponent implements OnInit {
 
       this.carTreeSubscription = this.carTree
         .subscribe(cars => {
-          //console.log('carTree', cars);
+          // console.log('carTree', cars);
         });
     }
 
@@ -116,7 +114,7 @@ export class CreateNodItemComponent implements OnInit {
   onHide() {
     this.display = false;
     this.keyword = '';
-    console.log(this.tempCarsData);
+    // console.log(this.tempCarsData);
     console.log('selectedCars:', this.selectedCars);
     this.store$.dispatch({type: 'CAR_SELECTED', payload: this.selectedCars});
   }
@@ -164,6 +162,18 @@ export class CreateNodItemComponent implements OnInit {
 
   nodeUnSelect(data: any) {
     data.node.selected = false;
+    data.node.parent.selected = false;
+    this.selectedCars = this.setUnselectedCar(this.selectedCars, data.node.parent);
+  }
+
+  setUnselectedCar(selectedCars: any, unselectedParent: any): any {
+    for (var i = 0; i < selectedCars.length; i++) {
+      if (selectedCars[i].label === unselectedParent.label) {
+        selectedCars[i].partialSelected = unselectedParent.partialSelected;
+        selectedCars[i].selected = unselectedParent.selected;
+      }
+    }
+    return selectedCars;
   }
 
 }

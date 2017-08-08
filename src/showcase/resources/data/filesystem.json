@@ -6,11 +6,17 @@
         "name":"别克",
         "msrp":"75kb",
         "kaoche_bili":"10%",
+        "kaoche_bili_check":false,
         "kaoche_jine":"2000",
+        "kaoche_jine_check":false,
         "jiaoche_bili":"10%",
+        "jiaoche_bili_check":false,
         "jiaoche_jine":"2000",
+        "jiaoche_jine_check":false,
         "store_bili":"10%",
-        "store_jine":"2000"
+        "store_bili_check":false,
+        "store_jine":"2000",
+        "store_jine_check":false
       },
       "children":[
         {
@@ -18,11 +24,17 @@
             "name":"凯越",
             "msrp":"75kb",
             "kaoche_bili":"10%",
+            "kaoche_bili_check":false,
             "kaoche_jine":"2000",
+            "kaoche_jine_check":false,
             "jiaoche_bili":"10%",
+            "jiaoche_bili_check":false,
             "jiaoche_jine":"2000",
+            "jiaoche_jine_check":false,
             "store_bili":"10%",
-            "store_jine":"2000"
+            "store_bili_check":false,
+            "store_jine":"2000",
+            "store_jine_check":false
           },
           "children":[
             {
@@ -30,11 +42,17 @@
                 "name":"Excelle_XT_1.6_GMT",
                 "msrp":"75kb",
                 "kaoche_bili":"10%",
+                "kaoche_bili_check":false,
                 "kaoche_jine":"2000",
+                "kaoche_jine_check":false,
                 "jiaoche_bili":"10%",
+                "jiaoche_bili_check":false,
                 "jiaoche_jine":"2000",
+                "jiaoche_jine_check":false,
                 "store_bili":"10%",
-                "store_jine":"2000"
+                "store_bili_check":false,
+                "store_jine":"2000",
+                "store_jine_check":false
               }
             },
             {
@@ -42,11 +60,17 @@
                 "name":"Excelle_XT_1.8_GMT",
                 "msrp":"75kb",
                 "kaoche_bili":"10%",
+                "kaoche_bili_check":false,
                 "kaoche_jine":"2000",
+                "kaoche_jine_check":false,
                 "jiaoche_bili":"10%",
+                "jiaoche_bili_check":false,
                 "jiaoche_jine":"2000",
+                "jiaoche_jine_check":false,
                 "store_bili":"10%",
-                "store_jine":"2000"
+                "store_bili_check":false,
+                "store_jine":"2000",
+                "store_jine_check":false
               }
             }
           ]
@@ -56,11 +80,17 @@
             "name":"威朗",
             "msrp":"75kb",
             "kaoche_bili":"10%",
+            "kaoche_bili_check":false,
             "kaoche_jine":"2000",
+            "kaoche_jine_check":false,
             "jiaoche_bili":"10%",
+            "jiaoche_bili_check":false,
             "jiaoche_jine":"2000",
+            "jiaoche_jine_check":false,
             "store_bili":"10%",
-            "store_jine":"2000"
+            "store_bili_check":false,
+            "store_jine":"2000",
+            "store_jine_check":false
           },
           "children":[
             {
@@ -68,11 +98,17 @@
                 "name":"Verano_HB_15S_GAT",
                 "msrp":"75kb",
                 "kaoche_bili":"10%",
+                "kaoche_bili_check":false,
                 "kaoche_jine":"2000",
+                "kaoche_jine_check":false,
                 "jiaoche_bili":"10%",
+                "jiaoche_bili_check":false,
                 "jiaoche_jine":"2000",
+                "jiaoche_jine_check":false,
                 "store_bili":"10%",
-                "store_jine":"2000"
+                "store_bili_check":false,
+                "store_jine":"2000",
+                "store_jine_check":false
               }
             }
           ]
@@ -84,11 +120,17 @@
         "name":"雪佛兰",
         "msrp":"75kb",
         "kaoche_bili":"10%",
+        "kaoche_bili_check":false,
         "kaoche_jine":"2000",
+        "kaoche_jine_check":false,
         "jiaoche_bili":"10%",
+        "jiaoche_bili_check":false,
         "jiaoche_jine":"2000",
+        "jiaoche_jine_check":false,
         "store_bili":"10%",
-        "store_jine":"2000"
+        "store_bili_check":false,
+        "store_jine":"2000",
+        "store_jine_check":false
       },
       "children":[
         {
@@ -96,11 +138,17 @@
             "name":"克鲁兹",
             "msrp":"75kb",
             "kaoche_bili":"10%",
+            "kaoche_bili_check":false,
             "kaoche_jine":"2000",
+            "kaoche_jine_check":false,
             "jiaoche_bili":"10%",
+            "jiaoche_bili_check":false,
             "jiaoche_jine":"2000",
+            "jiaoche_jine_check":false,
             "store_bili":"10%",
-            "store_jine":"2000"
+            "store_bili_check":false,
+            "store_jine":"2000",
+            "store_jine_check":false
           },
           "children":[
             {
@@ -108,11 +156,17 @@
                 "name":"Kuluzi_XT_1.6_GMT",
                 "msrp":"75kb",
                 "kaoche_bili":"10%",
+                "kaoche_bili_check":false,
                 "kaoche_jine":"2000",
+                "kaoche_jine_check":false,
                 "jiaoche_bili":"10%",
+                "jiaoche_bili_check":false,
                 "jiaoche_jine":"2000",
+                "jiaoche_jine_check":false,
                 "store_bili":"10%",
-                "store_jine":"2000"
+                "store_bili_check":false,
+                "store_jine":"2000",
+                "store_jine_check":false
               }
             },
             {
@@ -120,11 +174,17 @@
                 "name":"Kuluzi_XT_1.8_GMT",
                 "msrp":"75kb",
                 "kaoche_bili":"10%",
+                "kaoche_bili_check":false,
                 "kaoche_jine":"2000",
+                "kaoche_jine_check":false,
                 "jiaoche_bili":"10%",
+                "jiaoche_bili_check":false,
                 "jiaoche_jine":"2000",
+                "jiaoche_jine_check":false,
                 "store_bili":"10%",
-                "store_jine":"2000"
+                "store_bili_check":false,
+                "store_jine":"2000",
+                "store_jine_check":false
               }
             }
           ]
@@ -134,11 +194,17 @@
             "name":"迈锐宝",
             "msrp":"75kb",
             "kaoche_bili":"10%",
+            "kaoche_bili_check":false,
             "kaoche_jine":"2000",
+            "kaoche_jine_check":false,
             "jiaoche_bili":"10%",
+            "jiaoche_bili_check":false,
             "jiaoche_jine":"2000",
+            "jiaoche_jine_check":false,
             "store_bili":"10%",
-            "store_jine":"2000"
+            "store_bili_check":false,
+            "store_jine":"2000",
+            "store_jine_check":false
           },
           "children":[
             {
@@ -146,11 +212,17 @@
                 "name":"_HB_15S_GAT",
                 "msrp":"75kb",
                 "kaoche_bili":"10%",
+                "kaoche_bili_check":false,
                 "kaoche_jine":"2000",
+                "kaoche_jine_check":false,
                 "jiaoche_bili":"10%",
+                "jiaoche_bili_check":false,
                 "jiaoche_jine":"2000",
+                "jiaoche_jine_check":false,
                 "store_bili":"10%",
-                "store_jine":"2000"
+                "store_bili_check":false,
+                "store_jine":"2000",
+                "store_jine_check":false
               }
             }
           ]

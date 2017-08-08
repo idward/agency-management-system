@@ -27,7 +27,7 @@
       <p-checkbox name="fast_process" value="" label="是否审批DB" [(ngModel)]="isApproval"></p-checkbox>
     </div>
     <div class="nod_item_dataArea">
-      <p-treeTable [value]="files | async" selectionMode="checkbox" [(selection)]="selectedFiles"
+      <p-treeTable [value]="files | async" [(selection)]="selectedFiles"
                    [style]="{'margin-top':'50px'}">
         <p-header>
           <div style="float: right;">
@@ -54,31 +54,38 @@
         <p-column field="kaoche_bili" header="拷车促销比例">
           <ng-template let-node="rowData" pTemplate="body">
             <input type="text" [(ngModel)]="node.data.kaoche_bili" style="width:100%;border:none;">
+            <p-checkbox [(ngModel)]="node.data.kaoche_bili_check" binary="true" styleClass="nod_item_box"></p-checkbox>
           </ng-template>
         </p-column>
         <p-column field="kaoche_jine" *ngIf="caoche_amount" header="拷车促销金额">
           <ng-template let-node="rowData" pTemplate="body">
             <input type="text" [(ngModel)]="node.data.kaoche_jine" style="width:100%;border:none;">
+            <p-checkbox [(ngModel)]="node.data.kaoche_jine_check" binary="true" styleClass="nod_item_box"></p-checkbox>
           </ng-template>
         </p-column>
         <p-column field="jiaoche_bili" header="交车促销比例">
           <ng-template let-node="rowData" pTemplate="body">
             <input type="text" [(ngModel)]="node.data.jiaoche_bili" style="width:100%;border:none;">
+            <p-checkbox [(ngModel)]="node.data.jiaoche_bili_check" binary="true" styleClass="nod_item_box"></p-checkbox>
           </ng-template>
         </p-column>
         <p-column field="jiaoche_jine" *ngIf="jiaoche_amount" header="交车促销金额">
           <ng-template let-node="rowData" pTemplate="body">
             <input type="text" [(ngModel)]="node.data.jiaoche_jine" style="width:100%;border:none;">
+            <p-checkbox [(ngModel)]="node.data.jiaoche_jine_check" binary="true" styleClass="nod_item_box"></p-checkbox>
           </ng-template>
         </p-column>
         <p-column field="store_bili" header="经销商库存比例">
           <ng-template let-node="rowData" pTemplate="body">
             <input type="text" [(ngModel)]="node.data.store_bili" style="width:100%;border:none;">
+            <p-checkbox [(ngModel)]="node.data.store_bili_check" binary="true" styleClass="nod_item_box"></p-checkbox>
           </ng-template>
         </p-column>
         <p-column field="store_jine" *ngIf="store_amount" header="经销商库存金额">
           <ng-template let-node="rowData" pTemplate="body">
             <input type="text" [(ngModel)]="node.data.store_jine" style="width:100%;border:none;">
+            <!--<input type="checkbox" [(ngModel)]="node.data.store_jine_check" style="position: relative;right: 18px;">-->
+            <p-checkbox [(ngModel)]="node.data.store_jine_check" binary="true" styleClass="nod_item_box"></p-checkbox>
           </ng-template>
         </p-column>
       </p-treeTable>
