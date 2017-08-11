@@ -23,6 +23,7 @@
       <input type="text" pInputText="">
       <label>业务类型:</label>
       <p-dropdown [style]="{'width':'100px'}" [options]="" placeholder="促销方式"></p-dropdown>
+      <!-- 促销比例 促销金额 年度政策  -->
       <p-checkbox name="fast_process" value="" label="快速流程" [(ngModel)]="isFastProcess"></p-checkbox>
       <p-checkbox name="fast_process" value="" label="是否审批DB" [(ngModel)]="isApproval"></p-checkbox>
     </div>
@@ -54,38 +55,44 @@
         <p-column field="kaoche_bili" header="拷车促销比例">
           <ng-template let-node="rowData" pTemplate="body">
             <input type="text" [(ngModel)]="node.data.kaoche_bili" style="width:100%;border:none;">
-            <p-checkbox [(ngModel)]="node.data.kaoche_bili_check" binary="true" styleClass="nod_item_box"></p-checkbox>
+            <p-checkbox [(ngModel)]="node.data.kaoche_bili_check" binary="true" [disabled]="node.data.level === 2"
+                        styleClass="nod_item_box" (onChange)="nodeItemChecked($event,node.data,'kaoche_bili')"></p-checkbox>
           </ng-template>
         </p-column>
         <p-column field="kaoche_jine" *ngIf="caoche_amount" header="拷车促销金额">
           <ng-template let-node="rowData" pTemplate="body">
             <input type="text" [(ngModel)]="node.data.kaoche_jine" style="width:100%;border:none;">
-            <p-checkbox [(ngModel)]="node.data.kaoche_jine_check" binary="true" styleClass="nod_item_box"></p-checkbox>
+            <p-checkbox [(ngModel)]="node.data.kaoche_jine_check" binary="true" [disabled]="node.data.level === 2"
+                        styleClass="nod_item_box" (onChange)="nodeItemChecked($event,node.data,'kaoche_jine')"></p-checkbox>
           </ng-template>
         </p-column>
         <p-column field="jiaoche_bili" header="交车促销比例">
           <ng-template let-node="rowData" pTemplate="body">
             <input type="text" [(ngModel)]="node.data.jiaoche_bili" style="width:100%;border:none;">
-            <p-checkbox [(ngModel)]="node.data.jiaoche_bili_check" binary="true" styleClass="nod_item_box"></p-checkbox>
+            <p-checkbox [(ngModel)]="node.data.jiaoche_bili_check" binary="true" [disabled]="node.data.level === 2"
+                        styleClass="nod_item_box" (onChange)="nodeItemChecked($event,node.data,'jiaoche_bili')"></p-checkbox>
           </ng-template>
         </p-column>
         <p-column field="jiaoche_jine" *ngIf="jiaoche_amount" header="交车促销金额">
           <ng-template let-node="rowData" pTemplate="body">
             <input type="text" [(ngModel)]="node.data.jiaoche_jine" style="width:100%;border:none;">
-            <p-checkbox [(ngModel)]="node.data.jiaoche_jine_check" binary="true" styleClass="nod_item_box"></p-checkbox>
+            <p-checkbox [(ngModel)]="node.data.jiaoche_jine_check" binary="true" [disabled]="node.data.level === 2"
+                        styleClass="nod_item_box" (onChange)="nodeItemChecked($event,node.data,'jiaoche_jine')"></p-checkbox>
           </ng-template>
         </p-column>
         <p-column field="store_bili" header="经销商库存比例">
           <ng-template let-node="rowData" pTemplate="body">
             <input type="text" [(ngModel)]="node.data.store_bili" style="width:100%;border:none;">
-            <p-checkbox [(ngModel)]="node.data.store_bili_check" binary="true" styleClass="nod_item_box"></p-checkbox>
+            <p-checkbox [(ngModel)]="node.data.store_bili_check" binary="true" [disabled]="node.data.level === 2"
+                        styleClass="nod_item_box" (onChange)="nodeItemChecked($event,node.data,'store_bili')"></p-checkbox>
           </ng-template>
         </p-column>
         <p-column field="store_jine" *ngIf="store_amount" header="经销商库存金额">
           <ng-template let-node="rowData" pTemplate="body">
             <input type="text" [(ngModel)]="node.data.store_jine" style="width:100%;border:none;">
             <!--<input type="checkbox" [(ngModel)]="node.data.store_jine_check" style="position: relative;right: 18px;">-->
-            <p-checkbox [(ngModel)]="node.data.store_jine_check" binary="true" styleClass="nod_item_box"></p-checkbox>
+            <p-checkbox [(ngModel)]="node.data.store_jine_check" binary="true" [disabled]="node.data.level === 2"
+                        styleClass="nod_item_box" (onChange)="nodeItemChecked($event,node.data,'store_jine')"></p-checkbox>
           </ng-template>
         </p-column>
       </p-treeTable>

@@ -47,14 +47,9 @@ export class CreateNodItemComponent implements OnInit {
 
   ngOnInit() {
     this._bonusService.getData();
-    // this._carTreeService.getFilesystem()
-    //   .subscribe(datas => {
-    //     this.store$.dispatch({type: 'GET_CARS', payload: datas})
-    //   });
   }
 
   createItem() {
-    console.log(this.files);
   }
 
   saveDraft() {
@@ -77,16 +72,21 @@ export class CreateNodItemComponent implements OnInit {
     this.display = true;
 
     if (this.tempCarsData.length > 0) {
-      this.store$.dispatch({type: 'GET_CARS', payload: this.tempCarsData});
+      this.store$.dispatch({type: 'GET_CARS', payload: []});
     }
 
     this.carTree.subscribe(cars => {
       this.cars = cars;
+      //console.log('cars:',this.cars);
     });
 
-    if (!_.isNil(this.selectedCars) && this.cars.length > 0) {
+    if (!_.isNil(this.selectedCars) && this.selectedCars.length > 0 && this.cars.length > 0) {
       this.store$.dispatch({type: 'CARTREE_SELECTED'});
     } else if (_.isNil(this.selectedCars) && this.cars.length > 0) {
+      this.store$.dispatch({type: 'SEARCH_KEYWORDS', payload: ''});
+    } else if(!_.isNil(this.selectedCars) && this.selectedCars.length === 0 && this.cars.length === 0){
+      this.store$.dispatch({type: 'SEARCH_KEYWORDS', payload: ''});
+    } else if(!_.isNil(this.selectedCars) && this.selectedCars.length === 0 && this.cars.length > 0){
       this.store$.dispatch({type: 'SEARCH_KEYWORDS', payload: ''});
     }
 
@@ -100,7 +100,7 @@ export class CreateNodItemComponent implements OnInit {
 
       this.carTreeSubscription = this.carTree
         .subscribe(cars => {
-          // console.log('carTree', cars);
+          //console.log('carTree', cars);
         });
     }
 
@@ -115,6 +115,9 @@ export class CreateNodItemComponent implements OnInit {
     this.display = false;
     this.keyword = '';
     // console.log(this.tempCarsData);
+    if(this.selectedCars && this.selectedCars.length > 0){
+      this.selectedCars = this.selectedCars.filter(data => data['selected'] === true);
+    }
     console.log('selectedCars:', this.selectedCars);
     this.store$.dispatch({type: 'CAR_SELECTED', payload: this.selectedCars});
   }
@@ -174,6 +177,17 @@ export class CreateNodItemComponent implements OnInit {
       }
     }
     return selectedCars;
+  }
+
+  nodeItemChecked(checked: boolean, data: TreeNode, fieldname: string) {
+    console.log(data);
+
+    this.store$.dispatch({
+      type: 'TOGGLE_COMBINATION',
+      payload: {field: fieldname, node: data, status: checked}
+    });
+
+    this.files.subscribe(data => console.log('Files:', data));
   }
 
 }
