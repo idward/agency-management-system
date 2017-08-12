@@ -12,37 +12,37 @@ import 'rxjs/Rx';
   styleUrls: ['./create-nod-item.component.scss']
 })
 export class CreateNodItemComponent implements OnInit {
-  startTime: Date;
-  endTime: Date;
-  releaseTime: Date;
-  isFastProcess: boolean;
-  isApproval: boolean;
-  files: Observable<TreeNode[]>;
-  selectedFiles: TreeNode[];
-  tempCarsData: TreeNode[] = [];
-  caoche_amount: boolean = false;
-  jiaoche_amount: boolean = false;
-  store_amount: boolean = false;
-  display: boolean = false;
-  cars: TreeNode[] = [];
-  carTree: Observable<TreeNode[]>;
-  carTreeSubscription: Subscription;
-  selectedCars: TreeNode[];
-  keyword: string = '';
+  startTime:Date;
+  endTime:Date;
+  releaseTime:Date;
+  isFastProcess:boolean;
+  isApproval:boolean;
+  files:Observable<TreeNode[]>;
+  selectedFiles:TreeNode[];
+  tempCarsData:TreeNode[] = [];
+  caoche_amount:boolean = false;
+  jiaoche_amount:boolean = false;
+  store_amount:boolean = false;
+  display:boolean = false;
+  cars:TreeNode[] = [];
+  carTree:Observable<TreeNode[]>;
+  carTreeSubscription:Subscription;
+  selectedCars:TreeNode[];
+  keyword:string = '';
 
   constructor(@Inject('BonusService') private _bonusService,
               @Inject('CarTreeService') private _carTreeService,
-              private store$: Store<TreeNode[]>) {
+              private store$:Store<TreeNode[]>) {
     const carTreeData$ = this.store$.select('carTree').startWith([]);
     const carTreeFilter$ = this.store$.select('carTreeFilter');
     const carDatas$ = this.store$.select('carDatas');
     const carDatasFilter$ = this.store$.select('carDatasFilter');
 
     this.files = Observable.zip(carDatas$, carDatasFilter$,
-      (datas: TreeNode[], filter: any) => filter(datas));
+      (datas:TreeNode[], filter:any) => filter(datas));
 
     this.carTree = Observable.combineLatest(carTreeData$, carTreeFilter$,
-      (datas: TreeNode[], filter: any) => filter(datas));
+      (datas:TreeNode[], filter:any) => filter(datas));
   }
 
   ngOnInit() {
@@ -64,7 +64,7 @@ export class CreateNodItemComponent implements OnInit {
 
   }
 
-  editCarCategory(evt: Event) {
+  editCarCategory(evt:Event) {
     if (evt['screenX'] === 0 && evt['screenY'] === 0) {
       return false;
     }
@@ -84,9 +84,9 @@ export class CreateNodItemComponent implements OnInit {
       this.store$.dispatch({type: 'CARTREE_SELECTED'});
     } else if (_.isNil(this.selectedCars) && this.cars.length > 0) {
       this.store$.dispatch({type: 'SEARCH_KEYWORDS', payload: ''});
-    } else if(!_.isNil(this.selectedCars) && this.selectedCars.length === 0 && this.cars.length === 0){
+    } else if (!_.isNil(this.selectedCars) && this.selectedCars.length === 0 && this.cars.length === 0) {
       this.store$.dispatch({type: 'SEARCH_KEYWORDS', payload: ''});
-    } else if(!_.isNil(this.selectedCars) && this.selectedCars.length === 0 && this.cars.length > 0){
+    } else if (!_.isNil(this.selectedCars) && this.selectedCars.length === 0 && this.cars.length > 0) {
       this.store$.dispatch({type: 'SEARCH_KEYWORDS', payload: ''});
     }
 
@@ -115,7 +115,7 @@ export class CreateNodItemComponent implements OnInit {
     this.display = false;
     this.keyword = '';
     // console.log(this.tempCarsData);
-    if(this.selectedCars && this.selectedCars.length > 0){
+    if (this.selectedCars && this.selectedCars.length > 0) {
       this.selectedCars = this.selectedCars.filter(data => data['selected'] === true);
     }
     console.log('selectedCars:', this.selectedCars);
@@ -130,7 +130,7 @@ export class CreateNodItemComponent implements OnInit {
 
   }
 
-  private createCarTree(data: TreeNode[]): TreeNode[] {
+  private createCarTree(data:TreeNode[]):TreeNode[] {
     var tempData = [];
     for (let i = 0; i < data.length; i++) {
       let car = this._createCarTree(data[i]);
@@ -139,7 +139,7 @@ export class CreateNodItemComponent implements OnInit {
     return tempData;
   }
 
-  private _createCarTree(data: TreeNode): TreeNode {
+  private _createCarTree(data:TreeNode):TreeNode {
     let newData = {};
     if (data.children) {
       if (data.children.length > 0) {
@@ -154,32 +154,50 @@ export class CreateNodItemComponent implements OnInit {
     return newData;
   }
 
-  private _errorHandle(err: any): Observable<any> {
+  private _errorHandle(err:any):Observable<any> {
     console.log('An error occured:' + err);
     return Observable.throw(err.message || err);
   }
 
-  nodeSelect(data: any) {
-    data.node.selected = true;
+  nodeSelect(data:any) {
+    this.setChildNodeChecked(data.node,true);
   }
 
-  nodeUnSelect(data: any) {
-    data.node.selected = false;
-    data.node.parent.selected = false;
-    this.selectedCars = this.setUnselectedCar(this.selectedCars, data.node.parent);
-  }
-
-  setUnselectedCar(selectedCars: any, unselectedParent: any): any {
-    for (var i = 0; i < selectedCars.length; i++) {
-      if (selectedCars[i].label === unselectedParent.label) {
-        selectedCars[i].partialSelected = unselectedParent.partialSelected;
-        selectedCars[i].selected = unselectedParent.selected;
-      }
+  setChildNodeChecked(node:TreeNode,checkStatus:boolean):TreeNode {
+    node.selected = checkStatus;
+    if (node.children && node.children.length > 0) {
+      node.children = node.children.map(sNode => {
+        sNode.selected = checkStatus;
+        if (sNode.children && sNode.children.length > 0) {
+          sNode.children = sNode.children.map(ssNode => {
+            ssNode.selected = checkStatus;
+            return ssNode;
+          })
+        }
+        return sNode;
+      })
     }
-    return selectedCars;
+    return node;
   }
 
-  nodeItemChecked(checked: boolean, data: TreeNode, fieldname: string) {
+  nodeUnSelect(data:any) {
+    console.log(data);
+    this.setParentNodeChecked(data.node,false);
+    this.setChildNodeChecked(data.node,false);
+  }
+
+  setParentNodeChecked(node:TreeNode,checkStatus:boolean):TreeNode {
+    node.selected = checkStatus;
+    if(node.parent){
+      node.parent.selected = checkStatus;
+    }
+    if(node.parent.parent){
+      node.parent.parent.selected = checkStatus;
+    }
+    return node;
+  }
+
+  nodeItemChecked(checked:boolean, data:TreeNode, fieldname:string) {
     console.log(data);
 
     this.store$.dispatch({
