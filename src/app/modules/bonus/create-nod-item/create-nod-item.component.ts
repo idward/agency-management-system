@@ -1,10 +1,14 @@
 import {Component, Inject, OnInit} from '@angular/core';
+import {Router, ActivatedRoute, Params} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {TreeNode} from 'primeng/primeng';
 import * as _ from 'lodash';
 import {Observable} from "rxjs/Observable";
 import {Subscription} from "rxjs/Subscription";
 import 'rxjs/Rx';
+import {OptionItem} from "../../../model/optionItem/optionItem.model";
+import {SERVICETYPES} from "../../../data/optionItem/optionItem.data";
+import {Nod} from "../../../model/nod/nod.model";
 
 @Component({
   selector: 'app-create-nod-item',
@@ -12,6 +16,7 @@ import 'rxjs/Rx';
   styleUrls: ['./create-nod-item.component.scss']
 })
 export class CreateNodItemComponent implements OnInit {
+  nodItemCount:number = 0;
   startTime:Date;
   endTime:Date;
   releaseTime:Date;
@@ -29,10 +34,15 @@ export class CreateNodItemComponent implements OnInit {
   carTreeSubscription:Subscription;
   selectedCars:TreeNode[];
   keyword:string = '';
+  isCashModule:boolean = true;
+  serviceTypes:OptionItem[];
+  selectedService:string;
+  nod:Nod;
 
   constructor(@Inject('BonusService') private _bonusService,
               @Inject('CarTreeService') private _carTreeService,
-              private store$:Store<TreeNode[]>) {
+              private store$:Store<TreeNode[]>, private _router:Router,
+              private _route:ActivatedRoute) {
     const carTreeData$ = this.store$.select('carTree').startWith([]);
     const carTreeFilter$ = this.store$.select('carTreeFilter');
     const carDatas$ = this.store$.select('carDatas');
@@ -47,9 +57,23 @@ export class CreateNodItemComponent implements OnInit {
 
   ngOnInit() {
     this._bonusService.getData();
+    this.serviceTypes = SERVICETYPES;
+    this._route.params.subscribe(data => {
+      this.nod = new Nod(data.nodId, []);
+    });
   }
 
   createItem() {
+    this.nod.nodList.push({
+      nodItemId: 1001,
+      nodItemData: {
+        setting_condition: {},
+        promotional_ratio: {},
+        promotional_amount: {},
+        annual_policy: {}
+      }
+    });
+    console.log(this.nod);
   }
 
   saveDraft() {
@@ -123,11 +147,21 @@ export class CreateNodItemComponent implements OnInit {
   }
 
   toggleCash() {
-
+    this.isCashModule = true;
   }
 
   toggleNonCash() {
+    this.isCashModule = false;
+  }
 
+  serviceTypesChange(data:any) {
+    const serviceTypesUrl = {
+      'PROMOTIONAL_RATIO': 'bonus/create-nod-item/promotional_ratio',
+      'PROMOTIONAL_AMOUNT': 'bonus/create-nod-item/promotional_amount',
+      'ANNUAL_POLICY': 'bonus/create-nod-item/annual_policy'
+    };
+
+    this._router.navigate([serviceTypesUrl[data.value]]);
   }
 
   private createCarTree(data:TreeNode[]):TreeNode[] {
@@ -160,10 +194,10 @@ export class CreateNodItemComponent implements OnInit {
   }
 
   nodeSelect(data:any) {
-    this.setChildNodeChecked(data.node,true);
+    this.setChildNodeChecked(data.node, true);
   }
 
-  setChildNodeChecked(node:TreeNode,checkStatus:boolean):TreeNode {
+  setChildNodeChecked(node:TreeNode, checkStatus:boolean):TreeNode {
     node.selected = checkStatus;
     if (node.children && node.children.length > 0) {
       node.children = node.children.map(sNode => {
@@ -182,16 +216,16 @@ export class CreateNodItemComponent implements OnInit {
 
   nodeUnSelect(data:any) {
     console.log(data);
-    this.setParentNodeChecked(data.node,false);
-    this.setChildNodeChecked(data.node,false);
+    this.setParentNodeChecked(data.node, false);
+    this.setChildNodeChecked(data.node, false);
   }
 
-  setParentNodeChecked(node:TreeNode,checkStatus:boolean):TreeNode {
+  setParentNodeChecked(node:TreeNode, checkStatus:boolean):TreeNode {
     node.selected = checkStatus;
-    if(node.parent){
+    if (node.parent) {
       node.parent.selected = checkStatus;
     }
-    if(node.parent.parent){
+    if (node.parent.parent) {
       node.parent.parent.selected = checkStatus;
     }
     return node;

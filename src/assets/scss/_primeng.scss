@@ -22,8 +22,8 @@
 }
 
 .ui-state-highlight {
-  background: none;
-  border-color: transparent;
+  //background: none;
+  //border-color: transparent;
 }
 
 .ui-treetable .ui-treetable-row.ui-treetable-row-selectable:not(.ui-state-highlight):hover {
@@ -37,6 +37,7 @@
 
   .ui-state-highlight {
     color: #212121;
+    background: none;
   }
 
   .ui-dialog-title {

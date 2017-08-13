@@ -1,0 +1,12 @@
+<div class="nod_item_toolbars">
+  <div class="left_area">
+    <p-dropdown *ngIf="nodItemCount > 0" [style]="{'width':'100px'}" [options]=""
+                placeholder="请选择Item"></p-dropdown>
+    <button pButton type="button" (click)="createItem()" label="+ 创建Item"></button>
+  </div>
+  <div class="right_area">
+    <button pButton type="button" (click)="saveDraft()" [disabled]="nodItemCount === 0" label="保存草稿"></button>
+    <button pButton type="button" (click)="previewAllItems()" [disabled]="nodItemCount === 0" label="预览"></button>
+    <button pButton type="button" (click)="sendItemsData()" [disabled]="nodItemCount === 0" label="提交"></button>
+  </div>
+</div>

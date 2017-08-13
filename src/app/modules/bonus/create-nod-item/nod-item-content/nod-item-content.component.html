@@ -1,0 +1,46 @@
+<div class="nod_item_content">
+  <div class="nod_item_top">
+    <label>开始时间：</label>
+    <p-calendar [(ngModel)]="startTime"></p-calendar>
+    <label>结束时间：</label>
+    <p-calendar [(ngModel)]="endTime"></p-calendar>
+    <label>发放截止时间:</label>
+    <p-calendar [(ngModel)]="releaseTime"></p-calendar>
+    <label>描述:</label>
+    <input type="text" pInputText="">
+    <label>业务类型:</label>
+    <p-dropdown [style]="{'width':'100px'}" [(ngModel)]="selectedService" [options]="serviceTypes"
+                (onChange)="serviceTypesChange($event)" placeholder="请选择业务类型"></p-dropdown>
+    <!-- 促销比例 促销金额 年度政策  -->
+    <p-checkbox name="fast_process" value="" label="快速流程" [(ngModel)]="isFastProcess"></p-checkbox>
+    <p-checkbox name="fast_process" value="" label="是否审批DB" [(ngModel)]="isApproval"></p-checkbox>
+  </div>
+
+  <div class="nod_item_dataArea">
+    <router-outlet></router-outlet>
+  </div>
+
+  <!-- 品牌／车系／车型树开始 -->
+  <div class="nod_item_bottom">
+    <p-dialog [modal]="true" [draggable]="false" [(visible)]="display"
+              [closable]="false" [width]="500">
+      <p-header>
+        <div class="header">品牌/车系/车型</div>
+        <div class="searchbox">
+          <div class="ui-inputgroup">
+            <input type="text" id="searchkey" pInputText placeholder="请输入查询关键字" [(ngModel)]="keyword">
+            <button pButton type="button" icon="fa-search" class="ui-button-secondary"></button>
+          </div>
+        </div>
+        <div class="confirm_btn">
+          <span style="float: right;cursor: pointer;" (click)="onHide()">确认 ></span>
+        </div>
+      </p-header>
+
+      <p-tree [value]="carTree | async" selectionMode="checkbox" [(selection)]="selectedCars"
+              (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnSelect($event)"></p-tree>
+      <!--<div>Selected Nodes: <span *ngFor="let file of selectedCars">{{file.label}} </span></div>-->
+    </p-dialog>
+  </div>
+  <!-- 品牌／车系／车型树结束 -->
+</div>

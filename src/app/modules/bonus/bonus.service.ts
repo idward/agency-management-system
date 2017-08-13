@@ -15,5 +15,10 @@ export class BonusService {
     return this.parsedData.subscribe(data=>console.log(data));
   }
 
+  createNODItem(){
+    let nod = {
+
+    }
+  }
 
 }
