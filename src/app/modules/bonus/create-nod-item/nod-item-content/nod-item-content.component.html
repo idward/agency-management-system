@@ -1,19 +1,22 @@
 <div class="nod_item_content">
   <div class="nod_item_top">
     <label>开始时间：</label>
-    <p-calendar [(ngModel)]="startTime"></p-calendar>
+    <p-calendar [(ngModel)]="commonSetting['startTime']" (onSelect)="showStartTime($event)"></p-calendar>
     <label>结束时间：</label>
-    <p-calendar [(ngModel)]="endTime"></p-calendar>
+    <p-calendar [(ngModel)]="endTime" (onSelect)="showEndTime($event)"></p-calendar>
     <label>发放截止时间:</label>
-    <p-calendar [(ngModel)]="releaseTime"></p-calendar>
+    <p-calendar [(ngModel)]="releaseTime" (onSelect)="showReleaseTime($event)"></p-calendar>
     <label>描述:</label>
-    <input type="text" pInputText="">
+    <input type="text" pInputText="" #desc (blur)="inputDesc(desc.value)" >
     <label>业务类型:</label>
-    <p-dropdown [style]="{'width':'100px'}" [(ngModel)]="selectedService" [options]="serviceTypes"
-                (onChange)="serviceTypesChange($event)" placeholder="请选择业务类型"></p-dropdown>
+    <span>{{selectedServiceType === 'PROMOTIONAL_RATIO'? '促销比例':'促销金额'}}</span>
+    <!--<p-dropdown [style]="{'width':'100px'}" [(ngModel)]="selectedService" [options]="serviceTypes"-->
+                <!--(onChange)="serviceTypesChange($event)" placeholder="请选择业务类型"></p-dropdown>-->
     <!-- 促销比例 促销金额 年度政策  -->
-    <p-checkbox name="fast_process" value="" label="快速流程" [(ngModel)]="isFastProcess"></p-checkbox>
-    <p-checkbox name="fast_process" value="" label="是否审批DB" [(ngModel)]="isApproval"></p-checkbox>
+    <p-checkbox name="fast_process" value="" label="快速流程" [(ngModel)]="isFastProcess"
+                (onChange)="fastProcess($event)"></p-checkbox>
+    <p-checkbox name="fast_process" value="" label="是否审批DB" [(ngModel)]="isApproval"
+                (onChange)="approvalDB($event)"></p-checkbox>
   </div>
 
   <div class="nod_item_dataArea">

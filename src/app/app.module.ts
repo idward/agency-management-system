@@ -8,6 +8,7 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools'
 import {menuReducer} from './reducers/menu.reducer';
 import {carsFilterReducer, carsReducer} from "./reducers/cars.reducer";
 import {carTreeReducer, carTreeFilterReducer} from './reducers/cars-tree.reducer';
+import {nodItemFilterReducer, nodItemReducer} from "./reducers/nodItem.reducer";
 
 import {AppRoutesModule} from "./route/app.routing.module";
 
@@ -40,7 +41,9 @@ import {MenuItemComponent} from "./template/sidebar/menu-item/menu-item.componen
       carTree: carTreeReducer,
       carTreeFilter: carTreeFilterReducer,
       carDatas: carsReducer,
-      carDatasFilter: carsFilterReducer
+      carDatasFilter: carsFilterReducer,
+      nodItemDatas: nodItemReducer,
+      nodItemDataFilter: nodItemFilterReducer
     }),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     BonusModule

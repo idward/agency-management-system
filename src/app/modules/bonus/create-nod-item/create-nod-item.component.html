@@ -1,4 +1,26 @@
 <div class="nod_item_page">
-  <app-nod-item-header [nodItemCount]="nodItemCount" (createItemEvt)="createItem()"></app-nod-item-header>
-  <app-nod-item-content *ngIf="nodItemCount > 0"></app-nod-item-content>
+  <app-nod-item-header [nodItemCount]="nodItemCount" [nodItemOptions]="nodItemOptions"
+                       [selectedNodItem]="selectedNodItem" (createItemEvt)="chooseServiceType()"
+                       (saveDraftEvt)="saveDraft()" (previewAllItemsEvt)="previewAllItems()"
+                       (sendItemsDataEvt)="sendItemsData()" (changeNodItemEvt)="chooseNodItem($event)"></app-nod-item-header>
+  <div *ngFor="let nodItem of nod.nodList">
+    <app-nod-item-content *ngIf="nodItem.nodItem_id === selectedNodItem"
+                          [selectedServiceType]="serviceType" [commonSetting]="currentNodItem.nodItem_data.setting_condition"
+                          (commonSettingEvt)="getCommonData($event)"></app-nod-item-content>
+  </div>
+
+
+  <!-- NODITEM 业务类型选择 -->
+  <div class="nod_item_serviceType">
+    <p-dialog [modal]="true" [draggable]="false" [(visible)]="isShowServiceType"
+              [closable]="false" [width]="500">
+      <p-header><h4 style="font-size: 14px; font-weight: bold;">选择业务类型</h4></p-header>
+
+      <p-dropdown id="nodItemServiceType" [style]="{'width':'70%'}" [options]="serviceTypes"
+                  [(ngModel)]="selectedServiceType" placeholder="请选择业务类型"></p-dropdown>
+      <button style="margin-left: 20px;" pButton type="button" (click)="createItem()"
+              [disabled]="selectedServiceType === undefined"  label="确定"></button>
+    </p-dialog>
+  </div>
+
 </div>

@@ -9,6 +9,7 @@ import 'rxjs/Rx';
 import {OptionItem} from "../../../model/optionItem/optionItem.model";
 import {SERVICETYPES} from "../../../data/optionItem/optionItem.data";
 import {Nod} from "../../../model/nod/nod.model";
+import {NodItem} from "../../../model/nod/nodItem.model";
 
 @Component({
   selector: 'app-create-nod-item',
@@ -16,43 +17,50 @@ import {Nod} from "../../../model/nod/nod.model";
   styleUrls: ['./create-nod-item.component.scss']
 })
 export class CreateNodItemComponent implements OnInit {
-  nodItemCount:number = 0;
-  startTime:Date;
-  endTime:Date;
-  releaseTime:Date;
-  isFastProcess:boolean;
-  isApproval:boolean;
-  files:Observable<TreeNode[]>;
-  selectedFiles:TreeNode[];
-  tempCarsData:TreeNode[] = [];
-  caoche_amount:boolean = false;
-  jiaoche_amount:boolean = false;
-  store_amount:boolean = false;
-  display:boolean = false;
-  cars:TreeNode[] = [];
-  carTree:Observable<TreeNode[]>;
-  carTreeSubscription:Subscription;
-  selectedCars:TreeNode[];
-  keyword:string = '';
-  isCashModule:boolean = true;
-  serviceTypes:OptionItem[];
-  selectedService:string;
-  nod:Nod;
+  nodItemCount: number = 0;
+  nodItemOptions: OptionItem[] = [];
+  selectedNodItem: string;
+  files: Observable<TreeNode[]>;
+  selectedFiles: TreeNode[];
+  tempCarsData: TreeNode[] = [];
+  caoche_amount: boolean = false;
+  jiaoche_amount: boolean = false;
+  store_amount: boolean = false;
+  display: boolean = false;
+  cars: TreeNode[] = [];
+  carTree: Observable<TreeNode[]>;
+  carTreeSubscription: Subscription;
+  selectedCars: TreeNode[];
+  keyword: string = '';
+  isCashModule: boolean = true;
+  serviceTypes: OptionItem[];
+  serviceType: string;
+  selectedServiceType: string;
+  nod: Nod;
+  nodItem: Observable<NodItem []>;
+  isShowServiceType: boolean = false;
+  nodItemSubscription: Subscription;
+  currentNodItem: NodItem;
 
   constructor(@Inject('BonusService') private _bonusService,
               @Inject('CarTreeService') private _carTreeService,
-              private store$:Store<TreeNode[]>, private _router:Router,
-              private _route:ActivatedRoute) {
+              private store$: Store<any>, private _router: Router,
+              private _route: ActivatedRoute) {
     const carTreeData$ = this.store$.select('carTree').startWith([]);
     const carTreeFilter$ = this.store$.select('carTreeFilter');
     const carDatas$ = this.store$.select('carDatas');
     const carDatasFilter$ = this.store$.select('carDatasFilter');
+    const nodItemData$ = this.store$.select('nodItemDatas');
+    const nodItemDataFilter$ = this.store$.select('nodItemDataFilter');
+
+    this.nodItem = Observable.combineLatest(nodItemData$, nodItemDataFilter$,
+      (datas: NodItem[], filter: any) => datas.filter(filter));
 
     this.files = Observable.zip(carDatas$, carDatasFilter$,
-      (datas:TreeNode[], filter:any) => filter(datas));
+      (datas: TreeNode[], filter: any) => filter(datas));
 
     this.carTree = Observable.combineLatest(carTreeData$, carTreeFilter$,
-      (datas:TreeNode[], filter:any) => filter(datas));
+      (datas: TreeNode[], filter: any) => filter(datas));
   }
 
   ngOnInit() {
@@ -61,19 +69,53 @@ export class CreateNodItemComponent implements OnInit {
     this._route.params.subscribe(data => {
       this.nod = new Nod(data.nodId, []);
     });
+
+    if (!this.nodItemSubscription) {
+      this.nodItemSubscription = this.nodItem.subscribe(nodItems => {
+        console.log('total:', nodItems);
+        this.nod.nodList = nodItems;
+        this.currentNodItem = nodItems.filter(data => data.nodItem_id === this.selectedNodItem)[0];
+        console.log(this.currentNodItem);
+        this.nodItemCount = nodItems.length;
+      });
+    }
+  }
+
+  chooseServiceType() {
+    this.isShowServiceType = true;
+  }
+
+  chooseNodItem(data: any) {
+    this.selectedNodItem = data;
+    let currentNodItem = this.nod.nodList.filter(data => data.nodItem_id === this.selectedNodItem)[0];
+    this.serviceType = currentNodItem.nodItem_type;
+    console.log(this.nod.nodList);
+    this.currentNodItem = currentNodItem;
+    console.log('current:', this.currentNodItem);
   }
 
   createItem() {
-    this.nod.nodList.push({
-      nodItemId: 1001,
-      nodItemData: {
-        setting_condition: {},
-        promotional_ratio: {},
-        promotional_amount: {},
-        annual_policy: {}
-      }
-    });
-    console.log(this.nod);
+    let nodItemData = [];
+    this.isShowServiceType = false;
+    let nodItem = this._bonusService.createNODItem(this.selectedServiceType);
+    nodItemData.push(nodItem);
+    this.serviceType = nodItem.nodItem_type;
+
+    this.nodItemOptions.push(new OptionItem('Item-' + nodItem.nodItem_id, nodItem.nodItem_id));
+    this.selectedNodItem = nodItem.nodItem_id;
+
+    this.store$.dispatch({type: 'CREATE_NODITEM', payload: nodItemData});
+    this.selectedServiceType = undefined;
+  }
+
+  getCommonData(data: any) {
+    console.log('Data', this.currentNodItem);
+
+    let oldData = this.currentNodItem.nodItem_data['setting_condition'];
+    let newData = data;
+    let newSettingCondition = Object.assign({}, oldData, newData);
+    this.currentNodItem.nodItem_data['setting_condition'] = newSettingCondition;
+    this.store$.dispatch({type: 'UPDATE_NODEITEM', payload: this.currentNodItem});
   }
 
   saveDraft() {
@@ -88,7 +130,7 @@ export class CreateNodItemComponent implements OnInit {
 
   }
 
-  editCarCategory(evt:Event) {
+  editCarCategory(evt: Event) {
     if (evt['screenX'] === 0 && evt['screenY'] === 0) {
       return false;
     }
@@ -154,7 +196,7 @@ export class CreateNodItemComponent implements OnInit {
     this.isCashModule = false;
   }
 
-  serviceTypesChange(data:any) {
+  serviceTypesChange(data: any) {
     const serviceTypesUrl = {
       'PROMOTIONAL_RATIO': 'bonus/create-nod-item/promotional_ratio',
       'PROMOTIONAL_AMOUNT': 'bonus/create-nod-item/promotional_amount',
@@ -164,7 +206,7 @@ export class CreateNodItemComponent implements OnInit {
     this._router.navigate([serviceTypesUrl[data.value]]);
   }
 
-  private createCarTree(data:TreeNode[]):TreeNode[] {
+  private createCarTree(data: TreeNode[]): TreeNode[] {
     var tempData = [];
     for (let i = 0; i < data.length; i++) {
       let car = this._createCarTree(data[i]);
@@ -173,7 +215,7 @@ export class CreateNodItemComponent implements OnInit {
     return tempData;
   }
 
-  private _createCarTree(data:TreeNode):TreeNode {
+  private _createCarTree(data: TreeNode): TreeNode {
     let newData = {};
     if (data.children) {
       if (data.children.length > 0) {
@@ -188,50 +230,50 @@ export class CreateNodItemComponent implements OnInit {
     return newData;
   }
 
-  private _errorHandle(err:any):Observable<any> {
+  private _errorHandle(err: any): Observable<any> {
     console.log('An error occured:' + err);
     return Observable.throw(err.message || err);
   }
 
-  nodeSelect(data:any) {
+  nodeSelect(data: any) {
     this.setChildNodeChecked(data.node, true);
   }
 
-  setChildNodeChecked(node:TreeNode, checkStatus:boolean):TreeNode {
-    node.selected = checkStatus;
-    if (node.children && node.children.length > 0) {
-      node.children = node.children.map(sNode => {
-        sNode.selected = checkStatus;
-        if (sNode.children && sNode.children.length > 0) {
-          sNode.children = sNode.children.map(ssNode => {
-            ssNode.selected = checkStatus;
-            return ssNode;
-          })
-        }
-        return sNode;
-      })
-    }
+  setChildNodeChecked(node: TreeNode, checkStatus: boolean): TreeNode {
+    // node.selected = checkStatus;
+    // if (node.children && node.children.length > 0) {
+    //   node.children = node.children.map(sNode => {
+    //     sNode.selected = checkStatus;
+    //     if (sNode.children && sNode.children.length > 0) {
+    //       sNode.children = sNode.children.map(ssNode => {
+    //         ssNode.selected = checkStatus;
+    //         return ssNode;
+    //       })
+    //     }
+    //     return sNode;
+    //   })
+    // }
     return node;
   }
 
-  nodeUnSelect(data:any) {
+  nodeUnSelect(data: any) {
     console.log(data);
     this.setParentNodeChecked(data.node, false);
     this.setChildNodeChecked(data.node, false);
   }
 
-  setParentNodeChecked(node:TreeNode, checkStatus:boolean):TreeNode {
-    node.selected = checkStatus;
-    if (node.parent) {
-      node.parent.selected = checkStatus;
-    }
-    if (node.parent.parent) {
-      node.parent.parent.selected = checkStatus;
-    }
+  setParentNodeChecked(node: TreeNode, checkStatus: boolean): TreeNode {
+    // node.selected = checkStatus;
+    // if (node.parent) {
+    //   node.parent.selected = checkStatus;
+    // }
+    // if (node.parent.parent) {
+    //   node.parent.parent.selected = checkStatus;
+    // }
     return node;
   }
 
-  nodeItemChecked(checked:boolean, data:TreeNode, fieldname:string) {
+  nodeItemChecked(checked: boolean, data: TreeNode, fieldname: string) {
     console.log(data);
 
     this.store$.dispatch({

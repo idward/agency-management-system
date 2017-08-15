@@ -9,8 +9,12 @@ export const DEPTS: OptionItem[] = [
 ];
 
 export const SERVICETYPES: OptionItem[] = [
-  // 促销比例 促销金额 年度政策
   new OptionItem('促销比例','PROMOTIONAL_RATIO'),
-  new OptionItem('促销金额','PROMOTIONAL_AMOUNT'),
-  new OptionItem('年度政策','ANNUAL_POLICY')
+  new OptionItem('促销金额','PROMOTIONAL_AMOUNT')
+  // new OptionItem('年度政策','ANNUAL_POLICY')
+];
+
+export const NODITEMS: OptionItem[] = [
+  new OptionItem('item001','aaaaa'),
+  new OptionItem('item002','bbbbb')
 ];
