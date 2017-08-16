@@ -6,10 +6,6 @@ export function nodItemReducer(state: NodItem[] = [], action: Action) {
   switch (action.type) {
     case 'CREATE_NODITEM':
       return [...state, ...action.payload];
-    // case 'GET_NODITEM':
-    //   return state.filter(data => {
-    //     return data.nodItem_id === action.payload;
-    //   });
     case 'UPDATE_NODEITEM':
       let idx = _.findIndex(state, function (o) {
         return o.nodItem_id === action.payload.nodItem_id;
@@ -20,7 +16,9 @@ export function nodItemReducer(state: NodItem[] = [], action: Action) {
       }
       return state;
     case 'DELETE_NODITEM':
-      return state;
+      return state.filter(data => {
+        return data.nodItem_id !== action.payload;
+      });
     default:
       return state;
   }

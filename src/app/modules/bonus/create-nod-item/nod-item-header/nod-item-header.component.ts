@@ -11,6 +11,7 @@ export class NodItemHeaderComponent implements OnInit {
   @Input() nodItemOptions:OptionItem[];
   @Input() selectedNodItem:string;
   @Output() createItemEvt:EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() deleteItemEvt:EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() saveDraftEvt:EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() previewAllItemsEvt:EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() sendItemsDataEvt:EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -24,6 +25,10 @@ export class NodItemHeaderComponent implements OnInit {
 
   createItem() {
     this.createItemEvt.emit(true);
+  }
+
+  deleteItem(){
+    this.deleteItemEvt.emit(true);
   }
 
   saveDraft() {

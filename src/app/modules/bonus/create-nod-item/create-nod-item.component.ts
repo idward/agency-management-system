@@ -1,11 +1,14 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {Router, ActivatedRoute, Params} from '@angular/router';
-import {Store} from '@ngrx/store';
-import {TreeNode} from 'primeng/primeng';
+
+import {ConfirmationService, TreeNode} from 'primeng/primeng';
 import * as _ from 'lodash';
+
+import {Store} from '@ngrx/store';
 import {Observable} from "rxjs/Observable";
 import {Subscription} from "rxjs/Subscription";
 import 'rxjs/Rx';
+
 import {OptionItem} from "../../../model/optionItem/optionItem.model";
 import {SERVICETYPES} from "../../../data/optionItem/optionItem.data";
 import {Nod} from "../../../model/nod/nod.model";
@@ -44,6 +47,7 @@ export class CreateNodItemComponent implements OnInit {
 
   constructor(@Inject('BonusService') private _bonusService,
               @Inject('CarTreeService') private _carTreeService,
+              @Inject(ConfirmationService) private _confirmService,
               private store$: Store<any>, private _router: Router,
               private _route: ActivatedRoute) {
     const carTreeData$ = this.store$.select('carTree').startWith([]);
@@ -89,9 +93,7 @@ export class CreateNodItemComponent implements OnInit {
     this.selectedNodItem = data;
     let currentNodItem = this.nod.nodList.filter(data => data.nodItem_id === this.selectedNodItem)[0];
     this.serviceType = currentNodItem.nodItem_type;
-    console.log(this.nod.nodList);
     this.currentNodItem = currentNodItem;
-    console.log('current:', this.currentNodItem);
   }
 
   createItem() {
@@ -109,6 +111,7 @@ export class CreateNodItemComponent implements OnInit {
   }
 
   getCommonData(data: any) {
+    console.log(data);
     console.log('Data', this.currentNodItem);
 
     let oldData = this.currentNodItem.nodItem_data['setting_condition'];
@@ -116,6 +119,24 @@ export class CreateNodItemComponent implements OnInit {
     let newSettingCondition = Object.assign({}, oldData, newData);
     this.currentNodItem.nodItem_data['setting_condition'] = newSettingCondition;
     this.store$.dispatch({type: 'UPDATE_NODEITEM', payload: this.currentNodItem});
+  }
+
+  deleteItem() {
+    this._confirmService.confirm({
+      message: '您确认删除Item-' + this.selectedNodItem + '吗?',
+      header: '删除确认框',
+      icon: 'fa fa-trash',
+      accept: () => {
+        this.store$.dispatch({type: 'DELETE_NODITEM', payload: this.selectedNodItem});
+        this.nodItemOptions = this.nodItemOptions.filter(data => data.value !== this.selectedNodItem);
+        if(this.nodItemOptions && this.nodItemOptions.length > 0){
+          this.chooseNodItem(this.nodItemOptions[0].value);
+        }
+      },
+      reject: () => {
+        console.log('no');
+      }
+    })
   }
 
   saveDraft() {

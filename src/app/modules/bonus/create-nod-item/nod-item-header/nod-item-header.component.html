@@ -3,10 +3,15 @@
     <p-dropdown *ngIf="nodItemCount > 0" [style]="{'width':'150px'}" [options]="nodItemOptions"
                 [(ngModel)]="selectedNodItem" (onChange)="changeNodItem($event)" placeholder="请选择Item"></p-dropdown>
     <button pButton type="button" (click)="createItem()" label="+ 创建Item"></button>
+    <button *ngIf="nodItemCount > 0" pButton type="button" (click)="deleteItem()" label="+ 删除Item"></button>
   </div>
   <div class="right_area">
     <button pButton type="button" (click)="saveDraft()" [disabled]="nodItemCount === 0" label="保存草稿"></button>
     <button pButton type="button" (click)="previewAllItems()" [disabled]="nodItemCount === 0" label="预览"></button>
     <button pButton type="button" (click)="sendItemsData()" [disabled]="nodItemCount === 0" label="提交"></button>
   </div>
+
+
+  <!-- 确认弹出框 -->
+  <p-confirmDialog></p-confirmDialog>
 </div>

@@ -6,6 +6,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {InputTextModule, DropdownModule, ButtonModule, CheckboxModule, CalendarModule} from 'primeng/primeng';
 import {TreeTableModule, TreeModule, SharedModule, DialogModule} from 'primeng/primeng';
+import {ConfirmDialogModule, ConfirmationService} from 'primeng/primeng';
 
 import {BonusMainComponent} from './bonus-main/bonus-main.component';
 import {NodSettingComponent} from './nod-setting/nod-setting.component';
@@ -14,12 +15,12 @@ import {PromotionalRatioComponent} from './create-nod-item/promotional-ratio/pro
 import {PromotionalAmountComponent} from './create-nod-item/promotional-amount/promotional-amount.component';
 import {AnnualPolicyComponent} from './create-nod-item/annual-policy/annual-policy.component';
 import {DbSettingComponent} from './db-setting/db-setting.component';
+import {NodItemHeaderComponent} from './create-nod-item/nod-item-header/nod-item-header.component';
+import {NodItemContentComponent} from './create-nod-item/nod-item-content/nod-item-content.component';
 
 import {BonusRoutesModule} from "./bonus.routing.module";
 import {BonusService} from "./bonus.service";
 import {CarTreeService} from "./car-tree.service";
-import { NodItemHeaderComponent } from './create-nod-item/nod-item-header/nod-item-header.component';
-import { NodItemContentComponent } from './create-nod-item/nod-item-content/nod-item-content.component';
 
 @NgModule({
   imports: [
@@ -37,7 +38,8 @@ import { NodItemContentComponent } from './create-nod-item/nod-item-content/nod-
     TreeTableModule,
     TreeModule,
     SharedModule,
-    DialogModule
+    DialogModule,
+    ConfirmDialogModule
   ],
   declarations: [
     NodSettingComponent,
@@ -52,7 +54,8 @@ import { NodItemContentComponent } from './create-nod-item/nod-item-content/nod-
   ],
   providers: [
     {provide: 'BonusService', useClass: BonusService},
-    {provide: 'CarTreeService', useClass: CarTreeService}
+    {provide: 'CarTreeService', useClass: CarTreeService},
+    ConfirmationService
   ]
 })
 
