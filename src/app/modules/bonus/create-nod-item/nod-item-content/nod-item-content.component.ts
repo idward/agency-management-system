@@ -92,6 +92,20 @@ export class NodItemContentComponent implements OnInit {
   }
 
   private filterTreeNode(carTreeNode: TreeNode): TreeNode[] {
+    let carTeelabs = [];
+    carTeelabs.push(carTreeNode.label);
+    let data_label = [];
+    if(carTreeNode.children){
+      data_label = carTreeNode.children.map(data => {
+        let subdata_label = [];
+        if(data.children){
+          subdata_label = data.children.map(subdata => {
+            return subdata.label;
+          })
+        }
+        return [data.label,...subdata_label];
+      })
+    }
     return;
   }
 
