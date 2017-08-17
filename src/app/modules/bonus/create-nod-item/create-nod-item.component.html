@@ -5,9 +5,11 @@
                        (deleteItemEvt)="deleteItem()" (sendItemsDataEvt)="sendItemsData()"
                        (changeNodItemEvt)="chooseNodItem($event)"></app-nod-item-header>
   <div *ngFor="let nodItem of nod.nodList">
-    <app-nod-item-content *ngIf="nodItem.nodItem_id === selectedNodItem"
+    <app-nod-item-content *ngIf="nodItem.nodItem_id === selectedNodItem" [files]="files"
+                          [display]="display" [carTree]="carTree"
                           [selectedServiceType]="serviceType" [commonSetting]="currentNodItem.nodItem_data.setting_condition"
-                          (commonSettingEvt)="getCommonData($event)"></app-nod-item-content>
+                          (nodItemCheckedEvt)="nodeItemChecked($event)" (editCarCategoryEvt)="editCarCategory($event)"
+                          (hideDialogEvt)="onHide($event)" (commonSettingEvt)="getCommonData($event)"></app-nod-item-content>
   </div>
 
 

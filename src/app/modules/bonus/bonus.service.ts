@@ -24,14 +24,16 @@ export class BonusService {
 
     if (serviceType === 'PROMOTIONAL_RATIO') {
       nodItemData = {
+        cartree_model:[],
         setting_condition: {},
-        promotional_ratio: {}
+        promotional_ratio: []
       }
       nodItem = new NodItem(nodItem_id, serviceType, nodItemData);
     } else if (serviceType === 'PROMOTIONAL_AMOUNT') {
       nodItemData = {
+        cartree_model:[],
         setting_condition: {},
-        promotional_amount: {}
+        promotional_amount: []
       }
       nodItem = new NodItem(nodItem_id, serviceType, nodItemData);
     }
