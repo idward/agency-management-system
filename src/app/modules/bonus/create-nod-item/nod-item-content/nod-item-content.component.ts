@@ -10,7 +10,7 @@ import * as _ from 'lodash';
 })
 export class NodItemContentComponent implements OnInit {
   selectedFiles: TreeNode[];
-  selectedCars: TreeNode[] = [];
+  selectedCars: TreeNode[];
   selectedCarTreeNode: TreeNode[] = [];
   carTreeNode: TreeNode;
   isCashModule: boolean = true;
@@ -51,8 +51,8 @@ export class NodItemContentComponent implements OnInit {
     this.nodItemCheckedEvt.emit(nodItemData);
   }
 
-  editCarCategory(data: any) {
-    this.editCarCategoryEvt.emit(data);
+  editCarCategory(event: Event) {
+    this.editCarCategoryEvt.emit(event);
   }
 
   onHide() {
@@ -92,21 +92,12 @@ export class NodItemContentComponent implements OnInit {
   }
 
   private filterTreeNode(carTreeNode: TreeNode): TreeNode[] {
-    let carTeelabs = [];
-    carTeelabs.push(carTreeNode.label);
-    let data_label = [];
-    if(carTreeNode.children){
-      data_label = carTreeNode.children.map(data => {
-        let subdata_label = [];
-        if(data.children){
-          subdata_label = data.children.map(subdata => {
-            return subdata.label;
-          })
-        }
-        return [data.label,...subdata_label];
-      })
-    }
-    return;
+    let unSelectedTreeNode = this.chooseTreeNode(carTreeNode);
+    return this.selectedCarTreeNode.filter(data => {
+      return _.findIndex(unSelectedTreeNode, function (o) {
+          return o.label === data.label;
+        }) === -1;
+    });
   }
 
   setChildNodeChecked(node: TreeNode, checkStatus: boolean): TreeNode {

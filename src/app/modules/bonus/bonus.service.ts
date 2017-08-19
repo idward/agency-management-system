@@ -25,6 +25,7 @@ export class BonusService {
     if (serviceType === 'PROMOTIONAL_RATIO') {
       nodItemData = {
         cartree_model:[],
+        saved_cartree_model:[],
         setting_condition: {},
         promotional_ratio: []
       }
@@ -32,6 +33,7 @@ export class BonusService {
     } else if (serviceType === 'PROMOTIONAL_AMOUNT') {
       nodItemData = {
         cartree_model:[],
+        saved_cartree_model:[],
         setting_condition: {},
         promotional_amount: []
       }

@@ -78,6 +78,7 @@ function updateFilterItems(cartrees:TreeNode[], keyword:string):TreeNode[] {
         filterItems.push(newCarTree);
       }
     });
+    console.log('filterItems:',filterItems);
     return filterItems;
   } else {
     return cartrees;

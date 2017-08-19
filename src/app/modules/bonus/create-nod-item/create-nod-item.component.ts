@@ -20,46 +20,48 @@ import {NodItem} from "../../../model/nod/nodItem.model";
   styleUrls: ['./create-nod-item.component.scss']
 })
 export class CreateNodItemComponent implements OnInit {
-  nodItemCount: number = 0;
-  nodItemOptions: OptionItem[] = [];
-  selectedNodItem: string;
-  files: Observable<TreeNode[]>;
-  selectedFiles: TreeNode[];
-  tempCarsData: TreeNode[] = [];
-  display: boolean = false;
-  cars: TreeNode[] = [];
-  carTree: Observable<TreeNode[]>;
-  carTreeSubscription: Subscription;
-  selectedCars: TreeNode[];
-  serviceTypes: OptionItem[];
-  serviceType: string;
-  selectedServiceType: string;
-  nod: Nod;
-  nodItem: Observable<NodItem []>;
-  isShowServiceType: boolean = false;
-  nodItemSubscription: Subscription;
-  currentNodItem: NodItem;
+  nodItemCount:number = 0;
+  nodItemOptions:OptionItem[] = [];
+  selectedNodItem:string;
+  files:Observable<TreeNode[]>;
+  selectedFiles:TreeNode[];
+  tempCarsData:TreeNode[] = [];
+  display:boolean = false;
+  cars:TreeNode[] = [];
+  carTree:Observable<TreeNode[]>;
+  selectedCars:TreeNode[];
+  serviceTypes:OptionItem[];
+  serviceType:string;
+  selectedServiceType:string;
+  nod:Nod;
+  nodItem:Observable<NodItem []>;
+  isShowServiceType:boolean = false;
+  nodItemSubscription:Subscription;
+  carTreeSubscription:Subscription;
+  currentNodItem:NodItem;
 
   constructor(@Inject('BonusService') private _bonusService,
               @Inject('CarTreeService') private _carTreeService,
               @Inject(ConfirmationService) private _confirmService,
-              private store$: Store<any>, private _router: Router,
-              private _route: ActivatedRoute) {
-    const carTreeData$ = this.store$.select('carTree').startWith([]);
+              private store$:Store<any>, private _router:Router,
+              private _route:ActivatedRoute) {
     const carTreeFilter$ = this.store$.select('carTreeFilter');
-    const carDatas$ = this.store$.select('carDatas');
     const carDatasFilter$ = this.store$.select('carDatasFilter');
     const nodItemData$ = this.store$.select('nodItemDatas');
     const nodItemDataFilter$ = this.store$.select('nodItemDataFilter');
 
     this.nodItem = Observable.combineLatest(nodItemData$, nodItemDataFilter$,
-      (datas: NodItem[], filter: any) => datas.filter(filter));
+      (datas:NodItem[], filter:any) => datas.filter(filter));
 
-    this.files = Observable.zip(carDatas$, carDatasFilter$,
-      (datas: TreeNode[], filter: any) => filter(datas));
+    this.files = Observable.zip(nodItemData$, carDatasFilter$,
+      (datas:TreeNode[], filter:any) => {
+        return filter(this.currentNodItem.nodItem_data['promotional_ratio']);
+      });
 
-    this.carTree = Observable.combineLatest(carTreeData$, carTreeFilter$,
-      (datas: TreeNode[], filter: any) => filter(datas));
+    this.carTree = Observable.combineLatest(nodItemData$, carTreeFilter$,
+      (datas:TreeNode[], filter:any) => {
+        return filter(this.currentNodItem.nodItem_data['cartree_model']);
+      });
   }
 
   ngOnInit() {
@@ -73,11 +75,15 @@ export class CreateNodItemComponent implements OnInit {
       this.nodItemSubscription = this.nodItem.subscribe(nodItems => {
         console.log('total:', nodItems);
         this.nod.nodList = nodItems;
-        this.currentNodItem = nodItems.filter(data => data.nodItem_id === this.selectedNodItem)[0];
-        console.log(this.currentNodItem);
+        if (!_.isNil(nodItems) && nodItems.length > 0) {
+          this.currentNodItem = nodItems.filter(data => data.nodItem_id === this.selectedNodItem)[0];
+        } else {
+          this.currentNodItem = null;
+        }
+        console.log('currentNodItem:', this.currentNodItem);
         this.nodItemCount = nodItems.length;
         this.cars = this.currentNodItem ? this.currentNodItem.nodItem_data['cartree_model'] : [];
-        console.log('cars:', this.cars);
+        // console.log('cars:', this.cars);
       });
     }
   }
@@ -86,11 +92,15 @@ export class CreateNodItemComponent implements OnInit {
     this.isShowServiceType = true;
   }
 
-  chooseNodItem(data: any) {
+  chooseNodItem(data:any) {
     this.selectedNodItem = data;
     let currentNodItem = this.nod.nodList.filter(data => data.nodItem_id === this.selectedNodItem)[0];
     this.serviceType = currentNodItem.nodItem_type;
     this.currentNodItem = currentNodItem;
+    this.selectedCars = this.currentNodItem.nodItem_data['saved_cartree_model'];
+    if(this.selectedCars.length > 0){
+      this.store$.dispatch({type: 'CAR_SELECTED', payload: this.selectedCars});
+    }
   }
 
   createItem() {
@@ -105,9 +115,11 @@ export class CreateNodItemComponent implements OnInit {
 
     this.store$.dispatch({type: 'CREATE_NODITEM', payload: nodItemData});
     this.selectedServiceType = undefined;
+    this.selectedCars = undefined;
+    console.log('AAA:', this.selectedCars);
   }
 
-  getCommonData(data: any) {
+  getCommonData(data:any) {
     console.log(data);
     console.log('Data', this.currentNodItem);
 
@@ -148,16 +160,12 @@ export class CreateNodItemComponent implements OnInit {
 
   }
 
-  editCarCategory(evt: Event) {
+  editCarCategory(evt:Event) {
     if (evt['screenX'] === 0 && evt['screenY'] === 0) {
       return false;
     }
 
     this.display = true;
-
-    if (this.tempCarsData.length > 0) {
-      this.store$.dispatch({type: 'GET_CARS', payload: []});
-    }
 
     if (!_.isNil(this.selectedCars) && this.selectedCars.length > 0 && this.cars.length > 0) {
       this.store$.dispatch({type: 'CARTREE_SELECTED'});
@@ -169,16 +177,13 @@ export class CreateNodItemComponent implements OnInit {
       this.store$.dispatch({type: 'SEARCH_KEYWORDS', payload: ''});
     }
 
-
     if (this.cars.length === 0) {
       this._carTreeService.getFilesystem()
         .subscribe(datas => {
-          this.tempCarsData = datas;
+          //this.tempCarsData = datas;
           this.currentNodItem.nodItem_data['promotional_ratio'] = datas;
           this.currentNodItem.nodItem_data['cartree_model'] = this.createCarTree(datas);
           this.store$.dispatch({type: 'UPDATE_NODEITEM', payload: this.currentNodItem});
-          this.store$.dispatch({type: 'GET_CARTREE', payload: this.currentNodItem.nodItem_data['cartree_model']});
-          this.store$.dispatch({type: 'GET_CARS', payload: this.currentNodItem.nodItem_data['promotional_ratio']});
         });
     }
 
@@ -198,9 +203,11 @@ export class CreateNodItemComponent implements OnInit {
     }
     console.log('selectedCars:', this.selectedCars);
     this.store$.dispatch({type: 'CAR_SELECTED', payload: this.selectedCars});
+    this.currentNodItem.nodItem_data['saved_cartree_model'] = this.selectedCars;
+    this.store$.dispatch({type: 'UPDATE_NODEITEM', payload: this.currentNodItem});
   }
 
-  private createCarTree(data: TreeNode[]): TreeNode[] {
+  private createCarTree(data:TreeNode[]):TreeNode[] {
     var tempData = [];
     for (let i = 0; i < data.length; i++) {
       let car = this._createCarTree(data[i]);
@@ -209,7 +216,7 @@ export class CreateNodItemComponent implements OnInit {
     return tempData;
   }
 
-  private _createCarTree(data: TreeNode): TreeNode {
+  private _createCarTree(data:TreeNode):TreeNode {
     let newData = {};
     if (data.children) {
       if (data.children.length > 0) {
@@ -224,13 +231,12 @@ export class CreateNodItemComponent implements OnInit {
     return newData;
   }
 
-  private _errorHandle(err: any): Observable<any> {
+  private _errorHandle(err:any):Observable<any> {
     console.log('An error occured:' + err);
     return Observable.throw(err.message || err);
   }
 
-
-  nodeItemChecked(data: any) {
+  nodeItemChecked(data:any) {
     this.store$.dispatch({
       type: 'TOGGLE_COMBINATION',
       payload: {field: data.fieldname, node: data.data, status: data.checked}
