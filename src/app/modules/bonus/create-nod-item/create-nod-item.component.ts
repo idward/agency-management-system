@@ -101,6 +101,10 @@ export class CreateNodItemComponent implements OnInit {
     if(this.selectedCars.length > 0){
       this.store$.dispatch({type: 'CAR_SELECTED', payload: this.selectedCars});
     }
+
+    this.cars = this.currentNodItem.nodItem_data['cartree_model'];
+
+    console.log('currentNodItem:',this.currentNodItem);
   }
 
   createItem() {

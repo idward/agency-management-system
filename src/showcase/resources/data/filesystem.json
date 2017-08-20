@@ -16,7 +16,24 @@
         "store_bili": "10%",
         "store_bili_check": false,
         "store_jine": "2000",
-        "store_jine_check": false
+        "store_jine_check": false,
+        "singleCar_bili": "10%",
+        "singleCar_jine": "2000",
+        "financial_bili": "10%",
+        "financial_jine": "2000",
+        "financial_jine_check": false,
+        "yanbao_bili": "10%",
+        "yanbao_jine": "2000",
+        "yanbao_jine_check": false,
+        "replacement_bili": "10%",
+        "replacement_jine": "2000",
+        "replacement_jine_check": false,
+        "insurance_bili": "10%",
+        "insurance_jine": "2000",
+        "insurance_jine_check": false,
+        "maintenance_bili": "10%",
+        "maintenance_jine": "2000",
+        "maintenance_jine_check": false
       },
       "children": [
         {
@@ -35,7 +52,24 @@
             "store_bili": "10%",
             "store_bili_check": false,
             "store_jine": "2000",
-            "store_jine_check": false
+            "store_jine_check": false,
+            "singleCar_bili": "10%",
+            "singleCar_jine": "2000",
+            "financial_bili": "10%",
+            "financial_jine": "2000",
+            "financial_jine_check": false,
+            "yanbao_bili": "10%",
+            "yanbao_jine": "2000",
+            "yanbao_jine_check": false,
+            "replacement_bili": "10%",
+            "replacement_jine": "2000",
+            "replacement_jine_check": false,
+            "insurance_bili": "10%",
+            "insurance_jine": "2000",
+            "insurance_jine_check": false,
+            "maintenance_bili": "10%",
+            "maintenance_jine": "2000",
+            "maintenance_jine_check": false
           },
           "children": [
             {
@@ -54,7 +88,24 @@
                 "store_bili": "10%",
                 "store_bili_check": false,
                 "store_jine": "2000",
-                "store_jine_check": false
+                "store_jine_check": false,
+                "singleCar_bili": "10%",
+                "singleCar_jine": "2000",
+                "financial_bili": "10%",
+                "financial_jine": "2000",
+                "financial_jine_check": false,
+                "yanbao_bili": "10%",
+                "yanbao_jine": "2000",
+                "yanbao_jine_check": false,
+                "replacement_bili": "10%",
+                "replacement_jine": "2000",
+                "replacement_jine_check": false,
+                "insurance_bili": "10%",
+                "insurance_jine": "2000",
+                "insurance_jine_check": false,
+                "maintenance_bili": "10%",
+                "maintenance_jine": "2000",
+                "maintenance_jine_check": false
               }
             },
             {
@@ -73,7 +124,24 @@
                 "store_bili": "10%",
                 "store_bili_check": false,
                 "store_jine": "2000",
-                "store_jine_check": false
+                "store_jine_check": false,
+                "singleCar_bili": "10%",
+                "singleCar_jine": "2000",
+                "financial_bili": "10%",
+                "financial_jine": "2000",
+                "financial_jine_check": false,
+                "yanbao_bili": "10%",
+                "yanbao_jine": "2000",
+                "yanbao_jine_check": false,
+                "replacement_bili": "10%",
+                "replacement_jine": "2000",
+                "replacement_jine_check": false,
+                "insurance_bili": "10%",
+                "insurance_jine": "2000",
+                "insurance_jine_check": false,
+                "maintenance_bili": "10%",
+                "maintenance_jine": "2000",
+                "maintenance_jine_check": false
               }
             }
           ]
@@ -94,7 +162,24 @@
             "store_bili": "10%",
             "store_bili_check": false,
             "store_jine": "2000",
-            "store_jine_check": false
+            "store_jine_check": false,
+            "singleCar_bili": "10%",
+            "singleCar_jine": "2000",
+            "financial_bili": "10%",
+            "financial_jine": "2000",
+            "financial_jine_check": false,
+            "yanbao_bili": "10%",
+            "yanbao_jine": "2000",
+            "yanbao_jine_check": false,
+            "replacement_bili": "10%",
+            "replacement_jine": "2000",
+            "replacement_jine_check": false,
+            "insurance_bili": "10%",
+            "insurance_jine": "2000",
+            "insurance_jine_check": false,
+            "maintenance_bili": "10%",
+            "maintenance_jine": "2000",
+            "maintenance_jine_check": false
           },
           "children": [
             {
@@ -113,7 +198,24 @@
                 "store_bili": "10%",
                 "store_bili_check": false,
                 "store_jine": "2000",
-                "store_jine_check": false
+                "store_jine_check": false,
+                "singleCar_bili": "10%",
+                "singleCar_jine": "2000",
+                "financial_bili": "10%",
+                "financial_jine": "2000",
+                "financial_jine_check": false,
+                "yanbao_bili": "10%",
+                "yanbao_jine": "2000",
+                "yanbao_jine_check": false,
+                "replacement_bili": "10%",
+                "replacement_jine": "2000",
+                "replacement_jine_check": false,
+                "insurance_bili": "10%",
+                "insurance_jine": "2000",
+                "insurance_jine_check": false,
+                "maintenance_bili": "10%",
+                "maintenance_jine": "2000",
+                "maintenance_jine_check": false
               }
             }
           ]
@@ -136,7 +238,24 @@
         "store_bili": "10%",
         "store_bili_check": false,
         "store_jine": "2000",
-        "store_jine_check": false
+        "store_jine_check": false,
+        "singleCar_bili": "10%",
+        "singleCar_jine": "2000",
+        "financial_bili": "10%",
+        "financial_jine": "2000",
+        "financial_jine_check": false,
+        "yanbao_bili": "10%",
+        "yanbao_jine": "2000",
+        "yanbao_jine_check": false,
+        "replacement_bili": "10%",
+        "replacement_jine": "2000",
+        "replacement_jine_check": false,
+        "insurance_bili": "10%",
+        "insurance_jine": "2000",
+        "insurance_jine_check": false,
+        "maintenance_bili": "10%",
+        "maintenance_jine": "2000",
+        "maintenance_jine_check": false
       },
       "children": [
         {
@@ -155,7 +274,24 @@
             "store_bili": "10%",
             "store_bili_check": false,
             "store_jine": "2000",
-            "store_jine_check": false
+            "store_jine_check": false,
+            "singleCar_bili": "10%",
+            "singleCar_jine": "2000",
+            "financial_bili": "10%",
+            "financial_jine": "2000",
+            "financial_jine_check": false,
+            "yanbao_bili": "10%",
+            "yanbao_jine": "2000",
+            "yanbao_jine_check": false,
+            "replacement_bili": "10%",
+            "replacement_jine": "2000",
+            "replacement_jine_check": false,
+            "insurance_bili": "10%",
+            "insurance_jine": "2000",
+            "insurance_jine_check": false,
+            "maintenance_bili": "10%",
+            "maintenance_jine": "2000",
+            "maintenance_jine_check": false
           },
           "children": [
             {
@@ -174,7 +310,24 @@
                 "store_bili": "10%",
                 "store_bili_check": false,
                 "store_jine": "2000",
-                "store_jine_check": false
+                "store_jine_check": false,
+                "singleCar_bili": "10%",
+                "singleCar_jine": "2000",
+                "financial_bili": "10%",
+                "financial_jine": "2000",
+                "financial_jine_check": false,
+                "yanbao_bili": "10%",
+                "yanbao_jine": "2000",
+                "yanbao_jine_check": false,
+                "replacement_bili": "10%",
+                "replacement_jine": "2000",
+                "replacement_jine_check": false,
+                "insurance_bili": "10%",
+                "insurance_jine": "2000",
+                "insurance_jine_check": false,
+                "maintenance_bili": "10%",
+                "maintenance_jine": "2000",
+                "maintenance_jine_check": false
               }
             },
             {
@@ -193,7 +346,24 @@
                 "store_bili": "10%",
                 "store_bili_check": false,
                 "store_jine": "2000",
-                "store_jine_check": false
+                "store_jine_check": false,
+                "singleCar_bili": "10%",
+                "singleCar_jine": "2000",
+                "financial_bili": "10%",
+                "financial_jine": "2000",
+                "financial_jine_check": false,
+                "yanbao_bili": "10%",
+                "yanbao_jine": "2000",
+                "yanbao_jine_check": false,
+                "replacement_bili": "10%",
+                "replacement_jine": "2000",
+                "replacement_jine_check": false,
+                "insurance_bili": "10%",
+                "insurance_jine": "2000",
+                "insurance_jine_check": false,
+                "maintenance_bili": "10%",
+                "maintenance_jine": "2000",
+                "maintenance_jine_check": false
               }
             }
           ]
@@ -214,7 +384,24 @@
             "store_bili": "10%",
             "store_bili_check": false,
             "store_jine": "2000",
-            "store_jine_check": false
+            "store_jine_check": false,
+            "singleCar_bili": "10%",
+            "singleCar_jine": "2000",
+            "financial_bili": "10%",
+            "financial_jine": "2000",
+            "financial_jine_check": false,
+            "yanbao_bili": "10%",
+            "yanbao_jine": "2000",
+            "yanbao_jine_check": false,
+            "replacement_bili": "10%",
+            "replacement_jine": "2000",
+            "replacement_jine_check": false,
+            "insurance_bili": "10%",
+            "insurance_jine": "2000",
+            "insurance_jine_check": false,
+            "maintenance_bili": "10%",
+            "maintenance_jine": "2000",
+            "maintenance_jine_check": false
           },
           "children": [
             {
@@ -233,7 +420,24 @@
                 "store_bili": "10%",
                 "store_bili_check": false,
                 "store_jine": "2000",
-                "store_jine_check": false
+                "store_jine_check": false,
+                "singleCar_bili": "10%",
+                "singleCar_jine": "2000",
+                "financial_bili": "10%",
+                "financial_jine": "2000",
+                "financial_jine_check": false,
+                "yanbao_bili": "10%",
+                "yanbao_jine": "2000",
+                "yanbao_jine_check": false,
+                "replacement_bili": "10%",
+                "replacement_jine": "2000",
+                "replacement_jine_check": false,
+                "insurance_bili": "10%",
+                "insurance_jine": "2000",
+                "insurance_jine_check": false,
+                "maintenance_bili": "10%",
+                "maintenance_jine": "2000",
+                "maintenance_jine_check": false
               }
             }
           ]
