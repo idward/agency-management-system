@@ -62,7 +62,7 @@
   .searchbox {
     width: 200px;
     margin-left: 20px;
-    font-weight:normal;
+    font-weight: normal;
   }
 }
 
@@ -81,5 +81,11 @@
 .nod_item_toolbars {
   .ui-widget-content {
     border: none;
+  }
+}
+
+.annual_policy {
+  .ui-widget-content {
+    height: 25px;
   }
 }

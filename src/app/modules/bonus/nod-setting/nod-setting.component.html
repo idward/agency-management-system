@@ -23,6 +23,18 @@
       </div>
     </div>
     <div class="form-group">
+      <label for="createdType">创建类型:</label>
+      <p-dropdown id="createdType" [style]="{'width':'70%'}" [options]="createdTypes" formControlName="createdType"
+                  [(ngModel)]="selectedType" placeholder="请选择创建类型"></p-dropdown>
+      <div class="errorInfo" *ngIf="!nodSettingForm.controls['createdType'].valid
+      && nodSettingForm.controls['createdType'].dirty">
+        <div class="ui-message ui-messages-error ui-corner-all ui-error">
+          <i class="fa fa-close"></i>
+          创建类型选项必须选择
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
       <label for="department">使用部门:</label>
       <p-dropdown id="department" [style]="{'width':'70%'}" [options]="departments" formControlName="department"
                   [(ngModel)]="selectedDep" placeholder="请选择部门"></p-dropdown>

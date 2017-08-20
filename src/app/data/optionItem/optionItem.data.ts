@@ -1,5 +1,10 @@
 import {OptionItem} from "../../model/optionItem/optionItem.model";
 
+export const TYPES: OptionItem[] = [
+  new OptionItem('促销方式','PROMOTION'),
+  new OptionItem('年度政策','ANNUAL_POLICY')
+];
+
 export const DEPTS: OptionItem[] = [
   new OptionItem('集团', 'JT'),
   new OptionItem('凯迪拉克', 'KDLK'),

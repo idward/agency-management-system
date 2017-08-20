@@ -1,4 +1,4 @@
-<div class="nod_item_content">
+<div class="nod_item_content" *ngIf="selectedServiceType === 'PROMOTIONAL_RATIO'">
   <div class="nod_item_top">
     <label>开始时间：</label>
     <p-calendar [(ngModel)]="commonSetting['startTime']" (onSelect)="commonSettingData($event)"></p-calendar>
@@ -102,7 +102,7 @@
         <button pButton type="button" (click)="replacement = !replacement" label="置换"></button>
         <button pButton type="button" (click)="insurance = !insurance" label="保险"></button>
         <button pButton type="button" (click)="maintenance = !maintenance" label="保养"></button>
-        <button pButton type="button"  label="条件设置"></button>
+        <button pButton type="button" label="条件设置"></button>
       </div>
     </p-header>
     <p-footer>
@@ -190,6 +190,160 @@
         <input type="text" [(ngModel)]="node.data.maintenance_jine" style="width:100%;border:none;">
         <p-checkbox [(ngModel)]="node.data.maintenance_jine_check" binary="true" styleClass="nod_item_box"
                     (onChange)="nodeItemChecked($event,node.data,'maintenance_jine')"></p-checkbox>
+      </ng-template>
+    </p-column>
+  </p-treeTable>
+  <!-- 非现金结束 -->
+
+
+  <!-- 品牌／车系／车型树开始 -->
+  <div class="nod_item_bottom">
+    <p-dialog [modal]="true" [draggable]="false" [(visible)]="display"
+              [closable]="false" [width]="500">
+      <p-header>
+        <div class="header">品牌/车系/车型</div>
+        <div class="searchbox">
+          <div class="ui-inputgroup">
+            <input type="text" id="searchkey" pInputText placeholder="请输入查询关键字" [(ngModel)]="keyword">
+            <button pButton type="button" icon="fa-search" class="ui-button-secondary"></button>
+          </div>
+        </div>
+        <div class="confirm_btn">
+          <span style="float: right;cursor: pointer;" (click)="onHide()">确认 ></span>
+        </div>
+      </p-header>
+
+      <p-tree [value]="carTree | async" selectionMode="checkbox" [(selection)]="selectedCars"
+              (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnSelect($event)"></p-tree>
+      <!--<div>Selected Nodes: <span *ngFor="let file of selectedCars">{{file.label}} </span></div>-->
+    </p-dialog>
+  </div>
+  <!-- 品牌／车系／车型树结束 -->
+</div>
+<div class="nod_item_content" *ngIf="selectedServiceType === 'PROMOTIONAL_AMOUNT'">
+  <div class="nod_item_top">
+    <label>开始时间：</label>
+    <p-calendar [(ngModel)]="commonSetting['startTime']" (onSelect)="commonSettingData($event)"></p-calendar>
+    <label>结束时间：</label>
+    <p-calendar [(ngModel)]="commonSetting['endTime']" (onSelect)="commonSettingData($event)"></p-calendar>
+    <label>发放截止时间:</label>
+    <p-calendar [(ngModel)]="commonSetting['releaseTime']" (onSelect)="commonSettingData($event)"></p-calendar>
+    <label>描述:</label>
+    <input type="text" pInputText="" [(ngModel)]="commonSetting['description']" (blur)="commonSettingData($event)">
+    <label>业务类型:</label>
+    <span>{{selectedServiceType === 'PROMOTIONAL_RATIO'? '促销比例':'促销金额'}}</span>
+    <p-checkbox name="fast_process" value="" label="快速流程" [(ngModel)]="commonSetting['isFastProcess']"
+                (onChange)="commonSettingData($event)" binary="true"></p-checkbox>
+    <p-checkbox name="approval_db" value="" label="是否审批DB" [(ngModel)]="commonSetting['isApproval']"
+                (onChange)="commonSettingData($event)" binary="true"></p-checkbox>
+  </div>
+
+  <!-- 现金开始 -->
+  <p-treeTable [value]="files | async" [(selection)]="selectedFiles"
+               [style]="{'margin-top':'10px'}" *ngIf="isCashModule">
+    <p-header>
+      <div style="float: right; visibility: hidden">
+        <button pButton type="button" (click)="caoche_amount = !caoche_amount" label="拷车总金额"></button>
+        <button pButton type="button" (click)="jiaoche_amount = !jiaoche_amount" label="交车总金额"></button>
+        <button pButton type="button" (click)="store_amount = !store_amount" label="经销商库存总金额"></button>
+      </div>
+    </p-header>
+    <p-footer>
+      <button pButton type="button" style="float: left;" (click)="editCarCategory($event)" label="编辑车型车系"></button>
+      <button pButton type="button" style="float: right;" (click)="toggleNonCash()" [disabled]="!isCashModule"
+              label="非现金"></button>
+      <button pButton type="button" style="float: right;" (click)="toggleCash()" [disabled]="isCashModule"
+              label="现金"></button>
+    </p-footer>
+    <p-column field="name" [style]="{'width':'270px'}" header="品牌/车系/车型">
+      <ng-template let-node="rowData" pTemplate="body">
+        <input type="text" [(ngModel)]="node.data.name" style="width:100%;border:none;">
+      </ng-template>
+    </p-column>
+    <p-column field="msrp" header="MSRP">
+      <ng-template let-node="rowData" pTemplate="body">
+        <input type="text" [(ngModel)]="node.data.msrp" style="width:100%;border:none;">
+      </ng-template>
+    </p-column>
+    <p-column field="kaoche_total_amount" header="拷车总金额">
+      <ng-template let-node="rowData" pTemplate="body">
+        <input type="text" [(ngModel)]="node.data.kaoche_total_amount" *ngIf="node.data.level === 0"
+               style="width:100%;border:none;">
+      </ng-template>
+    </p-column>
+    <p-column field="jiaoche_total_amount" header="交车总金额">
+      <ng-template let-node="rowData" pTemplate="body">
+        <input type="text" [(ngModel)]="node.data.jiaoche_total_amount" *ngIf="node.data.level === 0"
+               style="width:100%;border:none;">
+      </ng-template>
+    </p-column>
+    <p-column field="store_total_amount" header="经销商库存总金额">
+      <ng-template let-node="rowData" pTemplate="body">
+        <input type="text" [(ngModel)]="node.data.store_total_amount" *ngIf="node.data.level === 0"
+               style="width:100%;border:none;">
+      </ng-template>
+    </p-column>
+  </p-treeTable>
+  <!-- 现金结束 -->
+  <!-- 非现金开始 -->
+  <p-treeTable [value]="files | async" [(selection)]="selectedFiles"
+               [style]="{'margin-top':'10px'}" *ngIf="!isCashModule">
+    <p-header>
+      <div style="float: right;">
+        <button pButton type="button" (click)="store_amount = !store_amount" label="MSRP"></button>
+        <button pButton type="button" (click)="financial = !financial" label="金融"></button>
+        <button pButton type="button" (click)="extended_insurance = !extended_insurance" label="延保"></button>
+        <button pButton type="button" (click)="replacement = !replacement" label="置换"></button>
+        <button pButton type="button" (click)="insurance = !insurance" label="保险"></button>
+        <button pButton type="button" (click)="maintenance = !maintenance" label="保养"></button>
+        <button pButton type="button" label="条件设置"></button>
+      </div>
+    </p-header>
+    <p-footer>
+      <button pButton type="button" style="float: left;" (click)="editCarCategory($event)" label="编辑车型车系"></button>
+      <button pButton type="button" style="float: right;" (click)="toggleNonCash()" [disabled]="!isCashModule"
+              label="非现金"></button>
+      <button pButton type="button" style="float: right;" (click)="toggleCash()" [disabled]="isCashModule"
+              label="现金"></button>
+    </p-footer>
+    <p-column field="name" [style]="{'width':'270px'}" header="品牌/车系/车型">
+      <ng-template let-node="rowData" pTemplate="body">
+        <input type="text" [(ngModel)]="node.data.name" style="width:100%;border:none;">
+      </ng-template>
+    </p-column>
+    <p-column field="msrp" header="MSRP">
+      <ng-template let-node="rowData" pTemplate="body">
+        <input type="text" [(ngModel)]="node.data.msrp" style="width:100%;border:none;">
+      </ng-template>
+    </p-column>
+    <p-column field="financial_total_amount" *ngIf="financial" header="金融总金额">
+      <ng-template let-node="rowData" pTemplate="body">
+        <input type="text" [(ngModel)]="node.data.financial_total_amount" *ngIf="node.data.level === 0"
+               style="width:100%;border:none;">
+      </ng-template>
+    </p-column>
+    <p-column field="yanbao_total_amount" *ngIf="extended_insurance" header="延保总金额">
+      <ng-template let-node="rowData" pTemplate="body">
+        <input type="text" [(ngModel)]="node.data.yanbao_total_amount" *ngIf="node.data.level === 0"
+               style="width:100%;border:none;">
+      </ng-template>
+    </p-column>
+    <p-column field="replacement_total_amount" *ngIf="replacement" header="置换总金额">
+      <ng-template let-node="rowData" pTemplate="body">
+        <input type="text" [(ngModel)]="node.data.replacement_total_amount" *ngIf="node.data.level === 0"
+               style="width:100%;border:none;">
+      </ng-template>
+    </p-column>
+    <p-column field="insurance_total_amount" *ngIf="insurance" header="保险总金额">
+      <ng-template let-node="rowData" pTemplate="body">
+        <input type="text" [(ngModel)]="node.data.insurance_total_amount" *ngIf="node.data.level === 0"
+               style="width:100%;border:none;">
+      </ng-template>
+    </p-column>
+    <p-column field="maintenance_total_amount" *ngIf="maintenance" header="保养总金额">
+      <ng-template let-node="rowData" pTemplate="body">
+        <input type="text" [(ngModel)]="node.data.maintenance_total_amount" *ngIf="node.data.level === 0"
+               style="width:100%;border:none;">
       </ng-template>
     </p-column>
   </p-treeTable>

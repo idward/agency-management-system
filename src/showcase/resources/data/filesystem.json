@@ -33,7 +33,15 @@
         "insurance_jine_check": false,
         "maintenance_bili": "10%",
         "maintenance_jine": "2000",
-        "maintenance_jine_check": false
+        "maintenance_jine_check": false,
+        "kaoche_total_amount": "4000",
+        "jiaoche_total_amount": "4000",
+        "store_total_amount": "4000",
+        "financial_total_amount": "4000",
+        "yanbao_total_amount": "4000",
+        "replacement_total_amount": "4000",
+        "insurance_total_amount": "4000",
+        "maintenance_total_amount": "4000"
       },
       "children": [
         {
@@ -69,7 +77,15 @@
             "insurance_jine_check": false,
             "maintenance_bili": "10%",
             "maintenance_jine": "2000",
-            "maintenance_jine_check": false
+            "maintenance_jine_check": false,
+            "kaoche_total_amount": "4000",
+            "jiaoche_total_amount": "4000",
+            "store_total_amount": "4000",
+            "financial_total_amount": "4000",
+            "yanbao_total_amount": "4000",
+            "replacement_total_amount": "4000",
+            "insurance_total_amount": "4000",
+            "maintenance_total_amount": "4000"
           },
           "children": [
             {
@@ -105,7 +121,15 @@
                 "insurance_jine_check": false,
                 "maintenance_bili": "10%",
                 "maintenance_jine": "2000",
-                "maintenance_jine_check": false
+                "maintenance_jine_check": false,
+                "kaoche_total_amount": "4000",
+                "jiaoche_total_amount": "4000",
+                "store_total_amount": "4000",
+                "financial_total_amount": "4000",
+                "yanbao_total_amount": "4000",
+                "replacement_total_amount": "4000",
+                "insurance_total_amount": "4000",
+                "maintenance_total_amount": "4000"
               }
             },
             {
@@ -141,7 +165,15 @@
                 "insurance_jine_check": false,
                 "maintenance_bili": "10%",
                 "maintenance_jine": "2000",
-                "maintenance_jine_check": false
+                "maintenance_jine_check": false,
+                "kaoche_total_amount": "4000",
+                "jiaoche_total_amount": "4000",
+                "store_total_amount": "4000",
+                "financial_total_amount": "4000",
+                "yanbao_total_amount": "4000",
+                "replacement_total_amount": "4000",
+                "insurance_total_amount": "4000",
+                "maintenance_total_amount": "4000"
               }
             }
           ]
@@ -179,7 +211,15 @@
             "insurance_jine_check": false,
             "maintenance_bili": "10%",
             "maintenance_jine": "2000",
-            "maintenance_jine_check": false
+            "maintenance_jine_check": false,
+            "kaoche_total_amount": "4000",
+            "jiaoche_total_amount": "4000",
+            "store_total_amount": "4000",
+            "financial_total_amount": "4000",
+            "yanbao_total_amount": "4000",
+            "replacement_total_amount": "4000",
+            "insurance_total_amount": "4000",
+            "maintenance_total_amount": "4000"
           },
           "children": [
             {
@@ -215,7 +255,15 @@
                 "insurance_jine_check": false,
                 "maintenance_bili": "10%",
                 "maintenance_jine": "2000",
-                "maintenance_jine_check": false
+                "maintenance_jine_check": false,
+                "kaoche_total_amount": "4000",
+                "jiaoche_total_amount": "4000",
+                "store_total_amount": "4000",
+                "financial_total_amount": "4000",
+                "yanbao_total_amount": "4000",
+                "replacement_total_amount": "4000",
+                "insurance_total_amount": "4000",
+                "maintenance_total_amount": "4000"
               }
             }
           ]
@@ -255,7 +303,15 @@
         "insurance_jine_check": false,
         "maintenance_bili": "10%",
         "maintenance_jine": "2000",
-        "maintenance_jine_check": false
+        "maintenance_jine_check": false,
+        "kaoche_total_amount": "4000",
+        "jiaoche_total_amount": "4000",
+        "store_total_amount": "4000",
+        "financial_total_amount": "4000",
+        "yanbao_total_amount": "4000",
+        "replacement_total_amount": "4000",
+        "insurance_total_amount": "4000",
+        "maintenance_total_amount": "4000"
       },
       "children": [
         {
@@ -291,7 +347,15 @@
             "insurance_jine_check": false,
             "maintenance_bili": "10%",
             "maintenance_jine": "2000",
-            "maintenance_jine_check": false
+            "maintenance_jine_check": false,
+            "kaoche_total_amount": "4000",
+            "jiaoche_total_amount": "4000",
+            "store_total_amount": "4000",
+            "financial_total_amount": "4000",
+            "yanbao_total_amount": "4000",
+            "replacement_total_amount": "4000",
+            "insurance_total_amount": "4000",
+            "maintenance_total_amount": "4000"
           },
           "children": [
             {
@@ -327,7 +391,15 @@
                 "insurance_jine_check": false,
                 "maintenance_bili": "10%",
                 "maintenance_jine": "2000",
-                "maintenance_jine_check": false
+                "maintenance_jine_check": false,
+                "kaoche_total_amount": "4000",
+                "jiaoche_total_amount": "4000",
+                "store_total_amount": "4000",
+                "financial_total_amount": "4000",
+                "yanbao_total_amount": "4000",
+                "replacement_total_amount": "4000",
+                "insurance_total_amount": "4000",
+                "maintenance_total_amount": "4000"
               }
             },
             {
@@ -363,7 +435,15 @@
                 "insurance_jine_check": false,
                 "maintenance_bili": "10%",
                 "maintenance_jine": "2000",
-                "maintenance_jine_check": false
+                "maintenance_jine_check": false,
+                "kaoche_total_amount": "4000",
+                "jiaoche_total_amount": "4000",
+                "store_total_amount": "4000",
+                "financial_total_amount": "4000",
+                "yanbao_total_amount": "4000",
+                "replacement_total_amount": "4000",
+                "insurance_total_amount": "4000",
+                "maintenance_total_amount": "4000"
               }
             }
           ]
@@ -401,7 +481,15 @@
             "insurance_jine_check": false,
             "maintenance_bili": "10%",
             "maintenance_jine": "2000",
-            "maintenance_jine_check": false
+            "maintenance_jine_check": false,
+            "kaoche_total_amount": "4000",
+            "jiaoche_total_amount": "4000",
+            "store_total_amount": "4000",
+            "financial_total_amount": "4000",
+            "yanbao_total_amount": "4000",
+            "replacement_total_amount": "4000",
+            "insurance_total_amount": "4000",
+            "maintenance_total_amount": "4000"
           },
           "children": [
             {
@@ -437,7 +525,15 @@
                 "insurance_jine_check": false,
                 "maintenance_bili": "10%",
                 "maintenance_jine": "2000",
-                "maintenance_jine_check": false
+                "maintenance_jine_check": false,
+                "kaoche_total_amount": "4000",
+                "jiaoche_total_amount": "4000",
+                "store_total_amount": "4000",
+                "financial_total_amount": "4000",
+                "yanbao_total_amount": "4000",
+                "replacement_total_amount": "4000",
+                "insurance_total_amount": "4000",
+                "maintenance_total_amount": "4000"
               }
             }
           ]

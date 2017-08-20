@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import {UUID} from 'angular2-uuid';
 import {Subject} from "rxjs/Subject";
 
-import {DEPTS} from "../../../data/optionItem/optionItem.data";
+import {TYPES, DEPTS} from "../../../data/optionItem/optionItem.data";
 import {OptionItem} from "../../../model/optionItem/optionItem.model";
 import {YearItem} from "../../../model/year/yearItem.model";
 import {Year} from "../../../model/year/year.model";
@@ -16,14 +16,17 @@ import {Year} from "../../../model/year/year.model";
 })
 
 export class NodSettingComponent implements OnInit {
+  selectedType:any;
   selectedDep:any;
   selectedYear:any;
+  createdTypes:OptionItem[];
   departments:OptionItem[];
   years:YearItem[];
   nodSettingForm:FormGroup;
 
   constructor(private _fb:FormBuilder, private _router:Router,
               @Inject('BonusService') private _bonusService) {
+    this.createdTypes = TYPES;
     this.departments = DEPTS;
   }
 
@@ -31,6 +34,7 @@ export class NodSettingComponent implements OnInit {
     this.nodSettingForm = this._fb.group({
       nod_number: ['', Validators.required],
       description: ['', Validators.required],
+      createdType: ['', Validators.required],
       department: ['', Validators.required],
       year: ['', Validators.required]
     });
@@ -40,9 +44,14 @@ export class NodSettingComponent implements OnInit {
 
   toNodMainPage(formValue:Object) {
     console.log(formValue);
+    let createdType = formValue['createdType'];
     this._bonusService.sendData(formValue);
     let nodId = UUID.UUID().split('-')[0];
-    this._router.navigate(['bonus/create-nod', nodId]);
+    if (createdType === 'PROMOTION') {
+      this._router.navigate(['bonus/create-nod/promotion', nodId]);
+    } else if (createdType === 'ANNUAL_POLICY') {
+      this._router.navigate(['bonus/create-nod/annual-policy', nodId]);
+    }
   }
 
   /**
