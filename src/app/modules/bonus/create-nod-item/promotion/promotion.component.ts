@@ -84,8 +84,12 @@ export class PromotionComponent implements OnInit {
     if (!this.nodItemSubscription) {
       this.nodItemSubscription = this.nodItem.subscribe(nodItems => {
         console.log('total:', nodItems);
-        console.log('AAA:',this.parsedData);
+        this.nod.desc = this.parsedData['description'];
+        this.nod.department = this.parsedData['department'];
+        this.nod.createdType = this.parsedData['createdType'];
+        this.nod.nodYear = this.parsedData['year'];
         this.nod.nodList = nodItems;
+        console.log('nod:', this.nod);
         if (!_.isNil(nodItems) && nodItems.length > 0) {
           this.currentNodItem = nodItems.filter(data => data.nodItem_id === this.selectedNodItem)[0];
         } else {
