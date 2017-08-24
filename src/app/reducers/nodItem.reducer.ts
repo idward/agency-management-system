@@ -12,7 +12,6 @@ export function nodItemReducer(state: NodItem[] = [], action: Action) {
       });
       if (idx !== -1) {
         state = [...state.slice(0, idx), action.payload, ...state.slice(idx + 1)];
-        debugger;
       }
       return state;
     case 'DELETE_NODITEM':

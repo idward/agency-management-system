@@ -6,7 +6,7 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./create-nod-item.component.scss']
 })
 export class CreateNodItemComponent implements OnInit {
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
   }

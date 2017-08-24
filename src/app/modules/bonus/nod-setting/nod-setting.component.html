@@ -1,17 +1,6 @@
 <div class="bonus_setting_page">
   <form [formGroup]="nodSettingForm" (submit)="toNodMainPage(nodSettingForm.value)" novalidate>
     <div class="form-group">
-      <label for="nod_number">NOD号:</label>
-      <input id="nod_number" type="text" pInputText="" formControlName="nod_number">
-      <div class="errorInfo" *ngIf="!nodSettingForm.controls['nod_number'].valid
-      && nodSettingForm.controls['nod_number'].dirty">
-        <div class="ui-message ui-messages-error ui-corner-all ui-error">
-          <i class="fa fa-close"></i>
-          NOD号选项必须填写
-        </div>
-      </div>
-    </div>
-    <div class="form-group">
       <label for="description">描述:</label>
       <input id="description" type="text" pInputText="" formControlName="description">
       <div class="errorInfo" *ngIf="!nodSettingForm.controls['description'].valid

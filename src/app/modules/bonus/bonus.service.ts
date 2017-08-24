@@ -2,10 +2,11 @@ import {Injectable} from '@angular/core';
 import {Subject} from "rxjs/Subject";
 import {UUID} from 'angular2-uuid';
 import {NodItem} from "../../model/nod/nodItem.model";
+import {ReplaySubject, Observable} from "rxjs/Rx";
 
 @Injectable()
 export class BonusService {
-  parsedData: Subject<any> = new Subject<any>();
+  parsedData: ReplaySubject<any> = new ReplaySubject<any>();
 
   constructor() {
   }
@@ -14,8 +15,8 @@ export class BonusService {
     this.parsedData.next(data);
   }
 
-  getData() {
-    return this.parsedData.subscribe(data => console.log(data));
+  getData():Observable<any> {
+    return this.parsedData.map(data => data);
   }
 
   createNODItem(serviceType: string): NodItem {
@@ -26,16 +27,18 @@ export class BonusService {
       nodItemData = {
         cartree_model:[],
         saved_cartree_model:[],
-        setting_condition: {},
-        promotional_ratio: []
+        promotional_ratio: [],
+        saved_promotional_ratio:[],
+        setting_condition: {}
       }
       nodItem = new NodItem(nodItem_id, serviceType, nodItemData);
     } else if (serviceType === 'PROMOTIONAL_AMOUNT') {
       nodItemData = {
         cartree_model:[],
         saved_cartree_model:[],
-        setting_condition: {},
-        promotional_amount: []
+        promotional_amount: [],
+        saved_promotional_amount:[],
+        setting_condition: {}
       }
       nodItem = new NodItem(nodItem_id, serviceType, nodItemData);
     }

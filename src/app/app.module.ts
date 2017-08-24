@@ -12,7 +12,6 @@ import {nodItemFilterReducer, nodItemReducer} from "./reducers/nodItem.reducer";
 import {AnnualPolicyReducer} from "./reducers/annual-policy.reducer";
 
 import {AppRoutesModule} from "./route/app.routing.module";
-
 import {BonusModule} from "./modules/bonus/bonus.module";
 
 import {AppComponent} from './app.component';

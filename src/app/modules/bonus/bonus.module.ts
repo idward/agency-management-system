@@ -50,7 +50,7 @@ import {CarTreeService} from "./car-tree.service";
     PromotionComponent,
     AnnualPolicyComponent,
     NodItemHeaderComponent,
-    NodItemContentComponent
+    NodItemContentComponent,
   ],
   providers: [
     {provide: 'BonusService', useClass: BonusService},

@@ -39,6 +39,7 @@ export class PromotionComponent implements OnInit {
   nodItemSubscription:Subscription;
   carTreeSubscription:Subscription;
   currentNodItem:NodItem;
+  parsedData:Object = {};
 
   constructor(@Inject('BonusService') private _bonusService,
               @Inject('CarTreeService') private _carTreeService,
@@ -55,9 +56,9 @@ export class PromotionComponent implements OnInit {
 
     this.files = Observable.zip(nodItemData$, carDatasFilter$,
       (datas:TreeNode[], filter:any) => {
-        if(this.currentNodItem.nodItem_type === 'PROMOTIONAL_RATIO'){
+        if (this.currentNodItem.nodItem_type === 'PROMOTIONAL_RATIO') {
           return filter(this.currentNodItem.nodItem_data['promotional_ratio']);
-        } else if(this.currentNodItem.nodItem_type === 'PROMOTIONAL_AMOUNT'){
+        } else if (this.currentNodItem.nodItem_type === 'PROMOTIONAL_AMOUNT') {
           return filter(this.currentNodItem.nodItem_data['promotional_amount']);
         } else {
           return;
@@ -66,22 +67,24 @@ export class PromotionComponent implements OnInit {
 
     this.carTree = Observable.combineLatest(nodItemData$, carTreeFilter$,
       (datas:TreeNode[], filter:any) => {
-        if(!_.isNil(this.currentNodItem)){
+        if (!_.isNil(this.currentNodItem)) {
           return filter(this.currentNodItem.nodItem_data['cartree_model']);
         }
       });
   }
 
   ngOnInit() {
-    this._bonusService.getData();
+    this._bonusService.getData().subscribe(data => this.parsedData = data);
+
     this.serviceTypes = SERVICETYPES;
     this._route.params.subscribe(data => {
-      this.nod = new Nod(data.nodId, []);
+      this.nod = new Nod(data.nodId);
     });
 
     if (!this.nodItemSubscription) {
       this.nodItemSubscription = this.nodItem.subscribe(nodItems => {
         console.log('total:', nodItems);
+        console.log('AAA:',this.parsedData);
         this.nod.nodList = nodItems;
         if (!_.isNil(nodItems) && nodItems.length > 0) {
           this.currentNodItem = nodItems.filter(data => data.nodItem_id === this.selectedNodItem)[0];
@@ -90,7 +93,7 @@ export class PromotionComponent implements OnInit {
         }
         console.log('currentNodItem:', this.currentNodItem);
         this.nodItemCount = nodItems.length;
-        if(!_.isNil(this.currentNodItem)){
+        if (!_.isNil(this.currentNodItem)) {
           this.cars = this.currentNodItem.nodItem_data['cartree_model'];
         } else {
           this.cars = [];
@@ -110,13 +113,13 @@ export class PromotionComponent implements OnInit {
     this.serviceType = currentNodItem.nodItem_type;
     this.currentNodItem = currentNodItem;
     this.selectedCars = this.currentNodItem.nodItem_data['saved_cartree_model'];
-    if(this.selectedCars.length > 0){
+    if (this.selectedCars.length > 0) {
       this.store$.dispatch({type: 'CAR_SELECTED', payload: this.selectedCars});
     }
 
     this.cars = this.currentNodItem.nodItem_data['cartree_model'];
 
-    console.log('currentNodItem:',this.currentNodItem);
+    console.log('currentNodItem:', this.currentNodItem);
   }
 
   createItem() {
@@ -146,6 +149,33 @@ export class PromotionComponent implements OnInit {
     this.store$.dispatch({type: 'UPDATE_NODEITEM', payload: this.currentNodItem});
   }
 
+  updateTotalAmount(data:any) {
+    this.currentNodItem.nodItem_data['promotional_amount'] =
+      this.currentNodItem.nodItem_data['promotional_amount'].map(od => {
+        od.cash_total_amount = data[0].cash_total_amount;
+        od.nocash_total_amount = data[0].nocash_total_amount;
+        od.financial_total_amount = data[0].financial_total_amount;
+        od.financial_total_amount_check = data[0].financial_total_amount_check;
+        od.replacement_total_amount = data[0].replacement_total_amount;
+        od.replacement_total_amount_check = data[0].replacement_total_amount_check;
+        od.insurance_total_amount = data[0].insurance_total_amount;
+        od.insurance_total_amount_check = data[0].insurance_total_amount_check;
+        return od;
+      });
+    this.currentNodItem.nodItem_data['saved_promotional_amount'] = this.currentNodItem.nodItem_data['saved_promotional_amount'].map(od => {
+      od.cash_total_amount = data[0].cash_total_amount;
+      od.nocash_total_amount = data[0].nocash_total_amount;
+      od.financial_total_amount = data[0].financial_total_amount;
+      od.financial_total_amount_check = data[0].financial_total_amount_check;
+      od.replacement_total_amount = data[0].replacement_total_amount;
+      od.replacement_total_amount_check = data[0].replacement_total_amount_check;
+      od.insurance_total_amount = data[0].insurance_total_amount;
+      od.insurance_total_amount_check = data[0].insurance_total_amount_check;
+      return od;
+    });
+    this.store$.dispatch({type: 'UPDATE_NODEITEM', payload: this.currentNodItem});
+  }
+
   deleteItem() {
     this._confirmService.confirm({
       message: '您确认删除Item-' + this.selectedNodItem + '吗?',
@@ -165,7 +195,7 @@ export class PromotionComponent implements OnInit {
   }
 
   saveDraft() {
-
+    console.log('draft:', this.nod);
   }
 
   previewAllItems() {
@@ -196,9 +226,9 @@ export class PromotionComponent implements OnInit {
     if (this.cars.length === 0) {
       this._carTreeService.getFilesystem()
         .subscribe(datas => {
-          if(this.currentNodItem.nodItem_type === 'PROMOTIONAL_RATIO'){
+          if (this.currentNodItem.nodItem_type === 'PROMOTIONAL_RATIO') {
             this.currentNodItem.nodItem_data['promotional_ratio'] = datas;
-          } else if(this.currentNodItem.nodItem_type === 'PROMOTIONAL_AMOUNT'){
+          } else if (this.currentNodItem.nodItem_type === 'PROMOTIONAL_AMOUNT') {
             this.currentNodItem.nodItem_data['promotional_amount'] = datas;
           }
           this.currentNodItem.nodItem_data['cartree_model'] = this.createCarTree(datas);
@@ -206,7 +236,7 @@ export class PromotionComponent implements OnInit {
         });
     }
 
-    Observable.fromEvent(document.body.querySelector('#searchkey'), 'keyup')
+    Observable.fromEvent(document.body.querySelector('.searchkey'), 'keyup')
       .map(event => event['target'].value)
       .debounceTime(500)
       .distinctUntilChanged()
@@ -223,6 +253,14 @@ export class PromotionComponent implements OnInit {
     console.log('selectedCars:', this.selectedCars);
     this.store$.dispatch({type: 'CAR_SELECTED', payload: this.selectedCars});
     this.currentNodItem.nodItem_data['saved_cartree_model'] = this.selectedCars;
+    this.files.subscribe(promotionDatas => {
+      if (this.serviceType === 'PROMOTIONAL_RATIO') {
+        this.currentNodItem.nodItem_data['saved_promotional_ratio'] = promotionDatas;
+      } else if (this.serviceType === 'PROMOTIONAL_AMOUNT') {
+        this.currentNodItem.nodItem_data['saved_promotional_amount'] = promotionDatas;
+      }
+    });
+
     this.store$.dispatch({type: 'UPDATE_NODEITEM', payload: this.currentNodItem});
   }
 

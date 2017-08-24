@@ -6,11 +6,11 @@ export const TYPES: OptionItem[] = [
 ];
 
 export const DEPTS: OptionItem[] = [
-  new OptionItem('集团', 'JT'),
-  new OptionItem('凯迪拉克', 'KDLK'),
-  new OptionItem('别克', 'BK'),
-  new OptionItem('雪佛兰', 'XFL'),
-  new OptionItem('二手车', 'ESC')
+  new OptionItem('集团', '1'),
+  new OptionItem('凯迪拉克', '2'),
+  new OptionItem('别克', '3'),
+  new OptionItem('雪佛兰', '4'),
+  new OptionItem('二手车', '5')
 ];
 
 export const SERVICETYPES: OptionItem[] = [

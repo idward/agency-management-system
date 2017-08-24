@@ -1,0 +1,144 @@
+<!-- 现金开始 -->
+<p-treeTable [value]="files | async" [(selection)]="selectedFiles"
+             [style]="{'margin-top':'50px'}" *ngIf="isCashModule">
+  <p-header>
+    <div style="float: right;">
+      <button pButton type="button" (click)="caoche_amount = !caoche_amount" label="拷车促销金额"></button>
+      <button pButton type="button" (click)="jiaoche_amount = !jiaoche_amount" label="交车促销金额"></button>
+      <button pButton type="button" (click)="store_amount = !store_amount" label="经销商库存金额"></button>
+    </div>
+  </p-header>
+  <p-footer>
+    <button pButton type="button" style="float: left;" (click)="editCarCategory($event)" label="编辑车型车系"></button>
+    <button pButton type="button" style="float: right;" (click)="toggleNonCash()" [disabled]="!isCashModule" label="非现金"></button>
+    <button pButton type="button" style="float: right;" (click)="toggleCash()" [disabled]="isCashModule" label="现金"></button>
+  </p-footer>
+  <p-column field="name" [style]="{'width':'270px'}" header="品牌/车系/车型">
+    <ng-template let-node="rowData" pTemplate="body">
+      <input type="text" [(ngModel)]="node.data.name" style="width:100%;border:none;">
+    </ng-template>
+  </p-column>
+  <p-column field="msrp" header="MSRP">
+    <ng-template let-node="rowData" pTemplate="body">
+      <input type="text" [(ngModel)]="node.data.msrp" style="width:100%;border:none;">
+    </ng-template>
+  </p-column>
+  <p-column field="kaoche_bili" header="拷车促销比例">
+    <ng-template let-node="rowData" pTemplate="body">
+      <input type="text" [(ngModel)]="node.data.kaoche_bili" style="width:100%;border:none;">
+      <p-checkbox [(ngModel)]="node.data.kaoche_bili_check" binary="true" [disabled]="node.data.level === 2"
+                  styleClass="nod_item_box" (onChange)="nodeItemChecked($event,node.data,'kaoche_bili')"></p-checkbox>
+    </ng-template>
+  </p-column>
+  <p-column field="kaoche_jine" *ngIf="caoche_amount" header="拷车促销金额">
+    <ng-template let-node="rowData" pTemplate="body">
+      <input type="text" [(ngModel)]="node.data.kaoche_jine" style="width:100%;border:none;">
+      <p-checkbox [(ngModel)]="node.data.kaoche_jine_check" binary="true" [disabled]="node.data.level === 2"
+                  styleClass="nod_item_box" (onChange)="nodeItemChecked($event,node.data,'kaoche_jine')"></p-checkbox>
+    </ng-template>
+  </p-column>
+  <p-column field="jiaoche_bili" header="交车促销比例">
+    <ng-template let-node="rowData" pTemplate="body">
+      <input type="text" [(ngModel)]="node.data.jiaoche_bili" style="width:100%;border:none;">
+      <p-checkbox [(ngModel)]="node.data.jiaoche_bili_check" binary="true" [disabled]="node.data.level === 2"
+                  styleClass="nod_item_box" (onChange)="nodeItemChecked($event,node.data,'jiaoche_bili')"></p-checkbox>
+    </ng-template>
+  </p-column>
+  <p-column field="jiaoche_jine" *ngIf="jiaoche_amount" header="交车促销金额">
+    <ng-template let-node="rowData" pTemplate="body">
+      <input type="text" [(ngModel)]="node.data.jiaoche_jine" style="width:100%;border:none;">
+      <p-checkbox [(ngModel)]="node.data.jiaoche_jine_check" binary="true" [disabled]="node.data.level === 2"
+                  styleClass="nod_item_box" (onChange)="nodeItemChecked($event,node.data,'jiaoche_jine')"></p-checkbox>
+    </ng-template>
+  </p-column>
+  <p-column field="store_bili" header="经销商库存比例">
+    <ng-template let-node="rowData" pTemplate="body">
+      <input type="text" [(ngModel)]="node.data.store_bili" style="width:100%;border:none;">
+      <p-checkbox [(ngModel)]="node.data.store_bili_check" binary="true" [disabled]="node.data.level === 2"
+                  styleClass="nod_item_box" (onChange)="nodeItemChecked($event,node.data,'store_bili')"></p-checkbox>
+    </ng-template>
+  </p-column>
+  <p-column field="store_jine" *ngIf="store_amount" header="经销商库存金额">
+    <ng-template let-node="rowData" pTemplate="body">
+      <input type="text" [(ngModel)]="node.data.store_jine" style="width:100%;border:none;">
+      <!--<input type="checkbox" [(ngModel)]="node.data.store_jine_check" style="position: relative;right: 18px;">-->
+      <p-checkbox [(ngModel)]="node.data.store_jine_check" binary="true" [disabled]="node.data.level === 2"
+                  styleClass="nod_item_box" (onChange)="nodeItemChecked($event,node.data,'store_jine')"></p-checkbox>
+    </ng-template>
+  </p-column>
+</p-treeTable>
+<!-- 现金结束 -->
+<!-- 非现金开始 -->
+<p-treeTable [value]="files | async" [(selection)]="selectedFiles"
+             [style]="{'margin-top':'50px'}" *ngIf="!isCashModule">
+  <p-header>
+    <div style="float: right;">
+      <button pButton type="button" (click)="store_amount = !store_amount" label="MSRP"></button>
+      <button pButton type="button" (click)="caoche_amount = !caoche_amount" label="单车总预算"></button>
+      <button pButton type="button" (click)="caoche_amount = !caoche_amount" label="总预算"></button>
+      <button pButton type="button" (click)="caoche_amount = !caoche_amount" label="金融"></button>
+      <button pButton type="button" (click)="caoche_amount = !caoche_amount" label="保养"></button>
+      <button pButton type="button" (click)="jiaoche_amount = !jiaoche_amount" label="置换"></button>
+      <button pButton type="button" (click)="store_amount = !store_amount" label="条件设置"></button>
+    </div>
+  </p-header>
+  <p-footer>
+    <button pButton type="button" style="float: left;" (click)="editCarCategory($event)" label="编辑车型车系"></button>
+    <button pButton type="button" style="float: right;" (click)="toggleNonCash()" [disabled]="!isCashModule" label="非现金"></button>
+    <button pButton type="button" style="float: right;" (click)="toggleCash()" [disabled]="isCashModule" label="现金"></button>
+  </p-footer>
+  <p-column field="name" [style]="{'width':'270px'}" header="品牌/车系/车型">
+    <ng-template let-node="rowData" pTemplate="body">
+      <input type="text" [(ngModel)]="node.data.name" style="width:100%;border:none;">
+    </ng-template>
+  </p-column>
+  <p-column field="msrp" header="MSRP">
+    <ng-template let-node="rowData" pTemplate="body">
+      <input type="text" [(ngModel)]="node.data.msrp" style="width:100%;border:none;">
+    </ng-template>
+  </p-column>
+  <p-column field="kaoche_bili" header="拷车促销比例">
+    <ng-template let-node="rowData" pTemplate="body">
+      <input type="text" [(ngModel)]="node.data.kaoche_bili" style="width:100%;border:none;">
+      <p-checkbox [(ngModel)]="node.data.kaoche_bili_check" binary="true" [disabled]="node.data.level === 2"
+                  styleClass="nod_item_box" (onChange)="nodeItemChecked($event,node.data,'kaoche_bili')"></p-checkbox>
+    </ng-template>
+  </p-column>
+  <p-column field="kaoche_jine" *ngIf="caoche_amount" header="拷车促销金额">
+    <ng-template let-node="rowData" pTemplate="body">
+      <input type="text" [(ngModel)]="node.data.kaoche_jine" style="width:100%;border:none;">
+      <p-checkbox [(ngModel)]="node.data.kaoche_jine_check" binary="true" [disabled]="node.data.level === 2"
+                  styleClass="nod_item_box" (onChange)="nodeItemChecked($event,node.data,'kaoche_jine')"></p-checkbox>
+    </ng-template>
+  </p-column>
+  <p-column field="jiaoche_bili" header="交车促销比例">
+    <ng-template let-node="rowData" pTemplate="body">
+      <input type="text" [(ngModel)]="node.data.jiaoche_bili" style="width:100%;border:none;">
+      <p-checkbox [(ngModel)]="node.data.jiaoche_bili_check" binary="true" [disabled]="node.data.level === 2"
+                  styleClass="nod_item_box" (onChange)="nodeItemChecked($event,node.data,'jiaoche_bili')"></p-checkbox>
+    </ng-template>
+  </p-column>
+  <p-column field="jiaoche_jine" *ngIf="jiaoche_amount" header="交车促销金额">
+    <ng-template let-node="rowData" pTemplate="body">
+      <input type="text" [(ngModel)]="node.data.jiaoche_jine" style="width:100%;border:none;">
+      <p-checkbox [(ngModel)]="node.data.jiaoche_jine_check" binary="true" [disabled]="node.data.level === 2"
+                  styleClass="nod_item_box" (onChange)="nodeItemChecked($event,node.data,'jiaoche_jine')"></p-checkbox>
+    </ng-template>
+  </p-column>
+  <p-column field="store_bili" header="经销商库存比例">
+    <ng-template let-node="rowData" pTemplate="body">
+      <input type="text" [(ngModel)]="node.data.store_bili" style="width:100%;border:none;">
+      <p-checkbox [(ngModel)]="node.data.store_bili_check" binary="true" [disabled]="node.data.level === 2"
+                  styleClass="nod_item_box" (onChange)="nodeItemChecked($event,node.data,'store_bili')"></p-checkbox>
+    </ng-template>
+  </p-column>
+  <p-column field="store_jine" *ngIf="store_amount" header="经销商库存金额">
+    <ng-template let-node="rowData" pTemplate="body">
+      <input type="text" [(ngModel)]="node.data.store_jine" style="width:100%;border:none;">
+      <!--<input type="checkbox" [(ngModel)]="node.data.store_jine_check" style="position: relative;right: 18px;">-->
+      <p-checkbox [(ngModel)]="node.data.store_jine_check" binary="true" [disabled]="node.data.level === 2"
+                  styleClass="nod_item_box" (onChange)="nodeItemChecked($event,node.data,'store_jine')"></p-checkbox>
+    </ng-template>
+  </p-column>
+</p-treeTable>
+<!-- 非现金结束 -->

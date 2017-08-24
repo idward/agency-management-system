@@ -32,7 +32,6 @@ export class NodSettingComponent implements OnInit {
 
   ngOnInit():void {
     this.nodSettingForm = this._fb.group({
-      nod_number: ['', Validators.required],
       description: ['', Validators.required],
       createdType: ['', Validators.required],
       department: ['', Validators.required],
@@ -43,7 +42,7 @@ export class NodSettingComponent implements OnInit {
   }
 
   toNodMainPage(formValue:Object) {
-    console.log(formValue);
+    // console.log(formValue);
     let createdType = formValue['createdType'];
     this._bonusService.sendData(formValue);
     let nodId = UUID.UUID().split('-')[0];
@@ -54,27 +53,21 @@ export class NodSettingComponent implements OnInit {
     }
   }
 
-  /**
-   * 年份生成
-   * @param startTime
-   * @param endTime
-   */
   private productYear(startTime:number, endTime:number):Array<YearItem> {
     let lt_years:YearItem[] = [], gt_years:YearItem[] = [];
     let currentYear = new Date().getFullYear();
     if (startTime && startTime < currentYear) {
       for (let i = currentYear; i >= startTime; i--) {
-        lt_years = [...lt_years, new YearItem(String(i), new Year(String(i), i))];
+        lt_years = [...lt_years, new YearItem(String(i), String(i))];
       }
     }
     if (endTime && endTime > currentYear) {
       for (let i = endTime; i > currentYear; i--) {
-        gt_years = [...gt_years, new YearItem(String(i), new Year(String(i), i))];
+        gt_years = [...gt_years, new YearItem(String(i), String(i))];
       }
     }
     let final_years = [...gt_years, ...lt_years];
     return final_years;
   }
-
 
 }
