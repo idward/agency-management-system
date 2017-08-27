@@ -275,13 +275,4 @@ export class PromotionComponent implements OnInit {
     console.log('An error occured:' + err);
     return Observable.throw(err.message || err);
   }
-
-  nodeItemChecked(data:any) {
-    this.store$.dispatch({
-      type: 'TOGGLE_COMBINATION',
-      payload: {field: data.fieldname, node: data.data, status: data.checked}
-    });
-
-    this.files.subscribe(data => console.log('Files:', data));
-  }
 }

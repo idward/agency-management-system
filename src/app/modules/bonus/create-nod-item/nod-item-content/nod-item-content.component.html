@@ -1,13 +1,13 @@
 <div class="nod_item_content" *ngIf="selectedServiceType === 'PROMOTIONAL_RATIO'">
   <div class="nod_item_top">
     <label>开始时间：</label>
-    <p-calendar [(ngModel)]="commonSetting['startTime']" (onSelect)="commonSettingData($event)"></p-calendar>
+    <p-calendar [(ngModel)]="commonSetting['startTime']" (onSelect)="commonSettingData($event,'startTime')"></p-calendar>
     <label>结束时间：</label>
-    <p-calendar [(ngModel)]="commonSetting['endTime']" (onSelect)="commonSettingData($event)"></p-calendar>
+    <p-calendar [(ngModel)]="commonSetting['endTime']" (onSelect)="commonSettingData($event,'endTime')"></p-calendar>
     <label>发放截止时间:</label>
-    <p-calendar [(ngModel)]="commonSetting['releaseTime']" (onSelect)="commonSettingData($event)"></p-calendar>
+    <p-calendar [(ngModel)]="commonSetting['releaseTime']" (onSelect)="commonSettingData($event,'releaseTime')"></p-calendar>
     <label>描述:</label>
-    <input type="text" pInputText="" [(ngModel)]="commonSetting['description']" (blur)="commonSettingData($event)">
+    <input type="text" pInputText="" [(ngModel)]="commonSetting['description']" (change)="commonSettingData($event)">
     <label>业务类型:</label>
     <span>{{selectedServiceType === 'PROMOTIONAL_RATIO'? '促销比例':'促销金额'}}</span>
     <p-checkbox name="fast_process" value="" label="快速流程" [(ngModel)]="commonSetting['isFastProcess']"
@@ -54,7 +54,7 @@
                style="width:65%;border:none;border-bottom: 1px solid #eee;"><span *ngIf="node.data.level !== 0">%</span>
         <p-checkbox [(ngModel)]="node.data.kaoche_bili_check" binary="true" [disabled]="node.data.level === 2"
                     *ngIf="node.data.level !== 0" styleClass="nod_item_box"
-                    (onChange)="nodeItemChecked($event,node.data,'kaoche_bili')"></p-checkbox>
+                    (onChange)="nodeItemChecked($event,node,'kaoche_bili')"></p-checkbox>
       </ng-template>
     </p-column>
     <p-column field="kaoche_jine" *ngIf="caoche_amount" header="拷车促销金额">
@@ -64,7 +64,7 @@
                style="width:65%;border:none;border-bottom: 1px solid #eee;">
         <p-checkbox [(ngModel)]="node.data.kaoche_jine_check" binary="true" [disabled]="node.data.level === 2"
                     *ngIf="node.data.level !== 0" styleClass="nod_item_box"
-                    (onChange)="nodeItemChecked($event,node.data,'kaoche_jine')"></p-checkbox>
+                    (onChange)="nodeItemChecked($event,node,'kaoche_jine')"></p-checkbox>
       </ng-template>
     </p-column>
     <p-column field="jiaoche_bili" header="交车促销比例">
@@ -74,7 +74,7 @@
                style="width:65%;border:none;border-bottom: 1px solid #eee;"><span *ngIf="node.data.level !== 0">%</span>
         <p-checkbox [(ngModel)]="node.data.jiaoche_bili_check" binary="true" [disabled]="node.data.level === 2"
                     styleClass="nod_item_box" *ngIf="node.data.level !== 0"
-                    (onChange)="nodeItemChecked($event,node.data,'jiaoche_bili')"></p-checkbox>
+                    (onChange)="nodeItemChecked($event,node,'jiaoche_bili')"></p-checkbox>
       </ng-template>
     </p-column>
     <p-column field="jiaoche_jine" *ngIf="jiaoche_amount" header="交车促销金额">
@@ -84,7 +84,7 @@
                style="width:65%;border:none;border-bottom: 1px solid #eee;">
         <p-checkbox [(ngModel)]="node.data.jiaoche_jine_check" binary="true" [disabled]="node.data.level === 2"
                     styleClass="nod_item_box" *ngIf="node.data.level !== 0"
-                    (onChange)="nodeItemChecked($event,node.data,'jiaoche_jine')"></p-checkbox>
+                    (onChange)="nodeItemChecked($event,node,'jiaoche_jine')"></p-checkbox>
       </ng-template>
     </p-column>
     <p-column field="store_bili" header="经销商库存比例">
@@ -94,7 +94,7 @@
                style="width:65%;border:none;border-bottom: 1px solid #eee;"><span *ngIf="node.data.level !== 0">%</span>
         <p-checkbox [(ngModel)]="node.data.store_bili_check" binary="true" [disabled]="node.data.level === 2"
                     styleClass="nod_item_box" *ngIf="node.data.level !== 0"
-                    (onChange)="nodeItemChecked($event,node.data,'store_bili')"></p-checkbox>
+                    (onChange)="nodeItemChecked($event,node,'store_bili')"></p-checkbox>
       </ng-template>
     </p-column>
     <p-column field="store_jine" *ngIf="store_amount" header="经销商库存金额">
@@ -104,7 +104,7 @@
                style="width:65%;border:none;border-bottom: 1px solid #eee;">
         <p-checkbox [(ngModel)]="node.data.store_jine_check" binary="true" [disabled]="node.data.level === 2"
                     *ngIf="node.data.level !== 0" styleClass="nod_item_box"
-                    (onChange)="nodeItemChecked($event,node.data,'store_jine')"></p-checkbox>
+                    (onChange)="nodeItemChecked($event,node,'store_jine')"></p-checkbox>
       </ng-template>
     </p-column>
   </p-treeTable>
@@ -170,7 +170,7 @@
                style="width:65%;border:none;border-bottom: 1px solid #eee;">
         <p-checkbox [(ngModel)]="node.data.financial_jine_check" binary="true" *ngIf="node.data.level !== 0"
                     styleClass="nod_item_box" [disabled]="node.data.level === 2"
-                    (onChange)="nodeItemChecked($event,node.data,'financial_jine')"></p-checkbox>
+                    (onChange)="nodeItemChecked($event,node,'financial_jine')"></p-checkbox>
       </ng-template>
     </p-column>
     <!--<p-column field="yanbao_bili" *ngIf="extended_insurance" header="延保单车比例">-->
@@ -199,7 +199,7 @@
                style="width:65%;border:none;border-bottom: 1px solid #eee;">
         <p-checkbox [(ngModel)]="node.data.replacement_jine_check" binary="true"
                     styleClass="nod_item_box" [disabled]="node.data.level === 2" *ngIf="node.data.level !== 0"
-                    (onChange)="nodeItemChecked($event,node.data,'replacement_jine')"></p-checkbox>
+                    (onChange)="nodeItemChecked($event,node,'replacement_jine')"></p-checkbox>
       </ng-template>
     </p-column>
     <p-column field="insurance_bili" *ngIf="insurance" header="保险单车比例">
@@ -216,7 +216,7 @@
                style="width:65%;border:none;border-bottom: 1px solid #eee;">
         <p-checkbox [(ngModel)]="node.data.insurance_jine_check" binary="true"
                     styleClass="nod_item_box" [disabled]="node.data.level === 2" *ngIf="node.data.level !== 0"
-                    (onChange)="nodeItemChecked($event,node.data,'insurance_jine')"></p-checkbox>
+                    (onChange)="nodeItemChecked($event,node,'insurance_jine')"></p-checkbox>
       </ng-template>
     </p-column>
     <!--<p-column field="maintenance_bili" *ngIf="maintenance" header="保养单车比例">-->
@@ -261,13 +261,13 @@
 <div class="nod_item_content" *ngIf="selectedServiceType === 'PROMOTIONAL_AMOUNT'">
   <div class="nod_item_top">
     <label>开始时间：</label>
-    <p-calendar [(ngModel)]="commonSetting['startTime']" (onSelect)="commonSettingData($event)"></p-calendar>
+    <p-calendar [(ngModel)]="commonSetting['startTime']" (onSelect)="commonSettingData($event,'startTime')"></p-calendar>
     <label>结束时间：</label>
-    <p-calendar [(ngModel)]="commonSetting['endTime']" (onSelect)="commonSettingData($event)"></p-calendar>
+    <p-calendar [(ngModel)]="commonSetting['endTime']" (onSelect)="commonSettingData($event,'endTime')"></p-calendar>
     <label>发放截止时间:</label>
-    <p-calendar [(ngModel)]="commonSetting['releaseTime']" (onSelect)="commonSettingData($event)"></p-calendar>
+    <p-calendar [(ngModel)]="commonSetting['releaseTime']" (onSelect)="commonSettingData($event,'releaseTime')"></p-calendar>
     <label>描述:</label>
-    <input type="text" pInputText="" [(ngModel)]="commonSetting['description']" (blur)="commonSettingData($event)">
+    <input type="text" pInputText="" [(ngModel)]="commonSetting['description']" (change)="commonSettingData($event)">
     <label>业务类型:</label>
     <span>{{selectedServiceType === 'PROMOTIONAL_RATIO'? '促销比例':'促销金额'}}</span>
     <!--<p-checkbox name="fast_process" value="" label="快速流程" [(ngModel)]="commonSetting['isFastProcess']"-->

@@ -8,8 +8,7 @@
     <app-nod-item-content *ngIf="nodItem.nodItem_id === selectedNodItem" [files]="files | async"
                           [display]="display" [carTree]="carTree" [selectedCars]="selectedCars" [currentNodItem]="currentNodItem"
                           [selectedServiceType]="serviceType" [commonSetting]="currentNodItem.nodItem_data.setting_condition"
-                          (totalAmountChangeEvt)="updateTotalAmount($event)"
-                          (nodItemCheckedEvt)="nodeItemChecked($event)" (editCarCategoryEvt)="editCarCategory($event)"
+                          (totalAmountChangeEvt)="updateTotalAmount($event)" (editCarCategoryEvt)="editCarCategory($event)"
                           (hideDialogEvt)="onHide($event)" (commonSettingEvt)="getCommonData($event)"></app-nod-item-content>
   </div>
 

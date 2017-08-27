@@ -114,7 +114,7 @@ export class NodItemContentComponent implements OnInit,OnChanges,OnDestroy {
         }
       }
     } else if (type === 'AMOUNT') {
-      if(this.selectedServiceType === 'PROMOTIONAL_AMOUNT'){
+      if (this.selectedServiceType === 'PROMOTIONAL_AMOUNT') {
         result = this.formatCurrency(node[nodeName]);
       } else {
         result = this.formatCurrency(node.data[nodeName]);
@@ -149,7 +149,13 @@ export class NodItemContentComponent implements OnInit,OnChanges,OnDestroy {
     return (((sign) ? '' : '-') + nums + '.' + cents);
   }
 
-  commonSettingData(data:any) {
+  commonSettingData(data:any,fieldName?:string) {
+    if(fieldName && fieldName === 'endTime'){
+      let date = new Date();
+      date.setTime(this.commonSetting['endTime'].getTime());
+      date.setFullYear(date.getFullYear() + 2);
+      this.commonSetting['releaseTime'] = date;
+    }
     this.commonSettingEvt.emit(this.commonSetting);
   }
 
@@ -161,9 +167,13 @@ export class NodItemContentComponent implements OnInit,OnChanges,OnDestroy {
     this.isCashModule = false;
   }
 
-  nodeItemChecked(checked:boolean, data:TreeNode, fieldname:string) {
-    let nodItemData = {checked, data, fieldname};
-    this.nodItemCheckedEvt.emit(nodItemData);
+  nodeItemChecked(checked:boolean, node:TreeNode, nodeName:string) {
+    if (node.children && node.children.length > 0) {
+      for (let i = 0; i < node.children.length; i++) {
+        node.children[i].data[nodeName + '_check'] = checked;
+      }
+    }
+    console.log(this.currentNodItem);
   }
 
   editCarCategory(event:Event) {
