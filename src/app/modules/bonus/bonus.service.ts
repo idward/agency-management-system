@@ -35,7 +35,7 @@ export class BonusService {
       let nodItem = {};
       nodItem['nodBaseItemNumber'] = data.nodList[i]['nodItem_id'];
       nodItem['itemBusinessType'] = data.nodList[i]['nodItem_type'] === 'PROMOTIONAL_RATIO' ? 1 : 2;
-      
+
     }
   }
 

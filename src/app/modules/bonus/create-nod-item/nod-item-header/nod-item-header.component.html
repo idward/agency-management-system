@@ -1,7 +1,7 @@
 <div class="nod_item_toolbars">
   <div class="left_area">
     <p-dropdown *ngIf="nodItemCount > 0" [style]="{'width':'150px'}" [options]="nodItemOptions"
-                [(ngModel)]="selectedNodItem" (onChange)="changeNodItem($event)" placeholder="请选择Item"></p-dropdown>
+                [(ngModel)]="selectedNodItem" (onChange)="changeNodItem($event)"  placeholder="请选择Item"></p-dropdown>
     <button pButton type="button" (click)="createItem()" label="+ 创建Item"></button>
     <button *ngIf="nodItemCount > 0" pButton type="button" (click)="deleteItem()" label="+ 删除Item"></button>
   </div>

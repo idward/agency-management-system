@@ -93,7 +93,6 @@ function filterSelectedItems(datas: any, selectedDatas: any): TreeNode[] {
   } else {
     selectedDatas = null;
   }
-  // selectedDatas = selectedDatas.filter(data => data.selected === true);
   let selectedLabel = selectedDatas ? selectedDatas.map(data => data.label) : null;
 
   const filterItems: TreeNode[] = [];
@@ -101,6 +100,9 @@ function filterSelectedItems(datas: any, selectedDatas: any): TreeNode[] {
     const newData = filterItemBySelected(data, selectedLabel);
     if (!_.isNil(newData)) {
       filterItems.push(newData);
+    }
+    if(filterItems && filterItems.length > 0){
+      filterItems[0]['total_amount_count'] = 0;
     }
   });
   return filterItems;

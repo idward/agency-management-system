@@ -41,66 +41,70 @@
     <p-column field="msrp" header="MSRP">
       <ng-template let-node="rowData" pTemplate="body">
         <input type="text" [(ngModel)]="node.data.msrp" *ngIf="node.data.level === 2"
-               style="width:100%;border:none;border-bottom: 1px solid #eee;">
+               (change)="changeValueByMSRP(node)" style="width:100%;border:none;border-bottom: 1px solid #eee;">
       </ng-template>
     </p-column>
     <p-column field="kaoche_bili" header="拷车促销比例">
       <ng-template let-node="rowData" pTemplate="body">
         <!--<input type="text" [(ngModel)]="node.data.kaoche_bili" style="width:100%;border:none;border-bottom: 1px solid #eee;">-->
         <!--(ngModelChange)="node.data.kaoche_bili = $event"-->
-        <input type="text" [(ngModel)]="node.data.kaoche_bili"
-               (blur)="node.data.kaoche_bili = onChangeValue(node.data.kaoche_bili,'RATIO')"
-               style="width:65%;border:none;border-bottom: 1px solid #eee;">%
+        <!--(blur)="node.data.kaoche_bili = onChangeValue(node,'kaoche_bili','RATIO')"-->
+        <input type="text" [(ngModel)]="node.data.kaoche_bili" *ngIf="node.data.level !== 0"
+               (change)="node.data.kaoche_bili = onChangeValue(node,'kaoche_bili','RATIO')"
+               style="width:65%;border:none;border-bottom: 1px solid #eee;"><span *ngIf="node.data.level !== 0">%</span>
         <p-checkbox [(ngModel)]="node.data.kaoche_bili_check" binary="true" [disabled]="node.data.level === 2"
-                    styleClass="nod_item_box" (onChange)="nodeItemChecked($event,node.data,'kaoche_bili')"></p-checkbox>
+                    *ngIf="node.data.level !== 0" styleClass="nod_item_box"
+                    (onChange)="nodeItemChecked($event,node.data,'kaoche_bili')"></p-checkbox>
       </ng-template>
     </p-column>
     <p-column field="kaoche_jine" *ngIf="caoche_amount" header="拷车促销金额">
       <ng-template let-node="rowData" pTemplate="body">
-        <input type="text" [(ngModel)]="node.data.kaoche_jine"
-               (blur)="node.data.kaoche_jine = onChangeValue(node.data.kaoche_jine,'AMOUNT')"
+        <input type="text" [(ngModel)]="node.data.kaoche_jine" *ngIf="node.data.level !== 0"
+               (change)="node.data.kaoche_jine = onChangeValue(node,'kaoche_jine','AMOUNT')"
                style="width:65%;border:none;border-bottom: 1px solid #eee;">
         <p-checkbox [(ngModel)]="node.data.kaoche_jine_check" binary="true" [disabled]="node.data.level === 2"
-                    styleClass="nod_item_box" (onChange)="nodeItemChecked($event,node.data,'kaoche_jine')"></p-checkbox>
+                    *ngIf="node.data.level !== 0" styleClass="nod_item_box"
+                    (onChange)="nodeItemChecked($event,node.data,'kaoche_jine')"></p-checkbox>
       </ng-template>
     </p-column>
     <p-column field="jiaoche_bili" header="交车促销比例">
       <ng-template let-node="rowData" pTemplate="body">
-        <input type="text" [(ngModel)]="node.data.jiaoche_bili"
-               (blur)="node.data.jiaoche_bili = onChangeValue(node.data.jiaoche_bili,'RATIO')"
-               style="width:65%;border:none;border-bottom: 1px solid #eee;">%
+        <input type="text" [(ngModel)]="node.data.jiaoche_bili" *ngIf="node.data.level !== 0"
+               (change)="node.data.jiaoche_bili = onChangeValue(node,'jiaoche_bili','RATIO')"
+               style="width:65%;border:none;border-bottom: 1px solid #eee;"><span *ngIf="node.data.level !== 0">%</span>
         <p-checkbox [(ngModel)]="node.data.jiaoche_bili_check" binary="true" [disabled]="node.data.level === 2"
-                    styleClass="nod_item_box"
+                    styleClass="nod_item_box" *ngIf="node.data.level !== 0"
                     (onChange)="nodeItemChecked($event,node.data,'jiaoche_bili')"></p-checkbox>
       </ng-template>
     </p-column>
     <p-column field="jiaoche_jine" *ngIf="jiaoche_amount" header="交车促销金额">
       <ng-template let-node="rowData" pTemplate="body">
-        <input type="text" [(ngModel)]="node.data.jiaoche_jine"
-               (blur)="node.data.jiaoche_jine = onChangeValue(node.data.jiaoche_jine,'AMOUNT')"
+        <input type="text" [(ngModel)]="node.data.jiaoche_jine" *ngIf="node.data.level !== 0"
+               (change)="node.data.jiaoche_jine = onChangeValue(node,'jiaoche_jine','AMOUNT')"
                style="width:65%;border:none;border-bottom: 1px solid #eee;">
         <p-checkbox [(ngModel)]="node.data.jiaoche_jine_check" binary="true" [disabled]="node.data.level === 2"
-                    styleClass="nod_item_box"
+                    styleClass="nod_item_box" *ngIf="node.data.level !== 0"
                     (onChange)="nodeItemChecked($event,node.data,'jiaoche_jine')"></p-checkbox>
       </ng-template>
     </p-column>
     <p-column field="store_bili" header="经销商库存比例">
       <ng-template let-node="rowData" pTemplate="body">
-        <input type="text" [(ngModel)]="node.data.store_bili"
-               (blur)="node.data.store_bili = onChangeValue(node.data.store_bili,'RATIO')"
-               style="width:65%;border:none;border-bottom: 1px solid #eee;">%
+        <input type="text" [(ngModel)]="node.data.store_bili" *ngIf="node.data.level !== 0"
+               (change)="node.data.store_bili = onChangeValue(node,'store_bili','RATIO')"
+               style="width:65%;border:none;border-bottom: 1px solid #eee;"><span *ngIf="node.data.level !== 0">%</span>
         <p-checkbox [(ngModel)]="node.data.store_bili_check" binary="true" [disabled]="node.data.level === 2"
-                    styleClass="nod_item_box" (onChange)="nodeItemChecked($event,node.data,'store_bili')"></p-checkbox>
+                    styleClass="nod_item_box" *ngIf="node.data.level !== 0"
+                    (onChange)="nodeItemChecked($event,node.data,'store_bili')"></p-checkbox>
       </ng-template>
     </p-column>
     <p-column field="store_jine" *ngIf="store_amount" header="经销商库存金额">
       <ng-template let-node="rowData" pTemplate="body">
-        <input type="text" [(ngModel)]="node.data.store_jine"
-               (blur)="node.data.store_jine = onChangeValue(node.data.store_jine,'AMOUNT')"
+        <input type="text" [(ngModel)]="node.data.store_jine" *ngIf="node.data.level !== 0"
+               (change)="node.data.store_jine = onChangeValue(node,'store_jine','AMOUNT')"
                style="width:65%;border:none;border-bottom: 1px solid #eee;">
-        <!--<input type="checkbox" [(ngModel)]="node.data.store_jine_check" style="position: relative;right: 18px;">-->
         <p-checkbox [(ngModel)]="node.data.store_jine_check" binary="true" [disabled]="node.data.level === 2"
-                    styleClass="nod_item_box" (onChange)="nodeItemChecked($event,node.data,'store_jine')"></p-checkbox>
+                    *ngIf="node.data.level !== 0" styleClass="nod_item_box"
+                    (onChange)="nodeItemChecked($event,node.data,'store_jine')"></p-checkbox>
       </ng-template>
     </p-column>
   </p-treeTable>
@@ -135,36 +139,36 @@
     <p-column field="msrp" header="MSRP">
       <ng-template let-node="rowData" pTemplate="body">
         <input type="text" [(ngModel)]="node.data.msrp" *ngIf="node.data.level === 2"
-               style="width:100%;border:none; border-bottom: 1px solid #eee;">
+               (change)="changeValueByMSRP(node)" style="width:100%;border:none; border-bottom: 1px solid #eee;">
       </ng-template>
     </p-column>
     <p-column field="singleCar_bili" *ngIf="singleCar_forcast" header="单车总预算比例">
       <ng-template let-node="rowData" pTemplate="body">
-        <input type="text" [(ngModel)]="node.data.singleCar_bili"
-               (blur)="node.data.singleCar_bili = onChangeValue(node.data.singleCar_bili,'RATIO')"
-               style="width:90%;border:none;border-bottom: 1px solid #eee;">%
+        <input type="text" [(ngModel)]="node.data.singleCar_bili" *ngIf="node.data.level !== 0"
+               (change)="node.data.singleCar_bili = onChangeValue(node,'singleCar_bili','RATIO')"
+               style="width:90%;border:none;border-bottom: 1px solid #eee;"><span *ngIf="node.data.level !== 0">%</span>
       </ng-template>
     </p-column>
     <p-column field="singleCar_jine" *ngIf="singleCar_forcast" header="单车总预算金额">
       <ng-template let-node="rowData" pTemplate="body">
-        <input type="text" [(ngModel)]="node.data.singleCar_jine"
-               (blur)="node.data.singleCar_jine = onChangeValue(node.data.singleCar_jine,'AMOUNT')"
+        <input type="text" [(ngModel)]="node.data.singleCar_jine" *ngIf="node.data.level !== 0"
+               (change)="node.data.singleCar_jine = onChangeValue(node,'singleCar_jine','AMOUNT')"
                style="width:100%;border:none;border-bottom: 1px solid #eee;">
       </ng-template>
     </p-column>
     <p-column field="financial_bili" *ngIf="financial" header="金融单车比例">
       <ng-template let-node="rowData" pTemplate="body">
-        <input type="text" [(ngModel)]="node.data.financial_bili"
-               (blur)="node.data.financial_bili = onChangeValue(node.data.financial_bili,'RATIO')"
-               style="width:90%;border:none;border-bottom: 1px solid #eee;">%
+        <input type="text" [(ngModel)]="node.data.financial_bili" *ngIf="node.data.level !== 0"
+               (change)="node.data.financial_bili = onChangeValue(node,'financial_bili','RATIO')"
+               style="width:90%;border:none;border-bottom: 1px solid #eee;"><span *ngIf="node.data.level !== 0">%</span>
       </ng-template>
     </p-column>
     <p-column field="financial_jine" *ngIf="financial" header="金融单车金额">
       <ng-template let-node="rowData" pTemplate="body">
-        <input type="text" [(ngModel)]="node.data.financial_jine"
-               (blur)="node.data.financial_jine = onChangeValue(node.data.financial_jine,'AMOUNT')"
+        <input type="text" [(ngModel)]="node.data.financial_jine" *ngIf="node.data.level !== 0"
+               (change)="node.data.financial_jine = onChangeValue(node,'financial_jine','AMOUNT')"
                style="width:65%;border:none;border-bottom: 1px solid #eee;">
-        <p-checkbox [(ngModel)]="node.data.financial_jine_check" binary="true"
+        <p-checkbox [(ngModel)]="node.data.financial_jine_check" binary="true" *ngIf="node.data.level !== 0"
                     styleClass="nod_item_box" [disabled]="node.data.level === 2"
                     (onChange)="nodeItemChecked($event,node.data,'financial_jine')"></p-checkbox>
       </ng-template>
@@ -183,35 +187,35 @@
     <!--</p-column>-->
     <p-column field="replacement_bili" *ngIf="replacement" header="置换单车比例">
       <ng-template let-node="rowData" pTemplate="body">
-        <input type="text" [(ngModel)]="node.data.replacement_bili"
-               (blur)="node.data.replacement_bili = onChangeValue(node.data.replacement_bili,'RATIO')"
-               style="width:90%;border:none;border-bottom: 1px solid #eee;">%
+        <input type="text" [(ngModel)]="node.data.replacement_bili" *ngIf="node.data.level !== 0"
+               (change)="node.data.replacement_bili = onChangeValue(node,'replacement_bili','RATIO')"
+               style="width:90%;border:none;border-bottom: 1px solid #eee;"><span *ngIf="node.data.level !== 0">%</span>
       </ng-template>
     </p-column>
     <p-column field="replacement_jine" *ngIf="replacement" header="置换单车金额">
       <ng-template let-node="rowData" pTemplate="body">
-        <input type="text" [(ngModel)]="node.data.replacement_jine"
-               (blur)="node.data.replacement_jine = onChangeValue(node.data.replacement_jine,'AMOUNT')"
+        <input type="text" [(ngModel)]="node.data.replacement_jine" *ngIf="node.data.level !== 0"
+               (change)="node.data.replacement_jine = onChangeValue(node,'replacement_jine','AMOUNT')"
                style="width:65%;border:none;border-bottom: 1px solid #eee;">
         <p-checkbox [(ngModel)]="node.data.replacement_jine_check" binary="true"
-                    styleClass="nod_item_box" [disabled]="node.data.level === 2"
+                    styleClass="nod_item_box" [disabled]="node.data.level === 2" *ngIf="node.data.level !== 0"
                     (onChange)="nodeItemChecked($event,node.data,'replacement_jine')"></p-checkbox>
       </ng-template>
     </p-column>
     <p-column field="insurance_bili" *ngIf="insurance" header="保险单车比例">
       <ng-template let-node="rowData" pTemplate="body">
-        <input type="text" [(ngModel)]="node.data.insurance_bili"
-               (blur)="node.data.insurance_bili = onChangeValue(node.data.insurance_bili,'RATIO')"
-               style="width:90%;border:none;border-bottom: 1px solid #eee;">%
+        <input type="text" [(ngModel)]="node.data.insurance_bili" *ngIf="node.data.level !== 0"
+               (change)="node.data.insurance_bili = onChangeValue(node,'insurance_bili','RATIO')"
+               style="width:90%;border:none;border-bottom: 1px solid #eee;"><span *ngIf="node.data.level !== 0">%</span>
       </ng-template>
     </p-column>
     <p-column field="insurance_jine" *ngIf="insurance" header="保险单车金额">
       <ng-template let-node="rowData" pTemplate="body">
-        <input type="text" [(ngModel)]="node.data.insurance_jine"
-               (blur)="node.data.insurance_jine = onChangeValue(node.data.insurance_jine,'AMOUNT')"
+        <input type="text" [(ngModel)]="node.data.insurance_jine" *ngIf="node.data.level !== 0"
+               (change)="node.data.insurance_jine = onChangeValue(node,'insurance_jine','AMOUNT')"
                style="width:65%;border:none;border-bottom: 1px solid #eee;">
         <p-checkbox [(ngModel)]="node.data.insurance_jine_check" binary="true"
-                    styleClass="nod_item_box" [disabled]="node.data.level === 2"
+                    styleClass="nod_item_box" [disabled]="node.data.level === 2" *ngIf="node.data.level !== 0"
                     (onChange)="nodeItemChecked($event,node.data,'insurance_jine')"></p-checkbox>
       </ng-template>
     </p-column>
@@ -250,7 +254,6 @@
 
       <p-tree [value]="carTree | async" selectionMode="checkbox" [(selection)]="selectedCars"
               (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnSelect($event)"></p-tree>
-      <!--<div>Selected Nodes: <span *ngFor="let file of selectedCars">{{file.label}} </span></div>-->
     </p-dialog>
   </div>
   <!-- 品牌／车系／车型树结束 -->
@@ -304,7 +307,7 @@
     <p-column field="cash_total_amount" header="总金额">
       <ng-template let-node="rowData" pTemplate="body">
         <input type="text" [(ngModel)]="node.cash_total_amount" *ngIf="node.total_amount_count === 0"
-               (blur)="node.cash_total_amount = onChangeValue(node.cash_total_amount,'AMOUNT')"
+               (change)="node.cash_total_amount = onChangeValue(node,'cash_total_amount','AMOUNT')"
                style="width:100%;border:none;border-bottom: 1px solid #eee;">
       </ng-template>
     </p-column>
@@ -357,14 +360,14 @@
     <p-column field="nocash_total_amount" header="总金额">
       <ng-template let-node="rowData" pTemplate="body">
         <input type="text" [(ngModel)]="node.nocash_total_amount" *ngIf="node.total_amount_count === 0"
-               (blur)="node.nocash_total_amount = onChangeValue(node.nocash_total_amount,'AMOUNT')"
+               (change)="node.nocash_total_amount = onChangeValue(node,'nocash_total_amount','AMOUNT')"
                style="width:100%;border:none;border-bottom: 1px solid #eee;">
       </ng-template>
     </p-column>
     <p-column field="financial_total_amount" *ngIf="financial" header="金融">
       <ng-template let-node="rowData" pTemplate="body">
         <input type="text" [(ngModel)]="node.financial_total_amount" *ngIf="node.total_amount_count === 0"
-               (blur)="node.financial_total_amount = onChangeValue(node.financial_total_amount,'AMOUNT')"
+               (change)="node.financial_total_amount = onChangeValue(node,'financial_total_amount','AMOUNT')"
                style="width:80%;border:none;border-bottom: 1px solid #eee;">
         <p-checkbox [(ngModel)]="node.financial_total_amount_check" binary="true" *ngIf="node.total_amount_count === 0"
                     styleClass="nod_item_box"></p-checkbox>
@@ -379,16 +382,17 @@
     <p-column field="replacement_total_amount" *ngIf="replacement" header="置换">
       <ng-template let-node="rowData" pTemplate="body">
         <input type="text" [(ngModel)]="node.replacement_total_amount" *ngIf="node.total_amount_count === 0"
-               (blur)="node.replacement_total_amount = onChangeValue(node.replacement_total_amount,'AMOUNT')"
+               (change)="node.replacement_total_amount = onChangeValue(node,'replacement_total_amount','AMOUNT')"
                style="width:80%;border:none;border-bottom: 1px solid #eee;">
-        <p-checkbox [(ngModel)]="node.replacement_total_amount_check" binary="true" *ngIf="node.total_amount_count === 0"
+        <p-checkbox [(ngModel)]="node.replacement_total_amount_check" binary="true"
+                    *ngIf="node.total_amount_count === 0"
                     styleClass="nod_item_box"></p-checkbox>
       </ng-template>
     </p-column>
     <p-column field="insurance_total_amount" *ngIf="insurance" header="保险">
       <ng-template let-node="rowData" pTemplate="body">
         <input type="text" [(ngModel)]="node.insurance_total_amount" *ngIf="node.total_amount_count === 0"
-               (blur)="node.insurance_total_amount = onChangeValue(node.insurance_total_amount,'AMOUNT')"
+               (change)="node.insurance_total_amount = onChangeValue(node,'insurance_total_amount','AMOUNT')"
                style="width:80%;border:none;border-bottom: 1px solid #eee;">
         <p-checkbox [(ngModel)]="node.insurance_total_amount_check" binary="true" *ngIf="node.total_amount_count === 0"
                     styleClass="nod_item_box"></p-checkbox>

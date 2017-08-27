@@ -154,30 +154,7 @@ export class PromotionComponent implements OnInit {
   }
 
   updateTotalAmount(data:any) {
-    this.currentNodItem.nodItem_data['promotional_amount'] =
-      this.currentNodItem.nodItem_data['promotional_amount'].map(od => {
-        od.cash_total_amount = data[0].cash_total_amount;
-        od.nocash_total_amount = data[0].nocash_total_amount;
-        od.financial_total_amount = data[0].financial_total_amount;
-        od.financial_total_amount_check = data[0].financial_total_amount_check;
-        od.replacement_total_amount = data[0].replacement_total_amount;
-        od.replacement_total_amount_check = data[0].replacement_total_amount_check;
-        od.insurance_total_amount = data[0].insurance_total_amount;
-        od.insurance_total_amount_check = data[0].insurance_total_amount_check;
-        return od;
-      });
-    this.currentNodItem.nodItem_data['saved_promotional_amount'] = this.currentNodItem.nodItem_data['saved_promotional_amount'].map(od => {
-      od.cash_total_amount = data[0].cash_total_amount;
-      od.nocash_total_amount = data[0].nocash_total_amount;
-      od.financial_total_amount = data[0].financial_total_amount;
-      od.financial_total_amount_check = data[0].financial_total_amount_check;
-      od.replacement_total_amount = data[0].replacement_total_amount;
-      od.replacement_total_amount_check = data[0].replacement_total_amount_check;
-      od.insurance_total_amount = data[0].insurance_total_amount;
-      od.insurance_total_amount_check = data[0].insurance_total_amount_check;
-      return od;
-    });
-    this.store$.dispatch({type: 'UPDATE_NODEITEM', payload: this.currentNodItem});
+    this.store$.dispatch({type: 'UPDATE_NODEITEM', payload: data});
   }
 
   deleteItem() {
@@ -262,6 +239,7 @@ export class PromotionComponent implements OnInit {
       if (this.serviceType === 'PROMOTIONAL_RATIO') {
         this.currentNodItem.nodItem_data['saved_promotional_ratio'] = promotionDatas;
       } else if (this.serviceType === 'PROMOTIONAL_AMOUNT') {
+        // promotionDatas[0]['total_amount_count'] = 0;
         this.currentNodItem.nodItem_data['saved_promotional_amount'] = promotionDatas;
       }
     });
