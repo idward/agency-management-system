@@ -8,6 +8,7 @@ import * as _ from 'lodash';
 @Injectable()
 export class CarTreeService {
   private _url: string = 'http://localhost:3000/carTree';
+  //private _url: string = 'http://localhost:8081/service/rest/rewardNod/getVehicleTree/all';
   private _headers = new Headers({
     'Content-Type': 'application/json'
   });

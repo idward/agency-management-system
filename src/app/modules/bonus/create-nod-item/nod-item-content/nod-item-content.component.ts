@@ -16,33 +16,33 @@ import {NodItem} from "../../../../model/nod/nodItem.model";
   templateUrl: './nod-item-content.component.html',
   styleUrls: ['./nod-item-content.component.scss']
 })
-export class NodItemContentComponent implements OnInit,OnChanges,OnDestroy {
-  selectedFiles:TreeNode[];
-  selectedCarTreeNode:TreeNode[] = [];
-  carTreeNode:TreeNode;
-  isCashModule:boolean = true;
-  caoche_amount:boolean = false;
-  jiaoche_amount:boolean = false;
-  store_amount:boolean = false;
-  singleCar_forcast:boolean = false;
-  financial:boolean = false;
-  extended_insurance:boolean = false;
-  replacement:boolean = false;
-  insurance:boolean = false;
-  maintenance:boolean = false;
-  keyword:string;
-  @Input() currentNodItem:NodItem;
-  @Input() selectedCars:TreeNode[] = [];
-  @Input() display:boolean;
-  @Input() files:TreeNode[];
-  @Input() carTree:Observable<TreeNode[]>;
-  @Input() selectedServiceType:string;
-  @Input() commonSetting:any;
-  @Output() commonSettingEvt:EventEmitter<any> = new EventEmitter<any>();
-  @Output() nodItemCheckedEvt:EventEmitter<any> = new EventEmitter<any>();
-  @Output() editCarCategoryEvt:EventEmitter<any> = new EventEmitter<any>();
-  @Output() hideDialogEvt:EventEmitter<any> = new EventEmitter<any>();
-  @Output() totalAmountChangeEvt:EventEmitter<any> = new EventEmitter<any>();
+export class NodItemContentComponent implements OnInit, OnChanges, OnDestroy {
+  selectedFiles: TreeNode[];
+  selectedCarTreeNode: TreeNode[] = [];
+  carTreeNode: TreeNode;
+  isCashModule: boolean = true;
+  caoche_amount: boolean = false;
+  jiaoche_amount: boolean = false;
+  store_amount: boolean = false;
+  singleCar_forcast: boolean = false;
+  financial: boolean = false;
+  extended_insurance: boolean = false;
+  replacement: boolean = false;
+  insurance: boolean = false;
+  maintenance: boolean = false;
+  keyword: string;
+  @Input() currentNodItem: NodItem;
+  @Input() selectedCars: TreeNode[] = [];
+  @Input() display: boolean;
+  @Input() files: TreeNode[];
+  @Input() carTree: Observable<TreeNode[]>;
+  @Input() selectedServiceType: string;
+  @Input() commonSetting: any;
+  @Output() commonSettingEvt: EventEmitter<any> = new EventEmitter<any>();
+  @Output() nodItemCheckedEvt: EventEmitter<any> = new EventEmitter<any>();
+  @Output() editCarCategoryEvt: EventEmitter<any> = new EventEmitter<any>();
+  @Output() hideDialogEvt: EventEmitter<any> = new EventEmitter<any>();
+  @Output() totalAmountChangeEvt: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() {
   }
@@ -64,7 +64,7 @@ export class NodItemContentComponent implements OnInit,OnChanges,OnDestroy {
     }
   }
 
-  updateTotalAmount(data:any):NodItem {
+  updateTotalAmount(data: any): NodItem {
     this.currentNodItem.nodItem_data['promotional_amount'] =
       this.currentNodItem.nodItem_data['promotional_amount'].map(od => {
         od.cash_total_amount = data[0].cash_total_amount;
@@ -91,25 +91,25 @@ export class NodItemContentComponent implements OnInit,OnChanges,OnDestroy {
     return this.currentNodItem;
   }
 
-  changeValueByMSRP(node:any) {
+  changeValueByMSRP(node: any) {
     for (let p in node.data) {
       let basic = p.slice(0, p.indexOf('_'));
-      node.data[basic + '_jine'] = this.formatCurrency(node.data['msrp'] * node.data[basic + '_bili']);
+      node.data[basic + '_jine'] = this.formatCurrency(node.data['msrp'] * node.data[basic + '_bili'] / 100);
     }
   }
 
-  onChangeValue(node:any, nodeName:string, type:string):any {
+  onChangeValue(node: any, nodeName: string, type: string): any {
     console.log('node:', node);
     let result;
     if (type === 'RATIO') {
       result = Number(node.data[nodeName]).toFixed(2);
       let jine = nodeName.slice(0, nodeName.indexOf('_')) + '_jine';
-      node.data[jine] = this.formatCurrency(node.data['msrp'] * node.data[nodeName]);
+      node.data[jine] = this.formatCurrency(node.data['msrp'] * node.data[nodeName] / 100);
       if (node.data.level === 1) {
         if (node.children && node.children.length > 0) {
           for (let i = 0; i < node.children.length; i++) {
             node.children[i].data[nodeName] = result;
-            node.children[i].data[jine] = this.formatCurrency(node.children[i].data['msrp'] * node.children[i].data[nodeName]);
+            node.children[i].data[jine] = this.formatCurrency(node.children[i].data['msrp'] * node.children[i].data[nodeName] / 100);
           }
         }
       }
@@ -135,9 +135,9 @@ export class NodItemContentComponent implements OnInit,OnChanges,OnDestroy {
     if (isNaN(nums)) {
       nums = "0";
     }
-    let sign:boolean = (nums == (nums = Math.abs(nums)));
+    let sign: boolean = (nums == (nums = Math.abs(nums)));
     nums = Math.floor(nums * 100 + 0.50000000001);
-    let cents:any = nums % 100;
+    let cents: any = nums % 100;
     nums = Math.floor(nums / 100).toString();
     if (cents < 10) {
       cents = "0" + cents;
@@ -149,8 +149,8 @@ export class NodItemContentComponent implements OnInit,OnChanges,OnDestroy {
     return (((sign) ? '' : '-') + nums + '.' + cents);
   }
 
-  commonSettingData(data:any,fieldName?:string) {
-    if(fieldName && fieldName === 'endTime'){
+  commonSettingData(data: any, fieldName?: string) {
+    if (fieldName && fieldName === 'endTime') {
       let date = new Date();
       date.setTime(this.commonSetting['endTime'].getTime());
       date.setFullYear(date.getFullYear() + 2);
@@ -167,7 +167,7 @@ export class NodItemContentComponent implements OnInit,OnChanges,OnDestroy {
     this.isCashModule = false;
   }
 
-  nodeItemChecked(checked:boolean, node:TreeNode, nodeName:string) {
+  nodeItemChecked(checked: boolean, node: TreeNode, nodeName: string) {
     if (node.children && node.children.length > 0) {
       for (let i = 0; i < node.children.length; i++) {
         node.children[i].data[nodeName + '_check'] = checked;
@@ -176,7 +176,7 @@ export class NodItemContentComponent implements OnInit,OnChanges,OnDestroy {
     console.log(this.currentNodItem);
   }
 
-  editCarCategory(event:Event) {
+  editCarCategory(event: Event) {
     this.editCarCategoryEvt.emit(event);
   }
 
@@ -186,13 +186,14 @@ export class NodItemContentComponent implements OnInit,OnChanges,OnDestroy {
     this.hideDialogEvt.emit(this.selectedCars);
   }
 
-  nodeSelect(data:any) {
+  nodeSelect(data: any) {
+    data.node.selected = true;
     this.carTreeNode = this.setChildNodeChecked(data.node, true);
     this.selectedCarTreeNode = [...this.selectedCarTreeNode, ...this.chooseTreeNode(this.carTreeNode)];
     console.log('selectedCarTreeNode', this.selectedCarTreeNode);
   }
 
-  private chooseTreeNode(carTreeNode:TreeNode):TreeNode[] {
+  private chooseTreeNode(carTreeNode: TreeNode): TreeNode[] {
     let tempData = [];
     let subTempData = [];
     if (carTreeNode.children) {
@@ -209,14 +210,15 @@ export class NodItemContentComponent implements OnInit,OnChanges,OnDestroy {
     return [carTreeNode, ...subTempData];
   }
 
-  nodeUnSelect(data:any) {
+  nodeUnSelect(data: any) {
+    data.node.selected = false;
     this.carTreeNode = this.setParentNodeChecked(data.node, false);
     this.carTreeNode = this.setChildNodeChecked(data.node, false);
     this.selectedCarTreeNode = this.filterTreeNode(this.carTreeNode);
     console.log('selectedCarTreeNode', this.selectedCarTreeNode);
   }
 
-  private filterTreeNode(carTreeNode:TreeNode):TreeNode[] {
+  private filterTreeNode(carTreeNode: TreeNode): TreeNode[] {
     let unSelectedTreeNode = this.chooseTreeNode(carTreeNode);
     return this.selectedCarTreeNode.filter(data => {
       return _.findIndex(unSelectedTreeNode, function (o) {
@@ -225,10 +227,9 @@ export class NodItemContentComponent implements OnInit,OnChanges,OnDestroy {
     });
   }
 
-  setChildNodeChecked(node:TreeNode, checkStatus:boolean):TreeNode {
+  setChildNodeChecked(node: TreeNode, checkStatus: boolean): TreeNode {
     console.log('node:', node);
 
-    node.selected = checkStatus;
     if (node.children && node.children.length > 0) {
       node.children = node.children.map(sNode => {
         sNode.selected = checkStatus;
@@ -244,15 +245,14 @@ export class NodItemContentComponent implements OnInit,OnChanges,OnDestroy {
     return node;
   }
 
-  setParentNodeChecked(node:TreeNode, checkStatus:boolean):TreeNode {
-    console.log('node:', node);
-
-    node.selected = checkStatus;
+  setParentNodeChecked(node: TreeNode, checkStatus: boolean): TreeNode {
     if (node.parent) {
       node.parent.selected = checkStatus;
+      node.parent.partialSelected = true;
     }
     if (node.parent.parent) {
       node.parent.parent.selected = checkStatus;
+      node.parent.parent.partialSelected = true;
     }
     return node;
   }

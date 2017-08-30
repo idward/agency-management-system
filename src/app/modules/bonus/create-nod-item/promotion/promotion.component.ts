@@ -20,42 +20,42 @@ import {NodItem} from "../../../../model/nod/nodItem.model";
   styleUrls: ['./promotion.component.scss']
 })
 export class PromotionComponent implements OnInit {
-  nodItemCount:number = 0;
-  nodItemOptions:OptionItem[] = [];
-  selectedNodItem:string;
-  files:Observable<TreeNode[]>;
-  selectedFiles:TreeNode[];
-  tempCarsData:TreeNode[] = [];
-  display:boolean = false;
-  cars:TreeNode[] = [];
-  carTree:Observable<TreeNode[]>;
-  selectedCars:TreeNode[];
-  serviceTypes:OptionItem[];
-  serviceType:string;
-  selectedServiceType:string;
-  nod:Nod;
-  nodItem:Observable<NodItem []>;
-  isShowServiceType:boolean = false;
-  nodItemSubscription:Subscription;
-  carTreeSubscription:Subscription;
-  currentNodItem:NodItem;
-  parsedData:Object = {};
+  nodItemCount: number = 0;
+  nodItemOptions: OptionItem[] = [];
+  selectedNodItem: string;
+  files: Observable<TreeNode[]>;
+  selectedFiles: TreeNode[];
+  tempCarsData: TreeNode[] = [];
+  display: boolean = false;
+  cars: TreeNode[] = [];
+  carTree: Observable<TreeNode[]>;
+  selectedCars: TreeNode[];
+  serviceTypes: OptionItem[];
+  serviceType: string;
+  selectedServiceType: string;
+  nod: Nod;
+  nodItem: Observable<NodItem []>;
+  isShowServiceType: boolean = false;
+  nodItemSubscription: Subscription;
+  carTreeSubscription: Subscription;
+  currentNodItem: NodItem;
+  parsedData: Object = {};
 
   constructor(@Inject('BonusService') private _bonusService,
               @Inject('CarTreeService') private _carTreeService,
               @Inject(ConfirmationService) private _confirmService,
-              private store$:Store<any>, private _router:Router,
-              private _route:ActivatedRoute) {
+              private store$: Store<any>, private _router: Router,
+              private _route: ActivatedRoute) {
     const carTreeFilter$ = this.store$.select('carTreeFilter');
     const carDatasFilter$ = this.store$.select('carDatasFilter');
     const nodItemData$ = this.store$.select('nodItemDatas');
     const nodItemDataFilter$ = this.store$.select('nodItemDataFilter');
 
     this.nodItem = Observable.combineLatest(nodItemData$, nodItemDataFilter$,
-      (datas:NodItem[], filter:any) => datas.filter(filter));
+      (datas: NodItem[], filter: any) => datas.filter(filter));
 
     this.files = Observable.zip(nodItemData$, carDatasFilter$,
-      (datas:TreeNode[], filter:any) => {
+      (datas: TreeNode[], filter: any) => {
         if (this.currentNodItem.nodItem_type === 'PROMOTIONAL_RATIO') {
           return filter(this.currentNodItem.nodItem_data['promotional_ratio']);
         } else if (this.currentNodItem.nodItem_type === 'PROMOTIONAL_AMOUNT') {
@@ -66,7 +66,7 @@ export class PromotionComponent implements OnInit {
       });
 
     this.carTree = Observable.combineLatest(nodItemData$, carTreeFilter$,
-      (datas:TreeNode[], filter:any) => {
+      (datas: TreeNode[], filter: any) => {
         if (!_.isNil(this.currentNodItem)) {
           return filter(this.currentNodItem.nodItem_data['cartree_model']);
         }
@@ -111,7 +111,7 @@ export class PromotionComponent implements OnInit {
     this.isShowServiceType = true;
   }
 
-  chooseNodItem(data:any) {
+  chooseNodItem(data: any) {
     this.selectedNodItem = data;
     let currentNodItem = this.nod.nodList.filter(data => data.nodItem_id === this.selectedNodItem)[0];
     this.serviceType = currentNodItem.nodItem_type;
@@ -142,7 +142,7 @@ export class PromotionComponent implements OnInit {
     console.log('AAA:', this.selectedCars);
   }
 
-  getCommonData(data:any) {
+  getCommonData(data: any) {
     console.log(data);
     console.log('Data', this.currentNodItem);
 
@@ -153,7 +153,7 @@ export class PromotionComponent implements OnInit {
     this.store$.dispatch({type: 'UPDATE_NODEITEM', payload: this.currentNodItem});
   }
 
-  updateTotalAmount(data:any) {
+  updateTotalAmount(data: any) {
     this.store$.dispatch({type: 'UPDATE_NODEITEM', payload: data});
   }
 
@@ -177,7 +177,8 @@ export class PromotionComponent implements OnInit {
 
   saveDraft() {
     console.log('draft:', this.nod);
-    this._bonusService.saveNodInfo(this.nod);
+    this._bonusService.saveNodInfo(this.nod)
+      .subscribe(data => console.log(data));
   }
 
   previewAllItems() {
@@ -188,7 +189,7 @@ export class PromotionComponent implements OnInit {
 
   }
 
-  editCarCategory(evt:Event) {
+  editCarCategory(evt: Event) {
     if (evt['screenX'] === 0 && evt['screenY'] === 0) {
       return false;
     }
@@ -225,12 +226,13 @@ export class PromotionComponent implements OnInit {
       .subscribe(keyword => this.store$.dispatch({type: 'SEARCH_KEYWORDS', payload: keyword}));
   }
 
-  onHide(data:any) {
+  onHide(data: any) {
     this.display = false;
     this.selectedCars = data;
 
     if (this.selectedCars && this.selectedCars.length > 0) {
-      this.selectedCars = this.selectedCars.filter(data => data['selected'] === true);
+      let selectedCars = this.selectedCars.filter(data => data['selected'] === true);
+      this.selectedCars = _.uniq(selectedCars);
     }
     console.log('selectedCars:', this.selectedCars);
     this.store$.dispatch({type: 'CAR_SELECTED', payload: this.selectedCars});
@@ -247,7 +249,7 @@ export class PromotionComponent implements OnInit {
     this.store$.dispatch({type: 'UPDATE_NODEITEM', payload: this.currentNodItem});
   }
 
-  private createCarTree(data:TreeNode[]):TreeNode[] {
+  private createCarTree(data: TreeNode[]): TreeNode[] {
     var tempData = [];
     for (let i = 0; i < data.length; i++) {
       let car = this._createCarTree(data[i]);
@@ -256,7 +258,7 @@ export class PromotionComponent implements OnInit {
     return tempData;
   }
 
-  private _createCarTree(data:TreeNode):TreeNode {
+  private _createCarTree(data: TreeNode): TreeNode {
     let newData = {};
     if (data.children) {
       if (data.children.length > 0) {
@@ -271,7 +273,7 @@ export class PromotionComponent implements OnInit {
     return newData;
   }
 
-  private _errorHandle(err:any):Observable<any> {
+  private _errorHandle(err: any): Observable<any> {
     console.log('An error occured:' + err);
     return Observable.throw(err.message || err);
   }

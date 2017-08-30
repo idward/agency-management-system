@@ -3,13 +3,27 @@
                [paginator]="false" rows="15" [responsive]="true">
     <p-header>年度政策</p-header>
     <p-column field="rowNumber" header="行号" [editable]="true"></p-column>
-    <p-column field="bonusTypeCode" header="奖金类型编码" [editable]="true"></p-column>
-    <p-column field="bonusTypeDesc" header="奖金类型描述" [editable]="true"></p-column>
-    <p-column field="issueBasis" header="发放依据" [editable]="true"></p-column>
-    <p-column field="singleCarPoint" header="单车点数" [editable]="true"></p-column>
+    <p-column field="bonusTypeDesc" header="奖金类型描述" [editable]="true">
+      <ng-template let-col let-data="rowData" pTemplate="editor">
+        <p-dropdown [(ngModel)]="data[col.field]" [options]="bonusTypeDescription" [autoWidth]="false"
+                    [style]="{'width':'100%'}" required="true" appendTo="body"></p-dropdown>
+      </ng-template>
+    </p-column>
+    <p-column field="issueBasis" header="发放依据" [editable]="true">
+      <ng-template let-col let-data="rowData" pTemplate="editor">
+        <p-dropdown [(ngModel)]="data[col.field]" [options]="issueBasis" [autoWidth]="false"
+                    [style]="{'width':'100%'}" required="true" appendTo="body"></p-dropdown>
+      </ng-template>
+    </p-column>
+    <p-column field="carPoint" header="单车点数" [editable]="true"></p-column>
     <p-column field="totalAmount" header="总金额" [editable]="true"></p-column>
-    <p-column field="expiration" header="输入有效期" [editable]="true"></p-column>
-    <p-column field="remarks" header="备注" [editable]="true"></p-column>
+    <p-column field="expStartTime" header="输入开始有效期" [editable]="true">
+      <ng-template let-col let-data="rowData" pTemplate="editor">
+        <p-calendar [(ngModel)]="startTime"></p-calendar>
+      </ng-template>
+    </p-column>
+    <p-column field="expEndTime" header="输入结束有效期" [editable]="true"></p-column>
+    <p-column field="remark" header="备注" [editable]="true"></p-column>
     <p-footer>
       <div class="ui-helper-clearfix" style="width:100%">
         <button type="button" pButton icon="fa-plus" style="float:left"

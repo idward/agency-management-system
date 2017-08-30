@@ -1,7 +1,10 @@
 import {Component, OnInit} from '@angular/core';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms'
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
 import {subscribeOn} from "rxjs/operator/subscribeOn";
+import {OptionItem} from "../../../model/optionItem/optionItem.model";
+import {DEPTS, TYPES} from "../../../data/optionItem/optionItem.data";
 
 @Component({
   selector: 'app-db-setting',
@@ -9,43 +12,28 @@ import {subscribeOn} from "rxjs/operator/subscribeOn";
   styleUrls: ['./db-setting.component.scss']
 })
 export class DbSettingComponent implements OnInit {
+  selectedDep: any;
+  selectedType: any;
+  startTime: Date;
+  endTime: Date;
+  departments: OptionItem[];
+  createdTypes: OptionItem[];
+  dbSettingForm: FormGroup;
 
-  constructor() {
+  constructor(private _fb: FormBuilder) {
+    this.departments = DEPTS;
+    this.createdTypes = TYPES;
   }
 
   ngOnInit() {
-    // let todo = document.body.querySelector('#todo');
-    // let input$ = Observable.fromEvent(todo,'keyup').map(input => input['target'].value);
-    //
-    // let addBtn = document.body.querySelector('#addBtn');
-    // let buttonclick$ = Observable.fromEvent(addBtn,'click').mapTo('clicked');
-    //
-    // Observable.combineLatest(buttonclick$,input$,(ev,input) => {
-    //   return {ev:ev,input:input};
-    // }).subscribe(value => console.log(value));
-    //
-    // let greetings = ['Hello','How are you','How are you doing'];
-    // let time = 3000;
-    // let item$ = Observable.from(greetings);
-    // let interval$ = Observable.interval(time);
-    //
-    // Observable.zip(item$,interval$,(item,index) => {
-    //   return {item:item,index:index};
-    // }).subscribe(result => console.log('item: ' + result.item + ' index: '
-    //   + result.index + ' at ' + new Date()));
+    this.dbSettingForm = this._fb.group({
+      department: [null, Validators.required],
+      // createdType: ['', Validators.required]
+    });
+  }
 
-    //let a = document.body.querySelector('#a');
-    // let b = document.body.querySelector('#b');
-    // let result = document.body.querySelector('#r');
-    //
-    //let a$ = Observable.fromEvent(a, 'input').pluck('target', 'value');
-    // let b$ = Observable.fromEvent(b, 'input').pluck('target', 'value');
-    //
-    // let result$ = Observable.merge(a$, b$);
-    // result$.subscribe(value => result.innerHTML = value + '');
-    let source = Observable.timer(2000).mapTo('ggg');
-    source.subscribe(data => console.log('Next: ' + data));
-
+  toNodMainPage(formValue: Object) {
+    console.log(formValue);
   }
 
 }
