@@ -1,45 +1,42 @@
 <div class="bonus_setting_page">
-  <form formGroup="dbSettingForm" novalidate>
+  <form [formGroup]="dbSettingForm" (submit)="toNodMainPage(dbSettingForm.value)" novalidate>
     <div class="form-group">
       <label for="department">使用部门:</label>
       <p-dropdown id="department" [style]="{'width':'70%'}" [options]="departments" formControlName="department"
                   [(ngModel)]="selectedDep" placeholder="请选择部门" required></p-dropdown>
-      <!--<div class="errorInfo" *ngIf="!dbSettingForm.controls['department'].valid-->
-      <!--&& dbSettingForm.controls['department'].dirty">-->
-        <!--<div class="ui-message ui-messages-error ui-corner-all ui-error">-->
-          <!--<i class="fa fa-close"></i>-->
-          <!--使用部门选项必须选择-->
-        <!--</div>-->
-      <!--</div>-->
+      <div class="errorInfo" *ngIf="!dbSettingForm.controls['department'].valid
+      && dbSettingForm.controls['department'].dirty">
+        <div class="ui-message ui-messages-error ui-corner-all ui-error">
+          <i class="fa fa-close"></i>
+          使用部门选项必须选择
+        </div>
+      </div>
     </div>
-    <!--<div class="form-group">-->
-      <!--<label for="createdType">创建类型:</label>-->
-      <!--<p-dropdown id="createdType" [style]="{'width':'70%'}" [options]="createdTypes" formControlName="createdType"-->
-                  <!--[(ngModel)]="selectedType" placeholder="请选择创建类型"></p-dropdown>-->
-      <!--<div class="errorInfo" *ngIf="!dbSettingForm.controls['createdType'].valid-->
-      <!--&& dbSettingForm.controls['createdType'].dirty">-->
-        <!--<div class="ui-message ui-messages-error ui-corner-all ui-error">-->
-          <!--<i class="fa fa-close"></i>-->
-          <!--创建类型选项必须选择-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
-
-    <!--<div class="form-group">-->
-      <!--<label for="year">期间:</label>-->
-      <!--<p-calendar></p-calendar>-->
-      <!--<p-calendar></p-calendar>-->
-    <!--</div>-->
-
-    <!--<div class="form-group">-->
-      <!--<label>NOD号:</label>-->
-      <!--<button pButton label="添加NOD号"></button>-->
-    <!--</div>-->
-    <!--<div class="form-group">-->
-      <!--<label>DB号:</label>-->
-      <!--<button pButton label="添加DB号"></button>-->
-    <!--</div>-->
-
-    <!--<button pButton type="submit" label="下一步"></button>-->
+    <div class="form-group">
+      <label for="createdType">创建类型:</label>
+      <p-dropdown id="createdType" [style]="{'width':'70%'}" [options]="createdTypes" formControlName="createdType"
+                  [(ngModel)]="selectedType" placeholder="请选择创建类型"></p-dropdown>
+      <div class="errorInfo" *ngIf="!dbSettingForm.controls['createdType'].valid
+      && dbSettingForm.controls['createdType'].dirty">
+        <div class="ui-message ui-messages-error ui-corner-all ui-error">
+          <i class="fa fa-close"></i>
+          创建类型选项必须选择
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>期间:</label>
+      <p-calendar [(ngModel)]="startTime" formControlName="startTime"></p-calendar>
+      <p-calendar [(ngModel)]="endTime" formControlName="endTime"></p-calendar>
+    </div>
+    <div class="form-group">
+      <label>NOD号:</label>
+      <button class="btn" type="button" pButton (click)="addNodNumber()" label="添加NOD号"></button>
+    </div>
+    <div class="form-group">
+      <label>DB号:</label>
+      <button class="btn" type="button" pButton (click)="addDBNumber()" label="添加DB号"></button>
+    </div>
+    <button pButton type="submit" [disabled]="!dbSettingForm.valid" label="下一步"></button>
   </form>
 </div>

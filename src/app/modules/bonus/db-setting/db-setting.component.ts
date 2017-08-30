@@ -12,28 +12,40 @@ import {DEPTS, TYPES} from "../../../data/optionItem/optionItem.data";
   styleUrls: ['./db-setting.component.scss']
 })
 export class DbSettingComponent implements OnInit {
-  selectedDep: any;
-  selectedType: any;
-  startTime: Date;
-  endTime: Date;
-  departments: OptionItem[];
-  createdTypes: OptionItem[];
-  dbSettingForm: FormGroup;
+  selectedDep:any;
+  selectedType:any;
+  startTime:Date;
+  endTime:Date;
+  departments:OptionItem[];
+  createdTypes:OptionItem[];
+  dbSettingForm:FormGroup;
 
-  constructor(private _fb: FormBuilder) {
+  constructor(private _fb:FormBuilder) {
     this.departments = DEPTS;
     this.createdTypes = TYPES;
-  }
 
-  ngOnInit() {
     this.dbSettingForm = this._fb.group({
-      department: [null, Validators.required],
-      // createdType: ['', Validators.required]
+      department: ['', Validators.required],
+      createdType: ['', Validators.required],
+      startTime: [''],
+      endTime: ['']
     });
   }
 
-  toNodMainPage(formValue: Object) {
+  ngOnInit() {
+
+  }
+
+  toNodMainPage(formValue:Object) {
     console.log(formValue);
+  }
+
+  addNodNumber(){
+    console.log('addNodNumber...');
+  }
+
+  addDBNumber(){
+    console.log('addDBNumber...');
   }
 
 }
