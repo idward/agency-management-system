@@ -51,11 +51,13 @@
 
     <div class="search">
       <input id="nodSearch" type="text" size="30" pInputText [placeholder]="placeholder"
-            (focus)="onFocus()" (blur)="onBlur()"  [(ngModel)]="nodSearchText">
+             (focus)="onFocus()" (blur)="onBlur()" [(ngModel)]="nodSearchText">
     </div>
 
     <div class="search_content">
-      <p-dataTable [value]="nodSearchedDatas | async" [(selection)]="selectedNod" scrollable="true" scrollHeight="200px">
+      <p-dataTable [value]="nodSearchedDatas | async" [(selection)]="selectedNod" scrollable="true"
+                   (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)"
+                   scrollHeight="200px">
         <p-column [style]="{'width':'50px'}" selectionMode="multiple"></p-column>
         <p-column field="nodNumber" [style]="{width:'150px'}" header="NOD号"></p-column>
         <p-column field="description" header="描述"></p-column>

@@ -1,4 +1,5 @@
-import {Component, Inject, OnInit} from '@angular/core';
+///<reference path="../../../../../node_modules/@angular/core/src/metadata/lifecycle_hooks.d.ts"/>
+import {Component, Inject, OnInit, OnChanges} from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms'
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
@@ -14,23 +15,23 @@ import {NodSHData} from "../../../model/nod/nod.model";
   templateUrl: './db-setting.component.html',
   styleUrls: ['./db-setting.component.scss']
 })
-export class DbSettingComponent implements OnInit {
-  selectedDep: any;
-  selectedType: any;
-  startTime: Date;
-  endTime: Date;
-  departments: OptionItem[];
-  createdTypes: OptionItem[];
-  dbSettingForm: FormGroup;
-  display: boolean = false;
-  nodSearchText: string;
-  placeholder: string;
-  nodSearchedDatas: Observable<any>;
+export class DbSettingComponent implements OnInit, OnChanges {
+  selectedDep:any;
+  selectedType:any;
+  startTime:Date;
+  endTime:Date;
+  departments:OptionItem[];
+  createdTypes:OptionItem[];
+  dbSettingForm:FormGroup;
+  display:boolean = false;
+  nodSearchText:string;
+  placeholder:string;
+  nodSearchedDatas:Observable<any>;
   nodDatas:NodSHData[] = [];
   nodDataSubscription:Subscription;
   selectedNod:any;
 
-  constructor(private _fb: FormBuilder, private store$: Store<any>,
+  constructor(private _fb:FormBuilder, private store$:Store<any>,
               @Inject('BonusService') private _bonusService) {
     this.departments = DEPTS;
     this.createdTypes = TYPES;
@@ -46,19 +47,23 @@ export class DbSettingComponent implements OnInit {
     const nodDataFilter$ = this.store$.select('nodDatasFilter');
 
     this.nodSearchedDatas = Observable.combineLatest(nodData$, nodDataFilter$,
-      (datas: any, filter: any) => datas.filter(filter));
+      (datas:any, filter:any) => datas.filter(filter));
 
   }
 
   ngOnInit() {
     this.placeholder = '请输入NOD号或者描述来查询...';
 
-    if(!this.nodDataSubscription){
+    if (!this.nodDataSubscription) {
       this.nodDataSubscription = this.nodSearchedDatas.subscribe(data => {
         console.log('nodSearchedData:', data);
         this.nodDatas = data;
       });
     }
+  }
+
+  ngOnChanges() {
+    console.log('fdasfas');
   }
 
   onFocus() {
@@ -71,19 +76,36 @@ export class DbSettingComponent implements OnInit {
     }
   }
 
-  toNodMainPage(formValue: Object) {
+  onRowSelect(data:any){
+    console.log(data.data);
+  }
+
+  onRowUnselect(data:any){
+    console.log(data.data);
+  }
+
+  toNodMainPage(formValue:Object) {
     console.log(formValue);
   }
 
   addNodNumber() {
     this.display = true;
 
-    if(this.nodDatas && this.nodDatas.length === 0){
+    if (this.nodDatas && this.nodDatas.length === 0) {
       this._bonusService.getNodSearchedDatas()
         .subscribe(nodDatas => {
           this.store$.dispatch({type: 'GET_NODSEARCHEDDATA', payload: nodDatas});
         });
     }
+
+    Observable.fromEvent(document.body.querySelector('#nodSearch'), 'keyup')
+      .map(event => event['target'].value)
+      .debounceTime(500)
+      .distinctUntilChanged()
+      .subscribe(keyword => {
+        console.log(keyword);
+        this.store$.dispatch({type: 'NOD_SEARCH', payload: keyword});
+      });
   }
 
   addDBNumber() {
