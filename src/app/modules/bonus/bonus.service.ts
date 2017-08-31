@@ -3,16 +3,17 @@ import {Http, Headers, RequestOptions} from '@angular/http';
 import {UUID} from 'angular2-uuid';
 import {NodItem} from "../../model/nod/nodItem.model";
 import {ReplaySubject, Observable} from "rxjs/Rx";
-import {Nod} from "../../model/nod/nod.model";
+import {Nod, NodSHData} from "../../model/nod/nod.model";
 
 @Injectable()
 export class BonusService {
   parsedData: ReplaySubject<any> = new ReplaySubject<any>();
-  // private _url: string = 'http://localhost:3000/api';
-  private _url: string = 'http://localhost:8081/service/rest/rewardNod/saveNodInfo';
-  // private _headers = new Headers({
-  //   'Content-Type': 'application/x-www-form-urlencoded'
-  // });
+  private _url: string = 'http://localhost:3000/nod';
+  // private _url: string = 'http://localhost:8081/service/rest/rewardNod/saveNodInfo';
+  private _headers = new Headers({
+    'Content-Type': 'application/json'
+  });
+  private _options = new RequestOptions({headers: this._headers});
 
   constructor(private _http: Http) {
   }
@@ -29,9 +30,9 @@ export class BonusService {
     let nodData = this.transformData(data);
     console.log('data:', nodData);
     let body = JSON.stringify(nodData);
-    let headers = new Headers({'Content-Type': 'application/json'});
-    let options = new RequestOptions({headers: headers});
-    return this._http.post(this._url, body, options)
+    // let headers = new Headers({'Content-Type': 'application/json'});
+    // let options = new RequestOptions({headers: headers});
+    return this._http.post(this._url, body, this._options)
       .catch(this._handleError);
   }
 
@@ -46,6 +47,7 @@ export class BonusService {
     nod['description'] = data['desc'];
     nod['useDepartment'] = data['department'];
     nod['nodYear'] = data['nodYear'];
+    nod['businessType'] = 1;
     nod['nodState'] = 1;
     for (let i = 0; i < data.nodList.length; i++) {
       let nodItem = {}, nodItemCash = [], nodItemNoCash = [];
@@ -61,12 +63,12 @@ export class BonusService {
       if (data.nodList[i]['nodItem_data']['saved_promotional_ratio']) {
         let spr = data.nodList[i]['nodItem_data']['saved_promotional_ratio'];
         for (let j = 0; j < spr.length; j++) {
-          let brandName = spr[i].data.name;
+          let brandName = spr[j].data.name;
           // let first = this.buildCashBo(nodItem['nodBaseItemNumber'], spr[i]);
           // nodItemCash.push(first.cashBo);
           // nodItemNoCash.push(first.noCashBo);
-          if (spr[i].children) {
-            let sChild = spr[i].children;
+          if (spr[j].children) {
+            let sChild = spr[j].children;
             for (let k = 0; k < sChild.length; k++) {
               let carSeries = sChild[k].data.name;
               // let second = this.buildCashBo(nodItem['nodBaseItemNumber'], sChild[k]);
@@ -75,7 +77,7 @@ export class BonusService {
               if (sChild[k].children) {
                 let ssChild = sChild[k].children;
                 for (let h = 0; h < ssChild.length; h++) {
-                  let third = this.buildCashBo(brandName,carSeries,nodItem['nodBaseItemNumber'],ssChild[h]);
+                  let third = this.buildPromotionRatio(brandName, carSeries, nodItem['nodBaseItemNumber'], ssChild[h]);
                   nodItemCash.push(third.cashBo);
                   nodItemNoCash.push(third.noCashBo);
                 }
@@ -87,29 +89,24 @@ export class BonusService {
       if (data.nodList[i]['nodItem_data']['saved_promotional_amount']) {
         let noCashBo = {};
         let spa = data.nodList[i]['nodItem_data']['saved_promotional_amount'];
-        noCashBo['nodItemNoncashTypeBO'] = [];
-        if (spa[0].financial_total_amount) {
-          noCashBo['nodItemNoncashTypeBO'].push({
-            'noncashType': 1,
-            'amount': spa[0].financial_total_amount,
-            'isPromotionAmount': spa[0].financial_total_amount_check ? 'YES' : 'NO'
-          });
+
+        for (let j = 0; j < spa.length; j++) {
+          let brandName = spa[j].data.name;
+          if (spa[j].children) {
+            let sChild = spa[j].children;
+            for (let k = 0; k < sChild.length; k++) {
+              let carSeries = sChild[k].data.name;
+              if (sChild[k].children) {
+                let ssChild = sChild[k].children;
+                for (let h = 0; h < ssChild.length; h++) {
+                  let third = this.buildPromotionAmount(brandName, carSeries, nodItem['nodBaseItemNumber'], ssChild[h]);
+                  nodItemCash.push(third.cashBo);
+                  nodItemNoCash.push(third.noCashBo);
+                }
+              }
+            }
+          }
         }
-        if (spa[0].replacement_total_amount) {
-          noCashBo['nodItemNoncashTypeBO'].push({
-            'noncashType': 3,
-            'amount': spa[0].replacement_total_amount,
-            'isPromotionAmount': spa[0].replacement_total_amount_check ? 'YES' : 'NO'
-          });
-        }
-        if (spa[0].insurance_total_amount) {
-          noCashBo['nodItemNoncashTypeBO'].push({
-            'noncashType': 2,
-            'amount': spa[0].insurance_total_amount,
-            'isPromotionAmount': spa[0].insurance_total_amount_check ? 'YES' : 'NO'
-          });
-        }
-        nodItemNoCash.push(noCashBo);
         nodItem['cashTotalAmount'] = spa[0].cash_total_amount;
         nodItem['noncashTotalAmount'] = spa[0].nocash_total_amount;
       }
@@ -124,7 +121,47 @@ export class BonusService {
     return nod;
   }
 
-  buildCashBo(brandName:string,carSeries:string,nodItemNo: string, node: any): any {
+  buildPromotionAmount(brandName: string, carSeries: string, nodItemNo: string, node: any): any {
+    let cashBo = {}, noCashBo = {};
+    cashBo['carBrand'] = brandName;
+    cashBo['carSeries'] = carSeries;
+    cashBo['nodItemNumber'] = nodItemNo;
+    cashBo['financialDescription'] = node.data.name;
+    cashBo['msrp'] = node.data.msrp;
+
+    noCashBo['carBrand'] = brandName;
+    noCashBo['carSeries'] = carSeries;
+    noCashBo['nodItemNumber'] = nodItemNo;
+    noCashBo['financialDescription'] = node.data.name;
+    noCashBo['msrp'] = node.data.msrp;
+    noCashBo['nodItemNoncashTypeBO'] = [];
+
+    if (node.parent.parent.financial_total_amount) {
+      noCashBo['nodItemNoncashTypeBO'].push({
+        'noncashType': 1,
+        'amount': node.parent.parent.financial_total_amount,
+        'isPromotionAmount': node.parent.parent.financial_total_amount_check ? 'YES' : 'NO'
+      });
+    }
+    if (node.parent.parent.replacement_total_amount) {
+      noCashBo['nodItemNoncashTypeBO'].push({
+        'noncashType': 3,
+        'amount': node.parent.parent.replacement_total_amount,
+        'isPromotionAmount': node.parent.parent.replacement_total_amount_check ? 'YES' : 'NO'
+      });
+    }
+    if (node.parent.parent.insurance_total_amount) {
+      noCashBo['nodItemNoncashTypeBO'].push({
+        'noncashType': 2,
+        'amount': node.parent.parent.insurance_total_amount,
+        'isPromotionAmount': node.parent.parent.insurance_total_amount_check ? 'YES' : 'NO'
+      });
+    }
+
+    return {cashBo, noCashBo};
+  }
+
+  buildPromotionRatio(brandName: string, carSeries: string, nodItemNo: string, node: any): any {
     let cashBo = {}, noCashBo = {};
     cashBo['carBrand'] = brandName;
     cashBo['carSeries'] = carSeries;
@@ -202,6 +239,12 @@ export class BonusService {
       nodItem = new NodItem(nodItem_id, serviceType, nodItemData);
     }
     return nodItem;
+  }
+
+  getNodSearchedDatas(): Observable<NodSHData[]> {
+    return this._http.get(this._url, this._options)
+      .map(data => data.json() as NodSHData[])
+      .catch(this._handleError);
   }
 
 }

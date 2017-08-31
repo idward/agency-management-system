@@ -21,8 +21,18 @@
     margin-top: 20px;
   }
 
+  button[type=submit]{
+    width: 47%;
+    margin-top: 20px;
+  }
+
   .btn {
-    width: 70%;
+    width: 60%;
+    margin-top: 0;
+  }
+
+  .preview {
+    width: 8%;
     margin-top: 0;
   }
 
@@ -34,5 +44,21 @@
 
   .ui-error {
     width: 300px;
+  }
+
+  .nodSearch {
+    .header {
+      float: left;
+      font-size: 14px;
+    }
+
+    .search_content {
+      margin-top: 20px;
+      text-align: center;
+
+      button {
+        width: 30%;
+      }
+    }
   }
 }

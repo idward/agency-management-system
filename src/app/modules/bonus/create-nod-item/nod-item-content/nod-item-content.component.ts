@@ -99,8 +99,11 @@ export class NodItemContentComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   onChangeValue(node: any, nodeName: string, type: string): any {
-    console.log('node:', node);
+    let that = this;
     let result;
+    setTimeout(function () {
+      that.ngOnChanges();
+    })
     if (type === 'RATIO') {
       result = Number(node.data[nodeName]).toFixed(2);
       let jine = nodeName.slice(0, nodeName.indexOf('_')) + '_jine';

@@ -10,6 +10,7 @@ import {carsFilterReducer, carsReducer} from "./reducers/cars.reducer";
 import {carTreeReducer, carTreeFilterReducer} from './reducers/cars-tree.reducer';
 import {nodItemFilterReducer, nodItemReducer} from "./reducers/nodItem.reducer";
 import {AnnualPolicyReducer} from "./reducers/annual-policy.reducer";
+import {NodDataFilterReducer, NodDataReducer} from "./reducers/nodData.reducer";
 
 import {AppRoutesModule} from "./route/app.routing.module";
 import {BonusModule} from "./modules/bonus/bonus.module";
@@ -20,6 +21,7 @@ import {FooterComponent} from "./template/footer/footer.component";
 import {SidebarComponent} from "./template/sidebar/sidebar.component";
 import {MenuListComponent} from "./template/sidebar/menu-list/menu-list.component";
 import {MenuItemComponent} from "./template/sidebar/menu-item/menu-item.component";
+
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import {MenuItemComponent} from "./template/sidebar/menu-item/menu-item.componen
       carDatasFilter: carsFilterReducer,
       nodItemDatas: nodItemReducer,
       nodItemDataFilter: nodItemFilterReducer,
-      annualPolicyDatas: AnnualPolicyReducer
+      annualPolicyDatas: AnnualPolicyReducer,
+      nodDatas: NodDataReducer,
+      nodDatasFilter: NodDataFilterReducer
     }),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     BonusModule

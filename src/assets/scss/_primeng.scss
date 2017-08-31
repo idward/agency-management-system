@@ -109,8 +109,16 @@
 }
 
 .bonus_setting_page {
-  .ui-inputtext {
-    width: 135px;
+  .calendar {
+    .ui-inputtext {
+      width: 135px;
+    }
+  }
+
+  .nodSearch {
+    .ui-dialog .ui-dialog-titlebar-close {
+      padding: 0;
+    }
   }
 }
 

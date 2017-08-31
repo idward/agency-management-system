@@ -26,17 +26,43 @@
     </div>
     <div class="form-group">
       <label>期间:</label>
-      <p-calendar [(ngModel)]="startTime" formControlName="startTime"></p-calendar>
-      <p-calendar [(ngModel)]="endTime" formControlName="endTime"></p-calendar>
+      <p-calendar class="calendar" [(ngModel)]="startTime" formControlName="startTime"></p-calendar>
+      <p-calendar class="calendar" [(ngModel)]="endTime" formControlName="endTime"></p-calendar>
     </div>
     <div class="form-group">
       <label>NOD号:</label>
       <button class="btn" type="button" pButton (click)="addNodNumber()" label="添加NOD号"></button>
+      <button class="preview" type="button" pButton icon="fa fa-file-text-o" (click)="addNodNumber()"></button>
     </div>
     <div class="form-group">
       <label>DB号:</label>
       <button class="btn" type="button" pButton (click)="addDBNumber()" label="添加DB号"></button>
+      <button class="preview" type="button" pButton icon="fa fa-file-text-o" (click)="addNodNumber()"></button>
     </div>
-    <button pButton type="submit" [disabled]="!dbSettingForm.valid" label="下一步"></button>
+    <button pButton type="submit" [disabled]="!dbSettingForm.valid" label="合并"></button>
+    <button pButton type="submit" [disabled]="!dbSettingForm.valid" label="不合并"></button>
   </form>
+
+  <p-dialog class="nodSearch" [modal]="true" [draggable]="false" [(visible)]="display"
+            [closable]="true" [width]="500">
+    <p-header>
+      <div class="header">NOD搜索</div>
+    </p-header>
+
+    <div class="search">
+      <input id="nodSearch" type="text" size="30" pInputText [placeholder]="placeholder"
+            (focus)="onFocus()" (blur)="onBlur()"  [(ngModel)]="nodSearchText">
+    </div>
+
+    <div class="search_content">
+      <p-dataTable [value]="nodSearchedDatas | async" [(selection)]="selectedNod" scrollable="true" scrollHeight="200px">
+        <p-column [style]="{'width':'50px'}" selectionMode="multiple"></p-column>
+        <p-column field="nodNumber" [style]="{width:'150px'}" header="NOD号"></p-column>
+        <p-column field="description" header="描述"></p-column>
+      </p-dataTable>
+
+      <button pButton type="button" label="添加"></button>
+    </div>
+
+  </p-dialog>
 </div>

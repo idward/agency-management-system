@@ -176,7 +176,6 @@ export class PromotionComponent implements OnInit {
   }
 
   saveDraft() {
-    console.log('draft:', this.nod);
     this._bonusService.saveNodInfo(this.nod)
       .subscribe(data => console.log(data));
   }
