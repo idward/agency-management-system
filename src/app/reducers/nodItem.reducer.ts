@@ -18,6 +18,8 @@ export function nodItemReducer(state: NodItem[] = [], action: Action) {
       return state.filter(data => {
         return data.nodItem_id !== action.payload;
       });
+    case 'EMPTY_ALL_NODITEMS':
+      return state = [];
     default:
       return state;
   }

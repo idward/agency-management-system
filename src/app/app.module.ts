@@ -22,7 +22,6 @@ import {SidebarComponent} from "./template/sidebar/sidebar.component";
 import {MenuListComponent} from "./template/sidebar/menu-list/menu-list.component";
 import {MenuItemComponent} from "./template/sidebar/menu-item/menu-item.component";
 
-
 @NgModule({
   declarations: [
     AppComponent,

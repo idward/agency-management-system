@@ -11,15 +11,19 @@ import {ConfirmDialogModule, ConfirmationService} from 'primeng/primeng';
 import {BonusMainComponent} from './bonus-main/bonus-main.component';
 import {NodSettingComponent} from './nod-setting/nod-setting.component';
 import {CreateNodItemComponent} from './create-nod-item/create-nod-item.component';
-import {PromotionComponent} from './create-nod-item/promotion/promotion.component';
-import {AnnualPolicyComponent} from './create-nod-item/annual-policy/annual-policy.component';
+import {NodPromotionComponent} from './create-nod-item/promotion/promotion.component';
+import {NodAnnualPolicyComponent} from './create-nod-item/annual-policy/annual-policy.component';
 import {DbSettingComponent} from './db-setting/db-setting.component';
 import {NodItemHeaderComponent} from './create-nod-item/nod-item-header/nod-item-header.component';
 import {NodItemContentComponent} from './create-nod-item/nod-item-content/nod-item-content.component';
+import {CreateDbItemComponent} from './create-db-item/create-db-item.component';
+import {DBPromotionComponent} from "./create-db-item/promotion/promotion.component";
+import {DBAnnualPolicyComponent} from './create-db-item/annual-policy/annual-policy.component';
 
 import {BonusRoutesModule} from "./bonus.routing.module";
 import {BonusService} from "./bonus.service";
 import {CarTreeService} from "./car-tree.service";
+import {OrderModule} from 'ngx-order-pipe';
 
 
 @NgModule({
@@ -40,17 +44,21 @@ import {CarTreeService} from "./car-tree.service";
     SharedModule,
     DialogModule,
     ConfirmDialogModule,
-    DataTableModule
+    DataTableModule,
+    OrderModule
   ],
   declarations: [
     NodSettingComponent,
     BonusMainComponent,
     CreateNodItemComponent,
     DbSettingComponent,
-    PromotionComponent,
-    AnnualPolicyComponent,
+    NodPromotionComponent,
+    NodAnnualPolicyComponent,
     NodItemHeaderComponent,
     NodItemContentComponent,
+    CreateDbItemComponent,
+    DBPromotionComponent,
+    DBAnnualPolicyComponent
   ],
   providers: [
     {provide: 'BonusService', useClass: BonusService},

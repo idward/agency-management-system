@@ -252,10 +252,10 @@ export class NodItemContentComponent implements OnInit, OnChanges, OnDestroy {
     if (node.parent) {
       node.parent.selected = checkStatus;
       node.parent.partialSelected = true;
-    }
-    if (node.parent.parent) {
-      node.parent.parent.selected = checkStatus;
-      node.parent.parent.partialSelected = true;
+      if(node.parent.parent){
+        node.parent.parent.selected = checkStatus;
+        node.parent.parent.partialSelected = true;
+      }
     }
     return node;
   }

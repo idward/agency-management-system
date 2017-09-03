@@ -1,5 +1,5 @@
 <div class="bonus_setting_page">
-  <form [formGroup]="dbSettingForm" (submit)="toNodMainPage(dbSettingForm.value)" novalidate>
+  <form [formGroup]="dbSettingForm" (submit)="toNodMainPage(dbSettingForm.value,isCombination)" novalidate>
     <div class="form-group">
       <label for="department">使用部门:</label>
       <p-dropdown id="department" [style]="{'width':'70%'}" [options]="departments" formControlName="department"
@@ -31,19 +31,19 @@
     </div>
     <div class="form-group">
       <label>NOD号:</label>
-      <button class="btn" type="button" pButton (click)="addNodNumber()" label="添加NOD号"></button>
-      <button class="preview" type="button" pButton icon="fa fa-file-text-o" (click)="addNodNumber()"></button>
+      <button class="btn" type="button" pButton (click)="searchNodNumber()" label="添加NOD号"></button>
+      <button class="preview" type="button" pButton icon="fa fa-file-text-o" (click)="showSearchedDataList()"></button>
     </div>
     <div class="form-group">
       <label>DB号:</label>
-      <button class="btn" type="button" pButton (click)="addDBNumber()" label="添加DB号"></button>
-      <button class="preview" type="button" pButton icon="fa fa-file-text-o" (click)="addNodNumber()"></button>
+      <button class="btn" type="button" pButton (click)="searchDBNumber()" label="添加DB号"></button>
+      <button class="preview" type="button" pButton icon="fa fa-file-text-o" (click)="showSearchedDataList()"></button>
     </div>
-    <button pButton type="submit" [disabled]="!dbSettingForm.valid" label="合并"></button>
-    <button pButton type="submit" [disabled]="!dbSettingForm.valid" label="不合并"></button>
+    <button pButton type="submit" [disabled]="!dbSettingForm.valid" label="合并" (click)="combinationValue(1)"></button>
+    <button pButton type="submit" [disabled]="!dbSettingForm.valid" label="不合并" (click)="combinationValue(0)"></button>
   </form>
 
-  <p-dialog class="nodSearch" [modal]="true" [draggable]="false" [(visible)]="display"
+  <p-dialog class="nodSearch" [modal]="true" [draggable]="false" [(visible)]="nodSearchDialog"
             [closable]="true" [width]="500">
     <p-header>
       <div class="header">NOD搜索</div>
@@ -63,8 +63,39 @@
         <p-column field="description" header="描述"></p-column>
       </p-dataTable>
 
-      <button pButton type="button" label="添加"></button>
+      <button pButton type="button" [disabled]="selectedNod === undefined || selectedNod?.length === 0"
+              (click)="addNodSearchedData()" label="添加"></button>
     </div>
+  </p-dialog>
 
+  <p-dialog class="datalist" [modal]="true" [draggable]="false" [(visible)]="dataListDialog"
+            [closable]="true" [width]="500">
+    <p-header>
+      <div class="header">添加详情清单</div>
+    </p-header>
+
+    <div class="content">
+      <h4>NOD号</h4>
+      <div *ngIf="searchedNODDataList === undefined || searchedNODDataList?.length === 0">
+        暂无数据
+      </div>
+      <div *ngIf="searchedNODDataList?.length > 0">
+        <p *ngFor="let nod of searchedNODDataList | orderBy:'nodNumber';let i = index">
+          <span>{{nod.nodNumber}} : {{nod.description}}</span>
+          <span class="delete_icon" (click)="delNodSearchedDatas(i)"></span>
+        </p>
+      </div>
+    </div>
+    <div class="content">
+      <h4>DB号</h4>
+      <div *ngIf="searchedDBDataList === undefined || searchedDBDataList?.length === 0">
+        暂无数据
+      </div>
+      <div *ngIf="searchedDBDataList?.length > 0">
+        <p *ngFor="let db of searchedDBDataList">
+          <span>{{db.nodNumber}} : {{db.description}}</span>
+        </p>
+      </div>
+    </div>
   </p-dialog>
 </div>

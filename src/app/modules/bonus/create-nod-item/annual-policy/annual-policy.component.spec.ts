@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AnnualPolicyComponent } from './annual-policy.component';
+import { NodAnnualPolicyComponent } from './annual-policy.component';
 
 describe('AnnualPolicyComponent', () => {
-  let component: AnnualPolicyComponent;
-  let fixture: ComponentFixture<AnnualPolicyComponent>;
+  let component: NodAnnualPolicyComponent;
+  let fixture: ComponentFixture<NodAnnualPolicyComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AnnualPolicyComponent ]
+      declarations: [ NodAnnualPolicyComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AnnualPolicyComponent);
+    fixture = TestBed.createComponent(NodAnnualPolicyComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

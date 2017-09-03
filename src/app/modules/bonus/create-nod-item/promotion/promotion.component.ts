@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 
 import {ConfirmationService, TreeNode} from 'primeng/primeng';
@@ -19,7 +19,7 @@ import {NodItem} from "../../../../model/nod/nodItem.model";
   templateUrl: './promotion.component.html',
   styleUrls: ['./promotion.component.scss']
 })
-export class PromotionComponent implements OnInit {
+export class NodPromotionComponent implements OnInit, OnDestroy {
   nodItemCount: number = 0;
   nodItemOptions: OptionItem[] = [];
   selectedNodItem: string;
@@ -73,7 +73,7 @@ export class PromotionComponent implements OnInit {
       });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this._bonusService.getData().subscribe(data => this.parsedData = data);
 
     this.serviceTypes = SERVICETYPES;
@@ -102,9 +102,12 @@ export class PromotionComponent implements OnInit {
         } else {
           this.cars = [];
         }
-        console.log('cars:', this.cars);
       });
     }
+  }
+
+  ngOnDestroy(): void {
+    this.store$.dispatch({type:'EMPTY_ALL_NODITEMS'});
   }
 
   chooseServiceType() {
@@ -139,11 +142,9 @@ export class PromotionComponent implements OnInit {
     this.store$.dispatch({type: 'CREATE_NODITEM', payload: nodItemData});
     this.selectedServiceType = undefined;
     this.selectedCars = undefined;
-    console.log('AAA:', this.selectedCars);
   }
 
   getCommonData(data: any) {
-    console.log(data);
     console.log('Data', this.currentNodItem);
 
     let oldData = this.currentNodItem.nodItem_data['setting_condition'];

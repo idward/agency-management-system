@@ -10,7 +10,7 @@ import {BONUSTYPEDESC ,ISSUEBASIS} from "../../../../data/optionItem/optionItem.
   templateUrl: './annual-policy.component.html',
   styleUrls: ['./annual-policy.component.scss']
 })
-export class AnnualPolicyComponent implements OnInit {
+export class NodAnnualPolicyComponent implements OnInit {
   datas: Observable<AnnualPolicy[]>;
   bonusTypeDescription: OptionItem[];
   issueBasis:OptionItem[];
