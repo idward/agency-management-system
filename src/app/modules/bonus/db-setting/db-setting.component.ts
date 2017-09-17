@@ -36,7 +36,7 @@ export class DbSettingComponent implements OnInit, OnChanges {
   dataListDialog: boolean = false;
   searchedNODDataList: NodSHData[] = [];
   searchedDBDataList: any;
-  isCombination:number = 0;
+  isCombination: number = 0;
 
   constructor(private _fb: FormBuilder, private store$: Store<any>,
               @Inject('BonusService') private _bonusService,
@@ -64,14 +64,12 @@ export class DbSettingComponent implements OnInit, OnChanges {
 
     if (!this.nodDataSubscription) {
       this.nodDataSubscription = this.nodSearchedDatas.subscribe(data => {
-        console.log('nodSearchedData:', data);
         this.nodDatas = data;
       });
     }
   }
 
   ngOnChanges() {
-    console.log('fdasfas');
   }
 
   onFocus() {
@@ -88,34 +86,42 @@ export class DbSettingComponent implements OnInit, OnChanges {
   }
 
   onRowUnselect(data: any) {
-    console.log(data.data);
   }
 
-  combinationValue(value:number){
+  combinationValue(value: number) {
     this.isCombination = value;
   }
 
   toNodMainPage(formValue: Object, isCombination) {
-    console.log(formValue);
     let parsedData = formValue;
     parsedData['isCombination'] = this.isCombination;
     let createdType = formValue['createdType'];
-    //this._bonusService.sendData(parsedData);
     let dbId = UUID.UUID().split('-')[0];
     if (createdType === 'PROMOTION') {
+      let serviceType = 0;
+      let seletedNodIds = this.selectedNod.map(data => {
+        return data.nodBaseInfoId;
+      })
+      let params = {
+        bonus_type:serviceType,
+        combination_type:this.isCombination,
+        selectedNodIds:seletedNodIds
+      }
+      this._bonusService.sendData(params);
       this._router.navigate(['bonus/create-db/promotion', dbId]);
     } else if (createdType === 'ANNUAL_POLICY') {
+      let serviceType = 1;
       this._router.navigate(['bonus/create-db/annual-policy', dbId]);
     }
   }
 
   searchNodNumber() {
-    console.log('selectedNod:', this.selectedNod);
     this.nodSearchDialog = true;
 
     if (this.nodDatas && this.nodDatas.length === 0) {
       this._bonusService.getNodSearchedDatas()
         .subscribe(nodDatas => {
+          console.log(nodDatas);
           this.store$.dispatch({type: 'GET_NODSEARCHEDDATA', payload: nodDatas});
         });
     }
@@ -125,7 +131,6 @@ export class DbSettingComponent implements OnInit, OnChanges {
       .debounceTime(500)
       .distinctUntilChanged()
       .subscribe(keyword => {
-        console.log(keyword);
         this.store$.dispatch({type: 'NOD_SEARCH', payload: keyword});
       });
   }

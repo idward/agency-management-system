@@ -31,6 +31,7 @@ export class NodItemContentComponent implements OnInit, OnChanges, OnDestroy {
   insurance: boolean = false;
   maintenance: boolean = false;
   keyword: string;
+  loading:boolean = false;
   @Input() currentNodItem: NodItem;
   @Input() selectedCars: TreeNode[] = [];
   @Input() display: boolean;
@@ -176,10 +177,10 @@ export class NodItemContentComponent implements OnInit, OnChanges, OnDestroy {
         node.children[i].data[nodeName + '_check'] = checked;
       }
     }
-    console.log(this.currentNodItem);
   }
 
   editCarCategory(event: Event) {
+    this.loading = true;
     this.editCarCategoryEvt.emit(event);
   }
 
@@ -193,7 +194,6 @@ export class NodItemContentComponent implements OnInit, OnChanges, OnDestroy {
     data.node.selected = true;
     this.carTreeNode = this.setChildNodeChecked(data.node, true);
     this.selectedCarTreeNode = [...this.selectedCarTreeNode, ...this.chooseTreeNode(this.carTreeNode)];
-    console.log('selectedCarTreeNode', this.selectedCarTreeNode);
   }
 
   private chooseTreeNode(carTreeNode: TreeNode): TreeNode[] {
@@ -218,7 +218,6 @@ export class NodItemContentComponent implements OnInit, OnChanges, OnDestroy {
     this.carTreeNode = this.setParentNodeChecked(data.node, false);
     this.carTreeNode = this.setChildNodeChecked(data.node, false);
     this.selectedCarTreeNode = this.filterTreeNode(this.carTreeNode);
-    console.log('selectedCarTreeNode', this.selectedCarTreeNode);
   }
 
   private filterTreeNode(carTreeNode: TreeNode): TreeNode[] {
@@ -231,7 +230,6 @@ export class NodItemContentComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   setChildNodeChecked(node: TreeNode, checkStatus: boolean): TreeNode {
-    console.log('node:', node);
 
     if (node.children && node.children.length > 0) {
       node.children = node.children.map(sNode => {

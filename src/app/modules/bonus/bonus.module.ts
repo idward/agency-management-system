@@ -1,12 +1,12 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {CommonModule,DatePipe} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {InputTextModule, DropdownModule, ButtonModule, CheckboxModule, CalendarModule} from 'primeng/primeng';
 import {TreeTableModule, TreeModule, SharedModule, DialogModule, DataTableModule} from 'primeng/primeng';
-import {ConfirmDialogModule, ConfirmationService} from 'primeng/primeng';
+import {ConfirmDialogModule, ConfirmationService, PanelModule} from 'primeng/primeng';
 
 import {BonusMainComponent} from './bonus-main/bonus-main.component';
 import {NodSettingComponent} from './nod-setting/nod-setting.component';
@@ -19,6 +19,9 @@ import {NodItemContentComponent} from './create-nod-item/nod-item-content/nod-it
 import {CreateDbItemComponent} from './create-db-item/create-db-item.component';
 import {DBPromotionComponent} from "./create-db-item/promotion/promotion.component";
 import {DBAnnualPolicyComponent} from './create-db-item/annual-policy/annual-policy.component';
+import { ModifyDataSectionComponent } from './create-db-item/promotion/modify-data-section/modify-data-section.component';
+import { SelectDataSectionComponent } from './create-db-item/promotion/select-data-section/select-data-section.component';
+import { SaveDataSectionComponent } from './create-db-item/promotion/save-data-section/save-data-section.component';
 
 import {BonusRoutesModule} from "./bonus.routing.module";
 import {BonusService} from "./bonus.service";
@@ -45,6 +48,7 @@ import {OrderModule} from 'ngx-order-pipe';
     DialogModule,
     ConfirmDialogModule,
     DataTableModule,
+    PanelModule,
     OrderModule
   ],
   declarations: [
@@ -58,7 +62,10 @@ import {OrderModule} from 'ngx-order-pipe';
     NodItemContentComponent,
     CreateDbItemComponent,
     DBPromotionComponent,
-    DBAnnualPolicyComponent
+    DBAnnualPolicyComponent,
+    ModifyDataSectionComponent,
+    SelectDataSectionComponent,
+    SaveDataSectionComponent
   ],
   providers: [
     {provide: 'BonusService', useClass: BonusService},

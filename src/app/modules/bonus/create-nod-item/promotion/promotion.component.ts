@@ -83,19 +83,16 @@ export class NodPromotionComponent implements OnInit, OnDestroy {
 
     if (!this.nodItemSubscription) {
       this.nodItemSubscription = this.nodItem.subscribe(nodItems => {
-        console.log('total:', nodItems);
         this.nod.desc = this.parsedData['description'];
         this.nod.department = this.parsedData['department'];
         this.nod.createdType = this.parsedData['createdType'];
         this.nod.nodYear = this.parsedData['year'];
         this.nod.nodList = nodItems;
-        console.log('nod:', this.nod);
         if (!_.isNil(nodItems) && nodItems.length > 0) {
           this.currentNodItem = nodItems.filter(data => data.nodItem_id === this.selectedNodItem)[0];
         } else {
           this.currentNodItem = null;
         }
-        console.log('currentNodItem:', this.currentNodItem);
         this.nodItemCount = nodItems.length;
         if (!_.isNil(this.currentNodItem)) {
           this.cars = this.currentNodItem.nodItem_data['cartree_model'];
@@ -108,9 +105,15 @@ export class NodPromotionComponent implements OnInit, OnDestroy {
 
   ngOnDestroy():void {
     this.store$.dispatch({type: 'EMPTY_ALL_NODITEMS'});
-    this.nodItemSubscription.unsubscribe();
-    this.filesSubscription.unsubscribe();
-    this.carTreeSubscription.unsubscribe();
+    if(this.nodItemSubscription){
+      this.nodItemSubscription.unsubscribe();
+    }
+    if(this.filesSubscription){
+      this.filesSubscription.unsubscribe();
+    }
+    if(this.carTreeSubscription){
+      this.carTreeSubscription.unsubscribe();
+    }
   }
 
   chooseServiceType() {
@@ -129,7 +132,6 @@ export class NodPromotionComponent implements OnInit, OnDestroy {
 
     this.cars = this.currentNodItem.nodItem_data['cartree_model'];
 
-    console.log('currentNodItem:', this.currentNodItem);
   }
 
   createItem() {
@@ -148,7 +150,6 @@ export class NodPromotionComponent implements OnInit, OnDestroy {
   }
 
   getCommonData(data:any) {
-    console.log('Data', this.currentNodItem);
 
     let oldData = this.currentNodItem.nodItem_data['setting_condition'];
     let newData = data;
@@ -174,7 +175,6 @@ export class NodPromotionComponent implements OnInit, OnDestroy {
         }
       },
       reject: () => {
-        console.log('no');
       }
     })
   }
@@ -237,7 +237,6 @@ export class NodPromotionComponent implements OnInit, OnDestroy {
       let selectedCars = this.selectedCars.filter(data => data['selected'] === true);
       this.selectedCars = _.uniq(selectedCars);
     }
-    console.log('selectedCars:', this.selectedCars);
     this.store$.dispatch({type: 'CAR_SELECTED', payload: this.selectedCars});
     this.currentNodItem.nodItem_data['saved_cartree_model'] = this.selectedCars;
     this.filesSubscription = this.files.subscribe(promotionDatas => {

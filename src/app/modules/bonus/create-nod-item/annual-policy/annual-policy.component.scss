@@ -1,0 +1,14 @@
+.annual_policy {
+  .delete_icon {
+    display: inline-block;
+    width: 14px;
+    height: 15px;
+    background: url("../../../../../assets/images/icon.png") no-repeat;
+    background-position: 0 -13px;
+    background-size: 100%;
+    position: relative;
+    top: 2px;
+    left: 5px;
+    cursor: pointer;
+  }
+}

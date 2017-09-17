@@ -1,0 +1,30 @@
+.login {
+  position: relative;
+  width: 400px;
+  margin: 0 auto;
+
+  label {
+    display: inline-block;
+    width: 15%;
+  }
+
+  input {
+    width: 80%;
+  }
+
+  .form-group {
+    margin: 10px 0;
+  }
+
+  .errorInfo {
+    position: absolute;
+    top: 3px;
+    left: 387px;
+  }
+
+  .ui-error {
+    width: 200px;
+  }
+}
+
+

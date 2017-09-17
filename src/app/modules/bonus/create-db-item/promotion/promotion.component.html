@@ -1,3 +1,11 @@
-<p>
-  promotion works!
-</p>
+<div class="promotion">
+  <div class="db_info">
+    <span>DB号: {{dbNumber}}</span>
+    <span>奖金类型: {{bonusType}}</span>
+  </div>
+
+  <app-select-data-section [datas]="datas | async" (createItemEvt)="createNewItem($event)"></app-select-data-section>
+  <app-modify-data-section [selectedDBDatas]="selectedDBDatas | async" [editedDBDatas] = "editedDBDatas"
+  (changeValueByPercentEvt)="changeValueByPercent($event)" (changeValueEvt)="changeValueByMSRP($event)"></app-modify-data-section>
+  <app-save-data-section></app-save-data-section>
+</div>

@@ -1,0 +1,32 @@
+<div class="login">
+  <form [formGroup]="loginForm" (submit)="loginAuth(loginForm.value)" >
+    <div class="form-group">
+      <label for="username">用户名:</label>
+      <input type="text" id="username" pInputText [(ngModel)]="user.username"
+             formControlName="username" placeholder="请填写用户名">
+      <div class="errorInfo" *ngIf="!loginForm.controls['username'].valid
+       && loginForm.controls['username'].dirty">
+        <div class="ui-message ui-messages-error ui-corner-all ui-error">
+          <i class="fa fa-close"></i>
+          用户名选项必须填写
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="password">密码:</label>
+      <input type="password" id="password" pInputText [(ngModel)]="user.password"
+             formControlName="password" placeholder="请填写密码">
+      <div class="errorInfo" *ngIf="!loginForm.controls['password'].valid
+       && loginForm.controls['password'].dirty">
+        <div class="ui-message ui-messages-error ui-corner-all ui-error">
+          <i class="fa fa-close"></i>
+          密码选项必须填写
+        </div>
+      </div>
+    </div>
+    <div style="text-align: center; margin-top: 20px;">
+      <button type="submit" pButton [disabled]="!loginForm.valid" label="登录"></button>
+    </div>
+
+  </form>
+</div>

@@ -2,6 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
+import {LocalStorageModule} from 'angular-2-local-storage';
 
 import {StoreModule} from '@ngrx/store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools'
@@ -11,9 +12,12 @@ import {carTreeReducer, carTreeFilterReducer} from './reducers/cars-tree.reducer
 import {nodItemFilterReducer, nodItemReducer} from "./reducers/nodItem.reducer";
 import {AnnualPolicyReducer} from "./reducers/annual-policy.reducer";
 import {NodDataFilterReducer, NodDataReducer} from "./reducers/nodData.reducer";
+import {dbFilterReducer, dbReducer} from "./reducers/db.reducer";
+import {dbSelectFilterReducer, dbSelectReducer} from "./reducers/db-select.reducer";
 
 import {AppRoutesModule} from "./route/app.routing.module";
 import {BonusModule} from "./modules/bonus/bonus.module";
+import {LoginModule} from "./modules/login/login.module";
 
 import {AppComponent} from './app.component';
 import {HeaderComponent} from "./template/header/header.component";
@@ -29,7 +33,7 @@ import {MenuItemComponent} from "./template/sidebar/menu-item/menu-item.componen
     FooterComponent,
     SidebarComponent,
     MenuListComponent,
-    MenuItemComponent
+    MenuItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,10 +50,19 @@ import {MenuItemComponent} from "./template/sidebar/menu-item/menu-item.componen
       nodItemDataFilter: nodItemFilterReducer,
       annualPolicyDatas: AnnualPolicyReducer,
       nodDatas: NodDataReducer,
-      nodDatasFilter: NodDataFilterReducer
+      nodDatasFilter: NodDataFilterReducer,
+      dbDatas: dbReducer,
+      dbFilterDatas: dbFilterReducer,
+      dbSelDatas: dbSelectReducer,
+      dbSelFilterDatas: dbSelectFilterReducer
     }),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
-    BonusModule
+    BonusModule,
+    LoginModule,
+    LocalStorageModule.withConfig({
+      prefix: 'saic-gm',
+      storageType: 'localStorage'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

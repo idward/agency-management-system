@@ -21,7 +21,7 @@ export function carsFilterReducer(state = (cars: TreeNode[]) => cars, action: Ac
 }
 
 function filterSelectedItems(datas: any, selectedDatas: any): TreeNode[] {
-  if(!_.isNil(selectedDatas) && selectedDatas.length > 0){
+  if (!_.isNil(selectedDatas) && selectedDatas.length > 0) {
     selectedDatas = selectedDatas.filter(data => data.selected === true);
   } else {
     selectedDatas = null;
@@ -34,7 +34,7 @@ function filterSelectedItems(datas: any, selectedDatas: any): TreeNode[] {
     if (!_.isNil(newData)) {
       filterItems.push(newData);
     }
-    if(filterItems && filterItems.length > 0){
+    if (filterItems && filterItems.length > 0) {
       filterItems[0]['total_amount_count'] = 0;
     }
   });
@@ -42,7 +42,7 @@ function filterSelectedItems(datas: any, selectedDatas: any): TreeNode[] {
 }
 
 function filterItemBySelected(item: TreeNode, selectedItem: any): TreeNode {
-  const isMatch = selectedItem ? selectedItem.includes(item.data.name) : false;
+  const isMatch = selectedItem ? selectedItem.indexOf(item.data.name) >= 0 : false;
   if (isMatch) {
     return item;
   } else {

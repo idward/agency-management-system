@@ -2,7 +2,11 @@
   <p-dataTable [value]="datas | async" [editable]="true"
                [paginator]="false" rows="15" [responsive]="true">
     <p-header>年度政策</p-header>
-    <p-column field="rowNumber" header="行号" [editable]="true"></p-column>
+    <p-column header="" [style]="{'text-align':'center','width':'70px'}">
+      <ng-template let-col let-data="rowData" pTemplate="body">
+        <span class="delete_icon" (click)="delCurrentRow(data)"></span>
+      </ng-template>
+    </p-column>
     <p-column field="bonusTypeDesc" header="奖金类型描述" [editable]="true">
       <ng-template let-col let-data="rowData" pTemplate="editor">
         <p-dropdown [(ngModel)]="data[col.field]" [options]="bonusTypeDescription" [autoWidth]="false"
@@ -11,18 +15,41 @@
     </p-column>
     <p-column field="issueBasis" header="发放依据" [editable]="true">
       <ng-template let-col let-data="rowData" pTemplate="editor">
-        <p-dropdown [(ngModel)]="data[col.field]" [options]="issueBasis" [autoWidth]="false"
-                    [style]="{'width':'100%'}" required="true" appendTo="body"></p-dropdown>
+        <p-dropdown [(ngModel)]="data[col.field]" [options]="issueBasis" [disabled]="data['isPercentUsed']"
+                    [autoWidth]="false" [style]="{'width':'100%'}" required="true"
+                    (onChange)="issueBasisChanged($event,data)" appendTo="body"></p-dropdown>
       </ng-template>
     </p-column>
-    <p-column field="carPoint" header="单车点数" [editable]="true"></p-column>
-    <p-column field="totalAmount" header="总金额" [editable]="true"></p-column>
-    <p-column field="expStartTime" header="输入开始有效期" [editable]="true">
+    <p-column field="carPoint" header="单车点数" [editable]="true">
       <ng-template let-col let-data="rowData" pTemplate="editor">
-        <p-calendar [(ngModel)]="startTime"></p-calendar>
+        <input type="text" pInputText [(ngModel)]="data[col.field]" [disabled]="data['isPercentUsed']"
+               (blur)="valueChangeByPercent(data[col.field],data)"/>
       </ng-template>
     </p-column>
-    <p-column field="expEndTime" header="输入结束有效期" [editable]="true"></p-column>
+    <p-column field="totalAmount" header="总金额" [editable]="true">
+      <ng-template let-col let-data="rowData" pTemplate="editor">
+        <input type="text" pInputText [(ngModel)]="data[col.field]" [disabled]="data['isAmountUsed']"
+               (blur)="valueChangeByAmount(data[col.field],data)"/>
+      </ng-template>
+    </p-column>
+    <p-column field="expStartTime" header="输入开始有效期" [editable]="true" [style]=" {'overflow':'visible' }">
+      <ng-template let-col let-data="rowData" pTemplate="body">
+        {{data[col.field]|date:'MM/dd/yyyy'}}
+      </ng-template>
+
+      <ng-template let-col let-data="rowData" pTemplate="editor">
+        <p-calendar [(ngModel)]="data[col.field]" appendTo="body"></p-calendar>
+      </ng-template>
+    </p-column>
+    <p-column field="expEndTime" header="输入结束有效期" [editable]="true" [style]=" {'overflow':'visible' }">
+      <ng-template let-col let-data="rowData" pTemplate="body">
+        {{data[col.field]|date:'MM/dd/yyyy'}}
+      </ng-template>
+
+      <ng-template let-col let-data="rowData" pTemplate="editor">
+        <p-calendar [(ngModel)]="data[col.field]" appendTo="body"></p-calendar>
+      </ng-template>
+    </p-column>
     <p-column field="remark" header="备注" [editable]="true"></p-column>
     <p-footer>
       <div class="ui-helper-clearfix" style="width:100%">
@@ -35,4 +62,5 @@
       </div>
     </p-footer>
   </p-dataTable>
+
 </div>

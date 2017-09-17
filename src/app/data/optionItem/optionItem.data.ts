@@ -24,6 +24,7 @@ export const NODITEMS: OptionItem[] = [
 ];
 
 export const BONUSTYPEDESC:OptionItem[] = [
+  new OptionItem('请选择...','请选择...'),
   new OptionItem('销售满意度','销售满意度'),
   new OptionItem('客户忠诚度','客户忠诚度'),
   new OptionItem('销售达标奖','销售达标奖'),
@@ -37,6 +38,7 @@ export const BONUSTYPEDESC:OptionItem[] = [
 ]
 
 export const ISSUEBASIS:OptionItem[] = [
+  new OptionItem('请选择...','请选择...'),
   new OptionItem('交车','交车'),
   new OptionItem('拷车','拷车'),
   new OptionItem('经销商','经销商')

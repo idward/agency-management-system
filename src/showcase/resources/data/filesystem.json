@@ -20008,7 +20008,7 @@
   ],
   "nod": [
     {
-      "nodBaseInfoId": "567339389AB27213E0531B18CB0A4448",
+      "nodBaseInfoId": "567339389AB27213E0531B18CB0A1000",
       "nodNumber": "NOD-2017-0002",
       "description": "17年集团第一季度NOD",
       "useDepartment": "1",
@@ -20021,7 +20021,7 @@
       "items": null
     },
     {
-      "nodBaseInfoId": "567339389AB27213E0531B18CB0A4449",
+      "nodBaseInfoId": "567339389AB27213E0531B18CB0A2000",
       "nodNumber": "NOD-2017-0003",
       "description": "17年集团第二季度NOD",
       "useDepartment": "1",
@@ -20098,5 +20098,638 @@
       "updateDate": null,
       "items": null
     }
-  ]
+  ],
+  "auth": {
+    "success": true,
+    "code": null,
+    "message": null,
+    "data": {
+      "userID": "1",
+      "tokenID": "USER_SESSION_KEY_37ab823a-3639-4bb4-8864-16bdfa61386e",
+      "userDomainAccount": null,
+      "userName": null,
+      "employeeNo": null,
+      "roles": []
+    },
+    "nowTime": "2017-09-04 15:50:09"
+  },
+  "nodDetail": {
+    "success": true,
+    "code": null,
+    "message": null,
+    "data": [
+      {
+        "nodItemNumber": "NOD-ITEM-2017-0002-01",
+        "itemDescr": "",
+        "nodDescr": "",
+        "carBrand": null,
+        "carSeries": "别克",
+        "carPackage": "别克配置1",
+        "financialDescription": "别克财务描述1",
+        "msrp": 1000,
+        "callOffPromotionPercent": 10,
+        "isCallOffPromotionPercent": 1,
+        "callOffPromotionAmount": 1000,
+        "isCallOffPromotionAmount": 1,
+        "deliveryPromotionPercent": 10,
+        "isDeliveryPromotionPercent": 1,
+        "deliveryPromotionAmount": 1000,
+        "isDeliveryPromotionAmount": 1,
+        "dealerInventoryPercent": 10,
+        "isDealerInventoryPercent": 1,
+        "dealerInventoryAmount": 1000,
+        "isDealerInventoryAmount": 1,
+        "singlecarTotalBudgetPercent": 10,
+        "singlecarTotalBudgetAmount": 2000,
+        "financialSingleCarPercent": 10,
+        "financialSingleCarAmount": 2000,
+        "isFinancialSingleCarAmount": 1,
+        "replacementSingleCarPercent": 10,
+        "replacementSingleCarAmount": 2000,
+        "isReplacementSingleCarAmount": 1,
+        "insuranceSingleCarPercent": 10,
+        "insuranceSingleCarAmount": 2000,
+        "isInsuranceSingleCarAmount": 1,
+        "nodItemNoncashTypeBO": [
+          {
+            "noncashType": "6",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "5",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "4",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "3",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "2",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "1",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          }
+        ],
+        "nodNumber": "NOD-2017-0002",
+        "baseType": "1",
+        "itemType": "1",
+        "cashTotalAmount": null,
+        "noncashTotalAmount": null,
+        "startDate": 1504871933000,
+        "endDate": 1504871933000
+      },
+      {
+        "nodItemNumber": "NOD-ITEM-2017-0002-01",
+        "itemDescr": "",
+        "nodDescr": "",
+        "carBrand": null,
+        "carSeries": "别克",
+        "carPackage": "别克配置2",
+        "financialDescription": "别克财务描述2",
+        "msrp": 1000,
+        "callOffPromotionPercent": 10,
+        "isCallOffPromotionPercent": 1,
+        "callOffPromotionAmount": 1000,
+        "isCallOffPromotionAmount": 1,
+        "deliveryPromotionPercent": 10,
+        "isDeliveryPromotionPercent": 1,
+        "deliveryPromotionAmount": 1000,
+        "isDeliveryPromotionAmount": 1,
+        "dealerInventoryPercent": 10,
+        "isDealerInventoryPercent": 1,
+        "dealerInventoryAmount": 1000,
+        "isDealerInventoryAmount": 1,
+        "singlecarTotalBudgetPercent": 10,
+        "singlecarTotalBudgetAmount": 2000,
+        "financialSingleCarPercent": 10,
+        "financialSingleCarAmount": 2000,
+        "isFinancialSingleCarAmount": 1,
+        "replacementSingleCarPercent": 10,
+        "replacementSingleCarAmount": 2000,
+        "isReplacementSingleCarAmount": 1,
+        "insuranceSingleCarPercent": 10,
+        "insuranceSingleCarAmount": 2000,
+        "isInsuranceSingleCarAmount": 1,
+        "nodItemNoncashTypeBO": [
+          {
+            "noncashType": "6",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "5",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "4",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "3",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "2",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "1",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          }
+        ],
+        "nodNumber": "NOD-2017-0002",
+        "baseType": "1",
+        "itemType": "1",
+        "cashTotalAmount": null,
+        "noncashTotalAmount": null,
+        "startDate": 1504871933000,
+        "endDate": 1504871933000
+      },
+      {
+        "nodItemNumber": "NOD-ITEM-2017-0002-02",
+        "itemDescr": "",
+        "nodDescr": "",
+        "carBrand": null,
+        "carSeries": "别克",
+        "carPackage": "别克配置2",
+        "financialDescription": "别克财务描述2",
+        "msrp": 1000,
+        "callOffPromotionPercent": 10,
+        "isCallOffPromotionPercent": 1,
+        "callOffPromotionAmount": 1000,
+        "isCallOffPromotionAmount": 1,
+        "deliveryPromotionPercent": 10,
+        "isDeliveryPromotionPercent": 1,
+        "deliveryPromotionAmount": 1000,
+        "isDeliveryPromotionAmount": 1,
+        "dealerInventoryPercent": 10,
+        "isDealerInventoryPercent": 1,
+        "dealerInventoryAmount": 1000,
+        "isDealerInventoryAmount": 1,
+        "singlecarTotalBudgetPercent": 10,
+        "singlecarTotalBudgetAmount": 2000,
+        "financialSingleCarPercent": 10,
+        "financialSingleCarAmount": 2000,
+        "isFinancialSingleCarAmount": 1,
+        "replacementSingleCarPercent": 10,
+        "replacementSingleCarAmount": 2000,
+        "isReplacementSingleCarAmount": 1,
+        "insuranceSingleCarPercent": 10,
+        "insuranceSingleCarAmount": 2000,
+        "isInsuranceSingleCarAmount": 1,
+        "nodItemNoncashTypeBO": [
+          {
+            "noncashType": "5",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "4",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "3",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "2",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "1",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          }
+        ],
+        "nodNumber": "NOD-2017-0002",
+        "baseType": "1",
+        "itemType": "1",
+        "cashTotalAmount": null,
+        "noncashTotalAmount": null,
+        "startDate": 1504872151000,
+        "endDate": 1504872151000
+      },
+      {
+        "nodItemNumber": "NOD-ITEM-2017-0002-02",
+        "itemDescr": "",
+        "nodDescr": "",
+        "carBrand": null,
+        "carSeries": "别克",
+        "carPackage": "别克配置1",
+        "financialDescription": "别克财务描述1",
+        "msrp": 1000,
+        "callOffPromotionPercent": 10,
+        "isCallOffPromotionPercent": 1,
+        "callOffPromotionAmount": 1000,
+        "isCallOffPromotionAmount": 1,
+        "deliveryPromotionPercent": 10,
+        "isDeliveryPromotionPercent": 1,
+        "deliveryPromotionAmount": 1000,
+        "isDeliveryPromotionAmount": 1,
+        "dealerInventoryPercent": 10,
+        "isDealerInventoryPercent": 1,
+        "dealerInventoryAmount": 1000,
+        "isDealerInventoryAmount": 1,
+        "singlecarTotalBudgetPercent": 10,
+        "singlecarTotalBudgetAmount": 2000,
+        "financialSingleCarPercent": 10,
+        "financialSingleCarAmount": 2000,
+        "isFinancialSingleCarAmount": 1,
+        "replacementSingleCarPercent": 10,
+        "replacementSingleCarAmount": 2000,
+        "isReplacementSingleCarAmount": 1,
+        "insuranceSingleCarPercent": 10,
+        "insuranceSingleCarAmount": 2000,
+        "isInsuranceSingleCarAmount": 1,
+        "nodItemNoncashTypeBO": [
+          {
+            "noncashType": "5",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "4",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "3",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "2",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "1",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          }
+        ],
+        "nodNumber": "NOD-2017-0002",
+        "baseType": "1",
+        "itemType": "1",
+        "cashTotalAmount": null,
+        "noncashTotalAmount": null,
+        "startDate": 1504872151000,
+        "endDate": 1504872151000
+      },
+      {
+        "nodItemNumber": "NOD-ITEM-2017-0001-01",
+        "itemDescr": "",
+        "nodDescr": "",
+        "carBrand": null,
+        "carSeries": "别克",
+        "carPackage": "别克配置1",
+        "financialDescription": "别克财务描述1",
+        "msrp": 1000,
+        "callOffPromotionPercent": 10,
+        "isCallOffPromotionPercent": 1,
+        "callOffPromotionAmount": 1000,
+        "isCallOffPromotionAmount": 1,
+        "deliveryPromotionPercent": 10,
+        "isDeliveryPromotionPercent": 1,
+        "deliveryPromotionAmount": 1000,
+        "isDeliveryPromotionAmount": 1,
+        "dealerInventoryPercent": 10,
+        "isDealerInventoryPercent": 1,
+        "dealerInventoryAmount": 1000,
+        "isDealerInventoryAmount": 1,
+        "singlecarTotalBudgetPercent": 10,
+        "singlecarTotalBudgetAmount": 2000,
+        "financialSingleCarPercent": 10,
+        "financialSingleCarAmount": 2000,
+        "isFinancialSingleCarAmount": 1,
+        "replacementSingleCarPercent": 10,
+        "replacementSingleCarAmount": 2000,
+        "isReplacementSingleCarAmount": 1,
+        "insuranceSingleCarPercent": 10,
+        "insuranceSingleCarAmount": 2000,
+        "isInsuranceSingleCarAmount": 1,
+        "nodItemNoncashTypeBO": [
+          {
+            "noncashType": "1",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "6",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "5",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "4",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "3",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "2",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          }
+        ],
+        "nodNumber": "NOD-2017-0001",
+        "baseType": "1",
+        "itemType": "1",
+        "cashTotalAmount": null,
+        "noncashTotalAmount": null,
+        "startDate": 1504870451000,
+        "endDate": 1504870451000
+      },
+      {
+        "nodItemNumber": "NOD-ITEM-2017-0001-01",
+        "itemDescr": "",
+        "nodDescr": "",
+        "carBrand": null,
+        "carSeries": "雪佛兰",
+        "carPackage": "雪佛兰配置1",
+        "financialDescription": "雪佛兰财务描述1",
+        "msrp": 1000,
+        "callOffPromotionPercent": 10,
+        "isCallOffPromotionPercent": 1,
+        "callOffPromotionAmount": 1000,
+        "isCallOffPromotionAmount": 1,
+        "deliveryPromotionPercent": 10,
+        "isDeliveryPromotionPercent": 1,
+        "deliveryPromotionAmount": 1000,
+        "isDeliveryPromotionAmount": 1,
+        "dealerInventoryPercent": 10,
+        "isDealerInventoryPercent": 1,
+        "dealerInventoryAmount": 1000,
+        "isDealerInventoryAmount": 1,
+        "singlecarTotalBudgetPercent": 10,
+        "singlecarTotalBudgetAmount": 2000,
+        "financialSingleCarPercent": 10,
+        "financialSingleCarAmount": 2000,
+        "isFinancialSingleCarAmount": 1,
+        "replacementSingleCarPercent": 10,
+        "replacementSingleCarAmount": 2000,
+        "isReplacementSingleCarAmount": 1,
+        "insuranceSingleCarPercent": 10,
+        "insuranceSingleCarAmount": 2000,
+        "isInsuranceSingleCarAmount": 1,
+        "nodItemNoncashTypeBO": [
+          {
+            "noncashType": "1",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "6",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "5",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "4",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "3",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "2",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          }
+        ],
+        "nodNumber": "NOD-2017-0001",
+        "baseType": "1",
+        "itemType": "1",
+        "cashTotalAmount": null,
+        "noncashTotalAmount": null,
+        "startDate": 1504870451000,
+        "endDate": 1504870451000
+      },
+      {
+        "nodItemNumber": "NOD-ITEM-2017-0001-02",
+        "itemDescr": "",
+        "nodDescr": "",
+        "carBrand": null,
+        "carSeries": "雪佛兰",
+        "carPackage": "雪佛兰配置1",
+        "financialDescription": "雪佛兰财务描述1",
+        "msrp": 1000,
+        "callOffPromotionPercent": 10,
+        "isCallOffPromotionPercent": 1,
+        "callOffPromotionAmount": 1000,
+        "isCallOffPromotionAmount": 1,
+        "deliveryPromotionPercent": 10,
+        "isDeliveryPromotionPercent": 1,
+        "deliveryPromotionAmount": 1000,
+        "isDeliveryPromotionAmount": 1,
+        "dealerInventoryPercent": 10,
+        "isDealerInventoryPercent": 1,
+        "dealerInventoryAmount": 1000,
+        "isDealerInventoryAmount": 1,
+        "singlecarTotalBudgetPercent": 10,
+        "singlecarTotalBudgetAmount": 2000,
+        "financialSingleCarPercent": 10,
+        "financialSingleCarAmount": 2000,
+        "isFinancialSingleCarAmount": 1,
+        "replacementSingleCarPercent": 10,
+        "replacementSingleCarAmount": 2000,
+        "isReplacementSingleCarAmount": 1,
+        "insuranceSingleCarPercent": 10,
+        "insuranceSingleCarAmount": 2000,
+        "isInsuranceSingleCarAmount": 1,
+        "nodItemNoncashTypeBO": [
+          {
+            "noncashType": "1",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "2",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "3",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "4",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "5",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "6",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          }
+        ],
+        "nodNumber": "NOD-2017-0001",
+        "baseType": "1",
+        "itemType": "1",
+        "cashTotalAmount": null,
+        "noncashTotalAmount": null,
+        "startDate": 1504871435000,
+        "endDate": 1504871435000
+      },
+      {
+        "nodItemNumber": "NOD-ITEM-2017-0001-02",
+        "itemDescr": "",
+        "nodDescr": "",
+        "carBrand": null,
+        "carSeries": "雪佛兰",
+        "carPackage": "雪佛兰配置2",
+        "financialDescription": "雪佛兰财务描述2",
+        "msrp": 1000,
+        "callOffPromotionPercent": 10,
+        "isCallOffPromotionPercent": 1,
+        "callOffPromotionAmount": 1000,
+        "isCallOffPromotionAmount": 1,
+        "deliveryPromotionPercent": 10,
+        "isDeliveryPromotionPercent": 1,
+        "deliveryPromotionAmount": 1000,
+        "isDeliveryPromotionAmount": 1,
+        "dealerInventoryPercent": 10,
+        "isDealerInventoryPercent": 1,
+        "dealerInventoryAmount": 1000,
+        "isDealerInventoryAmount": 1,
+        "singlecarTotalBudgetPercent": 10,
+        "singlecarTotalBudgetAmount": 2000,
+        "financialSingleCarPercent": 10,
+        "financialSingleCarAmount": 2000,
+        "isFinancialSingleCarAmount": 1,
+        "replacementSingleCarPercent": 10,
+        "replacementSingleCarAmount": 2000,
+        "isReplacementSingleCarAmount": 1,
+        "insuranceSingleCarPercent": 10,
+        "insuranceSingleCarAmount": 2000,
+        "isInsuranceSingleCarAmount": 1,
+        "nodItemNoncashTypeBO": [
+          {
+            "noncashType": "1",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "2",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "3",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "4",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "5",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "6",
+            "percent": 10,
+            "amount": 1000,
+            "isPromotionAmount": "NO"
+          }
+        ],
+        "nodNumber": "NOD-2017-0001",
+        "baseType": "1",
+        "itemType": "1",
+        "cashTotalAmount": null,
+        "noncashTotalAmount": null,
+        "startDate": 1504871435000,
+        "endDate": 1504871435000
+      }
+    ]
+  }
 }

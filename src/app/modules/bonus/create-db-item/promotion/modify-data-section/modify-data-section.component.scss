@@ -1,0 +1,22 @@
+.updateItem_area {
+  margin-top: 15px;
+
+  h4 {
+    position: absolute;
+    left: 36px;
+  }
+
+  .saveItem {
+    position: absolute;
+    right: 5px;
+    top: 7px;
+  }
+
+  .edit_area {
+    padding: 10px;
+
+    .fast_process, .bonusType {
+      margin-right: 10px;
+    }
+  }
+}

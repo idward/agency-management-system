@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http} from "@angular/http";
+import {Http, Headers} from "@angular/http";
 import {TreeNode} from "primeng/primeng";
 import {Observable} from "rxjs/Observable";
 import "rxjs/Rx";
@@ -8,7 +8,7 @@ import * as _ from 'lodash';
 @Injectable()
 export class CarTreeService {
   private _url: string = 'http://localhost:3000/carTree';
-  //private _url: string = 'http://localhost:8081/service/rest/rewardNod/getVehicleTree/all';
+  //private _url: string = 'http://localhost:8080/service/rest/rewardNod/getVehicleTree/all';
   private _headers = new Headers({
     'Content-Type': 'application/json'
   });
@@ -60,7 +60,6 @@ export class CarTreeService {
       finalDatas = [...finalDatas, node];
     }
 
-    console.log('finalDatas:', finalDatas);
     return finalDatas;
   }
 

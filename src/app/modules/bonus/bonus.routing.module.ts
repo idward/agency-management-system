@@ -11,7 +11,7 @@ import {CreateDbItemComponent} from "./create-db-item/create-db-item.component";
 import {DBPromotionComponent} from "./create-db-item/promotion/promotion.component";
 import {DBAnnualPolicyComponent} from "./create-db-item/annual-policy/annual-policy.component";
 
-const routes:Routes = [
+const routes: Routes = [
   {
     path: 'bonus',
     component: BonusMainComponent,
@@ -23,13 +23,13 @@ const routes:Routes = [
       {
         path: 'create-nod',
         component: CreateNodItemComponent,
-        children:[
+        children: [
           {
-            path:'promotion/:nodId',
+            path: 'promotion/:nodId',
             component: NodPromotionComponent
           },
           {
-            path:'annual-policy/:nodId',
+            path: 'annual-policy/:nodId',
             component: NodAnnualPolicyComponent
           }
         ]
@@ -39,15 +39,15 @@ const routes:Routes = [
         component: DbSettingComponent
       },
       {
-        path:'create-db',
+        path: 'create-db',
         component: CreateDbItemComponent,
-        children:[
+        children: [
           {
-            path:'promotion/:dbId',
-            component:DBPromotionComponent
+            path: 'promotion/:dbId',
+            component: DBPromotionComponent
           },
           {
-            path:'annual-policy/:dbId',
+            path: 'annual-policy/:dbId',
             component: DBAnnualPolicyComponent
           }
         ]
@@ -65,7 +65,5 @@ const routes:Routes = [
   ]
 })
 
-
 export class BonusRoutesModule {
-}
-;
+};

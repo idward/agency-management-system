@@ -8,8 +8,11 @@ import {Nod, NodSHData} from "../../model/nod/nod.model";
 @Injectable()
 export class BonusService {
   parsedData: ReplaySubject<any> = new ReplaySubject<any>();
-  private _url: string = 'http://localhost:3000/nod';
-  // private _url: string = 'http://localhost:8081/service/rest/rewardNod/saveNodInfo';
+  private _internalUrl: string = 'http://localhost:3000';
+  private _externalUrl: string = 'http://localhost:8080/service/rest/rewardNod';
+  // private _publishUrl: string = 'http://10.203.102.119/service/rest/rewardNod';
+  //private _url: string = 'http://10.203.102.119/service/rest/rewardNod';
+  // private _url: string = 'http://10.203.102.119/service/rest/rewardNod/saveNodInfo';
   private _headers = new Headers({
     'Content-Type': 'application/json'
   });
@@ -28,17 +31,9 @@ export class BonusService {
 
   saveNodInfo(data: any): Observable<any> {
     let nodData = this.transformData(data);
-    console.log('data:', nodData);
     let body = JSON.stringify(nodData);
-    // let headers = new Headers({'Content-Type': 'application/json'});
-    // let options = new RequestOptions({headers: headers});
-    return this._http.post(this._url, body, this._options)
+    return this._http.post(this._externalUrl + '/saveNodInfo', body, this._options)
       .catch(this._handleError);
-  }
-
-  private _handleError(error: any): Observable<any> {
-    console.log('sever error:', error.json());
-    return Observable.throw(error.message || error);
   }
 
   transformData(data: any) {
@@ -242,9 +237,31 @@ export class BonusService {
   }
 
   getNodSearchedDatas(): Observable<NodSHData[]> {
-    return this._http.get(this._url, this._options)
+    // return this._http.get(this._externalUrl + '/getNodBaseInfoByCodeAndDescr/1', this._options)
+    return this._http.get(this._internalUrl + '/nod', this._options)
+      // .map(data => data.json().data as NodSHData[])
       .map(data => data.json() as NodSHData[])
       .catch(this._handleError);
+  }
+
+  saveAnnualPolicyData(data: any): Observable<any> {
+    let body = JSON.stringify(data);
+    return this._http.post(this._internalUrl, body, this._options)
+      .map(data => data.json())
+      .catch(this._handleError);
+  }
+
+  getNodDetailByIds(combinationType: number, nodIds: any): Observable<any> {
+    let body = {type: combinationType, ids: nodIds};
+    // return this._http.post(this._externalUrl + '/getNodDetailByIds', JSON.stringify(body), this._options)
+    return this._http.get(this._internalUrl + '/nodDetail', this._options)
+      .map(res => res.json().data)
+      .catch(this._handleError);
+  }
+
+  private _handleError(error: any): Observable<any> {
+    console.log('sever error:', error.json());
+    return Observable.throw(error.message || error);
   }
 
 }

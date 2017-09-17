@@ -1,0 +1,177 @@
+<div class="createItem_area">
+  <p-panel [toggleable]="true">
+    <p-header>
+      <h4>已选NOD/DB号</h4>
+      <button pButton class="createItem" label="创建Item" [disabled]="!(selectedItem && selectedItem.length > 0)" (click)="createNewItem()"></button>
+    </p-header>
+    <p-dataTable [value]="datas" [(selection)]="selectedItem" scrollable="true">
+      <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+      <p-column field="nodNumber" sortable="true" [style]="{'width':'120px'}" header="NOD/DB号"></p-column>
+      <p-column field="nodItemNumber" [style]="{'width':'180px'}" header="Item"></p-column>
+      <p-column field="carSeries" [style]="{'width':'60px'}" header="车系"></p-column>
+      <p-column field="financialDescription" [style]="{'width':'130px'}" header="财务描述"></p-column>
+      <p-column field="msrp" [style]="{'width':'70px'}" header="MSRP"></p-column>
+      <p-column field="startDate" [style]="{'width':'100px'}" header="开始时间">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field]|date:'yyyy/MM/dd' }}
+        </ng-template>
+      </p-column>
+      <p-column field="endDate" [style]="{'width':'100px'}" header="结束时间">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field]|date:'yyyy/MM/dd' }}
+        </ng-template>
+      </p-column>
+      <p-column field="itemType" [style]="{'width':'80px'}" header="类型">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field] === '1' ? '促销比例' : '总金额'}}
+        </ng-template>
+      </p-column>
+      <p-column field="callOffPromotionPercent" [style]="{'width':'80px'}" header="拷车比例">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field]}}%
+          <p-checkbox [(ngModel)]="db['isCallOffPromotionPercent']" [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
+        </ng-template>
+      </p-column>
+      <p-column field="callOffPromotionAmount" [style]="{'width':'120px'}" header="拷车金额">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field]}}
+          <p-checkbox [(ngModel)]="db['isCallOffPromotionAmount']" [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
+        </ng-template>
+      </p-column>
+      <p-column field="deliveryPromotionPercent" [style]="{'width':'80px'}" header="交车比例">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field]}}%
+          <p-checkbox [(ngModel)]="db['isDeliveryPromotionPercent']" [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
+        </ng-template>
+      </p-column>
+      <p-column field="deliveryPromotionAmount" [style]="{'width':'120px'}" header="交车金额">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field]}}
+          <p-checkbox [(ngModel)]="db['isDeliveryPromotionAmount']" [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
+        </ng-template>
+      </p-column>
+      <p-column field="dealerInventoryPercent" [style]="{'width':'80px'}" header="经销商库存比例">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field]}}%
+          <p-checkbox [(ngModel)]="db['isDealerInventoryPercent']" [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
+        </ng-template>
+      </p-column>
+      <p-column field="dealerInventoryAmount" [style]="{'width':'120px'}" header="经销商库存金额">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field]}}
+          <p-checkbox [(ngModel)]="db['isDealerInventoryAmount']" [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
+        </ng-template>
+      </p-column>
+      <p-column field="singlecarTotalBudgetPercent" [style]="{'width':'80px'}" header="单车总预算比例">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field]}}%
+        </ng-template>
+      </p-column>
+      <p-column field="singlecarTotalBudgetAmount" [style]="{'width':'120px'}" header="单车总预算金额">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field]}}
+        </ng-template>
+      </p-column>
+      <!-- Dynamic Field -->
+      <p-column field="financial" [style]="{'width':'80px'}" header="金融比例">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field]? db[col.field][col.field + 'Percent']:''}}<span *ngIf="db[col.field]">%</span>
+        </ng-template>
+      </p-column>
+      <p-column field="financial" [style]="{'width':'120px'}" header="金融金额">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field]? db[col.field][col.field + 'Amount']:''}}
+          <p-checkbox *ngIf="db[col.field]" [(ngModel)]="db[col.field]['isFinancialPromotionAmount']" [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
+        </ng-template>
+      </p-column>
+      <p-column field="insurance" [style]="{'width':'80px'}" header="保险比例">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field]? db[col.field][col.field + 'Percent']:''}}<span *ngIf="db[col.field]">%</span>
+        </ng-template>
+      </p-column>
+      <p-column field="insurance" [style]="{'width':'120px'}" header="保险金额">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field]? db[col.field][col.field + 'Amount']:''}}
+          <p-checkbox *ngIf="db[col.field]" [(ngModel)]="db[col.field]['isInsurancePromotionAmount']" [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
+        </ng-template>
+      </p-column>
+      <p-column field="replacement" [style]="{'width':'80px'}" header="置换比例">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field]? db[col.field][col.field + 'Percent']:''}}<span *ngIf="db[col.field]">%</span>
+        </ng-template>
+      </p-column>
+      <p-column field="replacement" [style]="{'width':'120px'}" header="置换金额">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field]? db[col.field][col.field + 'Amount']:''}}
+          <p-checkbox *ngIf="db[col.field]" [(ngModel)]="db[col.field]['isReplacementPromotionAmount']" [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
+        </ng-template>
+      </p-column>
+      <p-column field="expandInsurance" [style]="{'width':'80px'}" header="延保比例">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field]? db[col.field][col.field + 'Percent']:''}}<span *ngIf="db[col.field]">%</span>
+        </ng-template>
+      </p-column>
+      <p-column field="expandInsurance" [style]="{'width':'120px'}" header="延保金额">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field]? db[col.field][col.field + 'Amount']:''}}
+          <p-checkbox *ngIf="db[col.field]" [(ngModel)]="db[col.field]['isExpandInsurancetPromotionAmount']" [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
+        </ng-template>
+      </p-column>
+      <p-column field="maintain" [style]="{'width':'80px'}" header="保养比例">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field]? db[col.field][col.field + 'Percent']:''}}<span *ngIf="db[col.field]">%</span>
+        </ng-template>
+      </p-column>
+      <p-column field="maintain" [style]="{'width':'120px'}" header="保养金额">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field]? db[col.field][col.field + 'Amount']:''}}
+          <p-checkbox *ngIf="db[col.field]" [(ngModel)]="db[col.field]['isMaintainPromotionAmount']" [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
+        </ng-template>
+      </p-column>
+      <p-column field="attachment" [style]="{'width':'80px'}" header="附件比例">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field]? db[col.field][col.field + 'Percent']:''}}<span *ngIf="db[col.field]">%</span>
+        </ng-template>
+      </p-column>
+      <p-column field="attachment" [style]="{'width':'120px'}" header="附件金额">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field]? db[col.field][col.field + 'Amount']:''}}
+          <p-checkbox *ngIf="db[col.field]" [(ngModel)]="db[col.field]['isAttachmentPromotionAmount']" [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
+        </ng-template>
+      </p-column>
+      <p-column field="onStar" [style]="{'width':'80px'}" header="onStar比例">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field]? db[col.field][col.field + 'Percent']:''}}<span *ngIf="db[col.field]">%</span>
+        </ng-template>
+      </p-column>
+      <p-column field="onStar" [style]="{'width':'120px'}" header="onStar金额">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field]? db[col.field][col.field + 'Amount']:''}}
+          <p-checkbox *ngIf="db[col.field]" [(ngModel)]="db[col.field]['isOnStarPromotionAmount']" [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
+        </ng-template>
+      </p-column>
+      <p-column field="assignment" [style]="{'width':'80px'}" header="融资租赁-签约比例">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field]? db[col.field][col.field + 'Percent']:''}}<span *ngIf="db[col.field]">%</span>
+        </ng-template>
+      </p-column>
+      <p-column field="assignment" [style]="{'width':'120px'}" header="融资租赁-签约金额">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field]? db[col.field][col.field + 'Amount']:''}}
+          <p-checkbox *ngIf="db[col.field]" [(ngModel)]="db[col.field]['isAssignmentPromotionAmount']" [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
+        </ng-template>
+      </p-column>
+      <p-column field="purchase" [style]="{'width':'80px'}" header="融资租赁-回购比例">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field]? db[col.field][col.field + 'Percent']:''}}<span *ngIf="db[col.field]">%</span>
+        </ng-template>
+      </p-column>
+      <p-column field="purchase" [style]="{'width':'120px'}" header="融资租赁-回购金额">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field]? db[col.field][col.field + 'Amount']:''}}
+          <p-checkbox *ngIf="db[col.field]" [(ngModel)]="db[col.field]['isPurchasePromotionAmount']" [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
+        </ng-template>
+      </p-column>
+    </p-dataTable>
+  </p-panel>
+</div>
