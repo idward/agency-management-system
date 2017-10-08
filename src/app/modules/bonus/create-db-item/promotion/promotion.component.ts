@@ -67,6 +67,7 @@ export class DBPromotionComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.nodItemOptions = [new OptionItem('促销比例', 'PROMOTIONAL_RATIO'), new OptionItem('促销金额', 'PROMOTIONAL_AMOUNT')];
+    debugger;
 
     this.commonSetting = {
       'desc': '',
