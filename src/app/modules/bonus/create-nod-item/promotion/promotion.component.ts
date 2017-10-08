@@ -1,7 +1,7 @@
 import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 
-import {ConfirmationService, TreeNode} from 'primeng/primeng';
+import {ConfirmationService, Message, TreeNode} from 'primeng/primeng';
 import * as _ from 'lodash';
 
 import {Store} from '@ngrx/store';
@@ -20,60 +20,59 @@ import {NodItem} from "../../../../model/nod/nodItem.model";
   styleUrls: ['./promotion.component.scss']
 })
 export class NodPromotionComponent implements OnInit, OnDestroy {
-  nodItemCount:number = 0;
-  nodItemOptions:OptionItem[] = [];
-  selectedNodItem:string;
-  files:Observable<TreeNode[]>;
-  selectedFiles:TreeNode[];
-  display:boolean = false;
-  cars:TreeNode[] = [];
-  carTree:Observable<TreeNode[]>;
-  selectedCars:TreeNode[];
-  serviceTypes:OptionItem[];
-  serviceType:string;
-  selectedServiceType:string;
-  nod:Nod;
-  nodItem:Observable<NodItem []>;
-  isShowServiceType:boolean = false;
-  nodItemSubscription:Subscription;
-  carTreeSubscription:Subscription;
-  filesSubscription:Subscription;
-  currentNodItem:NodItem;
-  parsedData:Object = {};
+  nodItemCount: number = 0;
+  nodItemOptions: OptionItem[] = [];
+  selectedNodItem: string;
+  files: Observable<TreeNode[]>;
+  selectedFiles: TreeNode[];
+  display: boolean = false;
+  cars: TreeNode[] = [];
+  carTree: Observable<TreeNode[]>;
+  selectedCars: TreeNode[];
+  serviceTypes: OptionItem[];
+  serviceType: string;
+  selectedServiceType: string;
+  nod: Nod;
+  nodItem: Observable<NodItem []>;
+  isShowServiceType: boolean = false;
+  nodItemSubscription: Subscription;
+  carTreeSubscription: Subscription;
+  filesSubscription: Subscription;
+  currentNodItem: NodItem;
+  parsedData: Object = {};
+  saveResultInfo: Message[];
 
   constructor(@Inject('BonusService') private _bonusService,
               @Inject('CarTreeService') private _carTreeService,
               @Inject(ConfirmationService) private _confirmService,
-              private store$:Store<any>, private _router:Router,
-              private _route:ActivatedRoute) {
+              private store$: Store<any>, private _router: Router,
+              private _route: ActivatedRoute) {
     const carTreeFilter$ = this.store$.select('carTreeFilter');
     const carDatasFilter$ = this.store$.select('carDatasFilter');
     const nodItemData$ = this.store$.select('nodItemDatas');
     const nodItemDataFilter$ = this.store$.select('nodItemDataFilter');
 
     this.nodItem = Observable.combineLatest(nodItemData$, nodItemDataFilter$,
-      (datas:NodItem[], filter:any) => datas.filter(filter));
+      (datas: NodItem[], filter: any) => datas.filter(filter));
 
     this.files = Observable.zip(nodItemData$, carDatasFilter$,
-      (datas:TreeNode[], filter:any) => {
+      (datas: TreeNode[], filter: any) => {
         if (this.currentNodItem.nodItem_type === 'PROMOTIONAL_RATIO') {
           return filter(this.currentNodItem.nodItem_data['promotional_ratio']);
         } else if (this.currentNodItem.nodItem_type === 'PROMOTIONAL_AMOUNT') {
           return filter(this.currentNodItem.nodItem_data['promotional_amount']);
-        } else {
-          return;
         }
       });
 
     this.carTree = Observable.combineLatest(nodItemData$, carTreeFilter$,
-      (datas:TreeNode[], filter:any) => {
+      (datas: TreeNode[], filter: any) => {
         if (!_.isNil(this.currentNodItem)) {
           return filter(this.currentNodItem.nodItem_data['cartree_model']);
         }
       });
   }
 
-  ngOnInit():void {
+  ngOnInit(): void {
     this._bonusService.getData().subscribe(data => this.parsedData = data);
 
     this.serviceTypes = SERVICETYPES;
@@ -90,9 +89,10 @@ export class NodPromotionComponent implements OnInit, OnDestroy {
         this.nod.nodList = nodItems;
         if (!_.isNil(nodItems) && nodItems.length > 0) {
           this.currentNodItem = nodItems.filter(data => data.nodItem_id === this.selectedNodItem)[0];
-        } else {
-          this.currentNodItem = null;
         }
+        // else {
+        //   this.currentNodItem = null;
+        // }
         this.nodItemCount = nodItems.length;
         if (!_.isNil(this.currentNodItem)) {
           this.cars = this.currentNodItem.nodItem_data['cartree_model'];
@@ -103,15 +103,15 @@ export class NodPromotionComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy():void {
+  ngOnDestroy(): void {
     this.store$.dispatch({type: 'EMPTY_ALL_NODITEMS'});
-    if(this.nodItemSubscription){
+    if (this.nodItemSubscription) {
       this.nodItemSubscription.unsubscribe();
     }
-    if(this.filesSubscription){
+    if (this.filesSubscription) {
       this.filesSubscription.unsubscribe();
     }
-    if(this.carTreeSubscription){
+    if (this.carTreeSubscription) {
       this.carTreeSubscription.unsubscribe();
     }
   }
@@ -120,7 +120,7 @@ export class NodPromotionComponent implements OnInit, OnDestroy {
     this.isShowServiceType = true;
   }
 
-  chooseNodItem(data:any) {
+  chooseNodItem(data: any) {
     this.selectedNodItem = data;
     let currentNodItem = this.nod.nodList.filter(data => data.nodItem_id === this.selectedNodItem)[0];
     this.serviceType = currentNodItem.nodItem_type;
@@ -141,7 +141,7 @@ export class NodPromotionComponent implements OnInit, OnDestroy {
     nodItemData.push(nodItem);
     this.serviceType = nodItem.nodItem_type;
 
-    this.nodItemOptions.push(new OptionItem('Item-' + nodItem.nodItem_id, nodItem.nodItem_id));
+    this.nodItemOptions.push(new OptionItem('Item-' + nodItem.nodItem_id.split('-')[0], nodItem.nodItem_id));
     this.selectedNodItem = nodItem.nodItem_id;
 
     this.store$.dispatch({type: 'CREATE_NODITEM', payload: nodItemData});
@@ -149,7 +149,7 @@ export class NodPromotionComponent implements OnInit, OnDestroy {
     this.selectedCars = undefined;
   }
 
-  getCommonData(data:any) {
+  getCommonData(data: any) {
 
     let oldData = this.currentNodItem.nodItem_data['setting_condition'];
     let newData = data;
@@ -158,7 +158,7 @@ export class NodPromotionComponent implements OnInit, OnDestroy {
     this.store$.dispatch({type: 'UPDATE_NODEITEM', payload: this.currentNodItem});
   }
 
-  updateTotalAmount(data:any) {
+  updateTotalAmount(data: any) {
     this.store$.dispatch({type: 'UPDATE_NODEITEM', payload: data});
   }
 
@@ -179,9 +179,49 @@ export class NodPromotionComponent implements OnInit, OnDestroy {
     })
   }
 
-  saveDraft() {
-    this._bonusService.saveNodInfo(this.nod)
-      .subscribe(data => console.log(data));
+  saveData(data: any) {
+    let type: number = data.type;
+    this._bonusService.saveNodInfo(this.nod, type)
+      .subscribe(data => {
+          this.saveResultInfo = [];
+          if (type === 1) {
+            this.saveResultInfo.push({severity: 'success', summary: '', detail: '保存草稿成功！'});
+          }
+          if (type === 3) {
+            this.saveResultInfo.push({severity: 'success', summary: '', detail: '保存成功！'});
+            setTimeout(() => {
+              this._router.navigate(['bonus']);
+            }, 3000);
+          }
+        },
+        err => {
+          if (err.message === '500') {
+            this.saveResultInfo = [];
+            if (type === 1) {
+              this.saveResultInfo.push({severity: 'error', summary: '', detail: '保存草稿失败！'});
+            }
+            if (type === 3) {
+              let errorStatus = err.message;
+              this.saveResultInfo.push({severity: 'error', summary: '', detail: '保存失败！'});
+              setTimeout(function () {
+                this._router.navigate(['error', errorStatus]);
+              }.bind(this, errorStatus), 3000);
+            }
+          } else {
+            this.saveResultInfo = [];
+            if (type === 1) {
+              this.saveResultInfo.push({severity: 'error', summary: '', detail: '保存草稿失败！'});
+            }
+            if (type === 3) {
+              let errorStatus = err.message;
+              this.saveResultInfo.push({severity: 'error', summary: '', detail: '保存失败！'});
+              setTimeout(function () {
+                this._router.navigate(['error', errorStatus]);
+              }.bind(this, errorStatus), 3000);
+            }
+          }
+        }
+      );
   }
 
   previewAllItems() {
@@ -192,7 +232,7 @@ export class NodPromotionComponent implements OnInit, OnDestroy {
 
   }
 
-  editCarCategory(evt:Event) {
+  editCarCategory(evt: Event) {
     if (evt['screenX'] === 0 && evt['screenY'] === 0) {
       return false;
     }
@@ -229,7 +269,7 @@ export class NodPromotionComponent implements OnInit, OnDestroy {
       .subscribe(keyword => this.store$.dispatch({type: 'SEARCH_KEYWORDS', payload: keyword}));
   }
 
-  onHide(data:any) {
+  onHide(data: any) {
     this.display = false;
     this.selectedCars = data;
 
@@ -250,7 +290,7 @@ export class NodPromotionComponent implements OnInit, OnDestroy {
     this.store$.dispatch({type: 'UPDATE_NODEITEM', payload: this.currentNodItem});
   }
 
-  private createCarTree(data:TreeNode[]):TreeNode[] {
+  private createCarTree(data: TreeNode[]): TreeNode[] {
     var tempData = [];
     for (let i = 0; i < data.length; i++) {
       let car = this._createCarTree(data[i]);
@@ -259,7 +299,7 @@ export class NodPromotionComponent implements OnInit, OnDestroy {
     return tempData;
   }
 
-  private _createCarTree(data:TreeNode):TreeNode {
+  private _createCarTree(data: TreeNode): TreeNode {
     let newData = {};
     if (data.children) {
       if (data.children.length > 0) {
@@ -274,7 +314,7 @@ export class NodPromotionComponent implements OnInit, OnDestroy {
     return newData;
   }
 
-  private _errorHandle(err:any):Observable<any> {
+  private _errorHandle(err: any): Observable<any> {
     console.log('An error occured:' + err);
     return Observable.throw(err.message || err);
   }

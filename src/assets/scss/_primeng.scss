@@ -163,3 +163,61 @@
     //width: 200px;
   }
 }
+
+.saveItem_area {
+  .ui-datatable .ui-datatable-data>tr>td {
+    padding: 0;
+  }
+}
+
+.nod_item_page,.annual_policy {
+  .saveResult {
+    .ui-growl-item-container {
+      height: 100px;
+    }
+  }
+
+  .ui-growl {
+    position: fixed;
+    top: 40%;
+    left: 45%;
+    width: 22em;
+  }
+
+  .ui-growl-image {
+    position: absolute;
+    display: inline-block;
+    left: .5em;
+    top: 20px;
+    width: 60px;
+    height: 60px;
+    background: white;
+    border-radius: 30px;
+    padding: 5px;
+  }
+
+  .ui-growl-message {
+    padding: 0 0 .25em 0;
+    margin-left: 93px;
+    margin-top: 20px;
+  }
+
+  .ui-growl-message p {
+    font-weight: bold;
+    font-size: 25px;
+  }
+
+  .fa-2x {
+    font-size: 50px;
+    color: #4CAF50;
+  }
+
+  .fa-close {
+    //color: #f44336;
+    text-align: center;
+  }
+
+  .ui-growl-icon-close.fa.fa-close {
+    display: none;
+  }
+}

@@ -6,10 +6,10 @@ export const TYPES: OptionItem[] = [
 ];
 
 export const DEPTS: OptionItem[] = [
-  new OptionItem('集团', '1'),
+  new OptionItem('集团', '4'),
   new OptionItem('凯迪拉克', '2'),
-  new OptionItem('别克', '3'),
-  new OptionItem('雪佛兰', '4'),
+  new OptionItem('别克', '1'),
+  new OptionItem('雪佛兰', '22'),
   new OptionItem('二手车', '5')
 ];
 
@@ -38,8 +38,8 @@ export const BONUSTYPEDESC:OptionItem[] = [
 ]
 
 export const ISSUEBASIS:OptionItem[] = [
-  new OptionItem('请选择...','请选择...'),
+  new OptionItem('请选择...',''),
   new OptionItem('交车','交车'),
   new OptionItem('拷车','拷车'),
-  new OptionItem('经销商','经销商')
+  new OptionItem('经销商库存','经销商库存')
 ]

@@ -2,25 +2,27 @@
   <p-panel [toggleable]="true">
     <p-header>
       <h4>创建新Item</h4>
-      <button pButton class="saveItem" [disabled]="!(selectedDBDatas && selectedDBDatas.length > 0)" label="保存"></button>
+      <button pButton class="saveItem" [disabled]="!(editedDBDatas && editedDBDatas.length > 0)" (click)="createNewDB()" label="保存"></button>
     </p-header>
 
-    <div class="edit_area" *ngIf="selectedDBDatas && selectedDBDatas.length > 0">
+    <div class="edit_area" *ngIf="editedDBDatas && editedDBDatas.length > 0">
       <label for="desc">ITEM描述:</label>
-      <input type="text" size="60" id="desc" pInputText>
-      <p-checkbox name="fast_process" class="fast_process" value="" label="快速流程" binary="true"></p-checkbox>
+      <input type="text" size="60" id="desc" [(ngModel)]="commonSetting['desc']" pInputText>
+      <p-checkbox name="fast_process" class="fast_process" value="" label="快速流程"
+                  [(ngModel)]="commonSetting['fastProcess']" binary="true"></p-checkbox>
       <label for="bonusType" class="ui-chkbox-label">奖金类型:</label>
-      <p-dropdown id="bonusType" class="bonusType" [style]="{'width':'16%'}" [options]="createdTypes"
-                  [(ngModel)]="selectedType" placeholder="请选择创建类型"></p-dropdown>
+      <p-dropdown id="bonusType" class="bonusType" [style]="{'width':'16%'}" [options]="nodItemOptions"
+                  [(ngModel)]="commonSetting['bonusType']" placeholder="请选择创建类型"></p-dropdown>
+      <!--<span>{{ === 'PROMOTIONAL_RATIO'? '促销比例':'促销金额'}}</span>-->
       <label>开始时间：</label>
-      <p-calendar></p-calendar>
+      <p-calendar [(ngModel)]="commonSetting['startTime']"></p-calendar>
       <label>结束时间：</label>
-      <p-calendar></p-calendar>
+      <p-calendar [(ngModel)]="commonSetting['endTime']"></p-calendar>
       <label for="percentage">比例</label>
       <input type="text" size="60" id="percentage" [(ngModel)]="percentage" (change)="changeValueByPercent()" pInputText>%
     </div>
 
-    <p-dataTable [value]="editedDBDatas" scrollable="true" *ngIf="selectedDBDatas && selectedDBDatas.length > 0">
+    <p-dataTable [value]="editedDBDatas" scrollable="true" *ngIf="editedDBDatas && editedDBDatas.length > 0">
       <p-column field="nodNumber" [style]="{'width':'120px'}" header="NOD/DB号"></p-column>
       <p-column field="nodItemNumber" [style]="{'width':'180px'}" header="Item"></p-column>
       <p-column field="carSeries" [style]="{'width':'60px'}" header="车系"></p-column>
@@ -28,7 +30,7 @@
       <p-column field="msrp" [style]="{'width':'70px'}" header="MSRP"></p-column>
       <p-column field="itemType" [style]="{'width':'80px'}" header="类型">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          {{db[col.field] === '1' ? '促销比例' : '总金额'}}
+          {{db[col.field] === '1' ? '促销比例' : '促销金额'}}
         </ng-template>
       </p-column>
       <p-column field="callOffPromotionPercent" [style]="{'width':'100px'}" header="拷车比例">

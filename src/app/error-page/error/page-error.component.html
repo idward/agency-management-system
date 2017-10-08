@@ -1,0 +1,8 @@
+<div class="error_page">
+  <div class="error_info">
+    <span class="error_icon"><i class="fa fa-exclamation-circle fa-setting" aria-hidden="true"></i></span>
+    <span class="error_message" *ngIf="statusCode === 404">您访问的页面不存在！</span>
+    <span class="error_message" *ngIf="statusCode === 400">参数错误！</span>
+    <span class="error_message" *ngIf="statusCode === 500">服务器错误！</span>
+  </div>
+</div>

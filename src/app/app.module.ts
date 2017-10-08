@@ -4,6 +4,9 @@ import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {LocalStorageModule} from 'angular-2-local-storage';
 
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {BasicHttpInterceptor} from "./core/interceptor/http.interceptor";
+
 import {StoreModule} from '@ngrx/store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools'
 import {menuReducer} from './reducers/menu.reducer';
@@ -14,6 +17,7 @@ import {AnnualPolicyReducer} from "./reducers/annual-policy.reducer";
 import {NodDataFilterReducer, NodDataReducer} from "./reducers/nodData.reducer";
 import {dbFilterReducer, dbReducer} from "./reducers/db.reducer";
 import {dbSelectFilterReducer, dbSelectReducer} from "./reducers/db-select.reducer";
+import {dbCreatedFilterReducer, dbCreatedReducer} from "./reducers/db-create.reducer";
 
 import {AppRoutesModule} from "./route/app.routing.module";
 import {BonusModule} from "./modules/bonus/bonus.module";
@@ -25,6 +29,7 @@ import {FooterComponent} from "./template/footer/footer.component";
 import {SidebarComponent} from "./template/sidebar/sidebar.component";
 import {MenuListComponent} from "./template/sidebar/menu-list/menu-list.component";
 import {MenuItemComponent} from "./template/sidebar/menu-item/menu-item.component";
+import {PageErrorComponent} from './error-page/error/page-error.component';
 
 @NgModule({
   declarations: [
@@ -34,11 +39,14 @@ import {MenuItemComponent} from "./template/sidebar/menu-item/menu-item.componen
     SidebarComponent,
     MenuListComponent,
     MenuItemComponent,
+    PageErrorComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     HttpModule,
+    BonusModule,
     AppRoutesModule,
     StoreModule.provideStore({
       menus: menuReducer,
@@ -54,17 +62,20 @@ import {MenuItemComponent} from "./template/sidebar/menu-item/menu-item.componen
       dbDatas: dbReducer,
       dbFilterDatas: dbFilterReducer,
       dbSelDatas: dbSelectReducer,
-      dbSelFilterDatas: dbSelectFilterReducer
+      dbSelFilterDatas: dbSelectFilterReducer,
+      dbCreatedDatas: dbCreatedReducer,
+      dbCreatedFilterDatas: dbCreatedFilterReducer
     }),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
-    BonusModule,
     LoginModule,
     LocalStorageModule.withConfig({
       prefix: 'saic-gm',
       storageType: 'localStorage'
     })
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: BasicHttpInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

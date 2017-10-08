@@ -12,7 +12,7 @@ export class NodItemHeaderComponent implements OnInit {
   @Input() selectedNodItem:string;
   @Output() createItemEvt:EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() deleteItemEvt:EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() saveDraftEvt:EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() saveDraftEvt:EventEmitter<any> = new EventEmitter<any>();
   @Output() previewAllItemsEvt:EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() sendItemsDataEvt:EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() changeNodItemEvt:EventEmitter<any> = new EventEmitter<any>();
@@ -31,8 +31,8 @@ export class NodItemHeaderComponent implements OnInit {
     this.deleteItemEvt.emit(true);
   }
 
-  saveDraft() {
-    this.saveDraftEvt.emit(true);
+  saveData(type:number) {
+    this.saveDraftEvt.emit({type});
   }
 
   previewAllItems(){

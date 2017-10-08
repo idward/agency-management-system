@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Http, Headers} from "@angular/http";
+import {HttpClient} from '@angular/common/http';
 import {TreeNode} from "primeng/primeng";
 import {Observable} from "rxjs/Observable";
 import "rxjs/Rx";
@@ -7,18 +8,24 @@ import * as _ from 'lodash';
 
 @Injectable()
 export class CarTreeService {
-  private _url: string = 'http://localhost:3000/carTree';
-  //private _url: string = 'http://localhost:8080/service/rest/rewardNod/getVehicleTree/all';
-  private _headers = new Headers({
-    'Content-Type': 'application/json'
-  });
+  private _internalUrl: string = 'http://localhost:3000/carTree';
+  private _externalUrl: string = 'http://localhost:8080/service/rest/rewardNod/getVehicleTree/all';
+  private _publishUrl: string = 'http://10.203.102.119/service/rest/rewardNod/getVehicleTree/all';
+  private _url: string;
 
-  constructor(private _http: Http) {
+  constructor(private _http: HttpClient) {
+    this._url = this.setAPIUrl(this._externalUrl);
+    console.log('tree:', this._url);
+  }
+
+  setAPIUrl(url: string): string {
+    return url;
   }
 
   getFilesystem(): Observable<TreeNode[]> {
-    return this._http.get(this._url, this._headers)
-      .map(res => this.rebuildData(res.json().data) as TreeNode[])
+    return this._http.get(this._url)
+    // .map(res => this.rebuildData(res.json().data) as TreeNode[])
+      .map(res => this.rebuildData(res['data']) as TreeNode[])
       .catch(this._handleError);
   }
 
@@ -106,8 +113,10 @@ export class CarTreeService {
   }
 
   private _handleError(error: any): Observable<any> {
-    console.log('sever error:', error.json());
-    return Observable.throw(error.message || error);
+    if (error.status < 400 || error.status == 500) {
+      return Observable.throw(new Error(error.status));
+    } else if (error.status === 400 || error.status === 415) {
+      return Observable.throw(new Error(error.status));
+    }
   }
-
 }

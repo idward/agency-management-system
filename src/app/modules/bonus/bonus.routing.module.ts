@@ -66,4 +66,5 @@ const routes: Routes = [
 })
 
 export class BonusRoutesModule {
-};
+}
+;

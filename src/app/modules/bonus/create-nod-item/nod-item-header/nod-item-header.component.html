@@ -6,9 +6,9 @@
     <button *ngIf="nodItemCount > 0" pButton type="button" (click)="deleteItem()" label="+ 删除Item"></button>
   </div>
   <div class="right_area">
-    <button pButton type="button" (click)="saveDraft()" [disabled]="nodItemCount === 0" label="保存草稿"></button>
+    <button pButton type="button" (click)="saveData(1)" [disabled]="nodItemCount === 0" label="保存草稿"></button>
     <button pButton type="button" (click)="previewAllItems()" [disabled]="nodItemCount === 0" label="预览"></button>
-    <button pButton type="button" (click)="sendItemsData()" [disabled]="nodItemCount === 0" label="提交"></button>
+    <button pButton type="button" (click)="saveData(3)" [disabled]="nodItemCount === 0" label="提交"></button>
   </div>
 
 

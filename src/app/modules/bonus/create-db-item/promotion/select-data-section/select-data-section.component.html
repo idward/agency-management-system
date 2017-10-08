@@ -2,6 +2,7 @@
   <p-panel [toggleable]="true">
     <p-header>
       <h4>已选NOD/DB号</h4>
+      <p-dropdown id="bonusType" [options]="nodItemOptions" [(ngModel)]="selectedBonusType" placeholder="请选择创建类型"></p-dropdown>
       <button pButton class="createItem" label="创建Item" [disabled]="!(selectedItem && selectedItem.length > 0)" (click)="createNewItem()"></button>
     </p-header>
     <p-dataTable [value]="datas" [(selection)]="selectedItem" scrollable="true">
@@ -23,7 +24,7 @@
       </p-column>
       <p-column field="itemType" [style]="{'width':'80px'}" header="类型">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          {{db[col.field] === '1' ? '促销比例' : '总金额'}}
+          {{db[col.field] === '1' ? '促销比例' : '促销金额'}}
         </ng-template>
       </p-column>
       <p-column field="callOffPromotionPercent" [style]="{'width':'80px'}" header="拷车比例">

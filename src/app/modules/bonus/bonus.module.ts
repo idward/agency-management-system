@@ -7,6 +7,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {InputTextModule, DropdownModule, ButtonModule, CheckboxModule, CalendarModule} from 'primeng/primeng';
 import {TreeTableModule, TreeModule, SharedModule, DialogModule, DataTableModule} from 'primeng/primeng';
 import {ConfirmDialogModule, ConfirmationService, PanelModule} from 'primeng/primeng';
+import {GrowlModule} from 'primeng/primeng';
 
 import {BonusMainComponent} from './bonus-main/bonus-main.component';
 import {NodSettingComponent} from './nod-setting/nod-setting.component';
@@ -49,7 +50,8 @@ import {OrderModule} from 'ngx-order-pipe';
     ConfirmDialogModule,
     DataTableModule,
     PanelModule,
-    OrderModule
+    OrderModule,
+    GrowlModule
   ],
   declarations: [
     NodSettingComponent,

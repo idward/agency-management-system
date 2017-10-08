@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-save-data-section',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./save-data-section.component.scss']
 })
 export class SaveDataSectionComponent implements OnInit {
-  savedDBDatas:any;
+  @Input() savedDBDatas:any;
 
   constructor() { }
 

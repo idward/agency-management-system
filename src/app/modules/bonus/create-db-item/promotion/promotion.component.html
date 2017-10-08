@@ -4,8 +4,9 @@
     <span>奖金类型: {{bonusType}}</span>
   </div>
 
-  <app-select-data-section [datas]="datas | async" (createItemEvt)="createNewItem($event)"></app-select-data-section>
-  <app-modify-data-section [selectedDBDatas]="selectedDBDatas | async" [editedDBDatas] = "editedDBDatas"
-  (changeValueByPercentEvt)="changeValueByPercent($event)" (changeValueEvt)="changeValueByMSRP($event)"></app-modify-data-section>
-  <app-save-data-section></app-save-data-section>
+  <app-select-data-section [datas]="datas | async" [selectedItem]="selectedNodItems" [nodItemOptions]="nodItemOptions" (createItemEvt)="createNewItem($event)"></app-select-data-section>
+  <app-modify-data-section [editedDBDatas] = "editedDBDatas" [commonSetting]="commonSetting" [nodItemOptions]="nodItemOptions"
+  (changeValueByPercentEvt)="changeValueByPercent($event)" (changeValueEvt)="changeValueByMSRP($event)"
+   (createNewDBEvt)="createNewDB()"></app-modify-data-section>
+  <app-save-data-section [savedDBDatas]="createdDBDatas | async"></app-save-data-section>
 </div>

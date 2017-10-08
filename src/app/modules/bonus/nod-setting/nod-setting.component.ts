@@ -45,7 +45,8 @@ export class NodSettingComponent implements OnInit {
     // console.log(formValue);
     let createdType = formValue['createdType'];
     this._bonusService.sendData(formValue);
-    let nodId = UUID.UUID().split('-')[0];
+    // let nodId = UUID.UUID().split('-')[0];
+    let nodId = UUID.UUID();
     if (createdType === 'PROMOTION') {
       this._router.navigate(['bonus/create-nod/promotion', nodId]);
     } else if (createdType === 'ANNUAL_POLICY') {

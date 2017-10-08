@@ -1,0 +1,27 @@
+.error_page {
+  position: relative;
+  width: 600px;
+  height: 300px;
+  border-radius: 10px;
+  margin: 0 auto;
+
+  .error_info {
+    position: absolute;
+    top: 25%;
+    left: 10%;
+
+    .fa-setting {
+      font-size: 100px;
+      color: #999;
+    }
+
+    .error_message {
+      display: inline-block;
+      font-size: 36px;
+      color: #888;
+      vertical-align: text-bottom;
+      margin-bottom: 20px;
+      margin-left: 20px;
+    }
+  }
+}

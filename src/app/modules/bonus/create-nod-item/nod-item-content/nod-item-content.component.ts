@@ -100,8 +100,8 @@ export class NodItemContentComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   onChangeValue(node: any, nodeName: string, type: string): any {
-    let that = this;
-    let result;
+    let that = this, result;
+    debugger;
     setTimeout(function () {
       that.ngOnChanges();
     })

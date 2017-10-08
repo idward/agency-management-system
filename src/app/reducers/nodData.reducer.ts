@@ -4,8 +4,10 @@ import * as _ from 'lodash';
 
 export function NodDataReducer(state:NodSHData[] = [], action:Action){
   switch (action.type){
-    case 'GET_NODSEARCHEDDATA':
+    case 'ADD_NODSEARCHEDDATA':
       return [...state, ...action.payload];
+    case 'EMPTY_NODSEARCHEDDATA':
+      return state = [];
     default:
       return state;
   }

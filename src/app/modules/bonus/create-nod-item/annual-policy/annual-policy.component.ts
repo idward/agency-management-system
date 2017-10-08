@@ -1,4 +1,5 @@
 import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
+import {Router, ActivatedRoute, Params} from '@angular/router';
 import {Store} from "@ngrx/store";
 import {UUID} from 'angular2-uuid';
 
@@ -8,21 +9,26 @@ import {Subscription} from "rxjs/Subscription";
 import {AnnualPolicy} from "../../../../model/annual-policy/annualPolicy.model";
 import {OptionItem} from "../../../../model/optionItem/optionItem.model";
 import {BONUSTYPEDESC, ISSUEBASIS} from "../../../../data/optionItem/optionItem.data";
+import {Nod} from "../../../../model/nod/nod.model";
+import {Message} from "primeng/primeng";
 
 @Component({
   selector: 'app-annual-policy',
   templateUrl: './annual-policy.component.html',
   styleUrls: ['./annual-policy.component.scss']
 })
-export class NodAnnualPolicyComponent implements OnInit,OnDestroy {
+export class NodAnnualPolicyComponent implements OnInit, OnDestroy {
+  nod: Nod;
+  parsedData: any;
   datas: Observable<AnnualPolicy[]>;
   bonusTypeDescription: OptionItem[];
   issueBasis: OptionItem[];
-  annualPolicyData: AnnualPolicy[];
   apSubscription: Subscription;
+  parsedDataSubscription: Subscription;
+  saveResultInfo: Message[];
 
-  constructor(private store$: Store<AnnualPolicy[]>,
-              @Inject('BonusService') private _bonusService) {
+  constructor(private store$: Store<AnnualPolicy[]>, private _route: ActivatedRoute,
+              private _router: Router, @Inject('BonusService') private _bonusService) {
     this.datas = this.store$.select('annualPolicyDatas');
   }
 
@@ -31,18 +37,38 @@ export class NodAnnualPolicyComponent implements OnInit,OnDestroy {
     this.issueBasis = ISSUEBASIS;
     this.store$.dispatch({type: 'GET_ANNUAL_POLICY'});
 
-    if(!this.apSubscription){
+    this._route.params.subscribe((parms: Params) => {
+      this.nod = new Nod(parms.nodId);
+    });
+
+    if (!this.parsedDataSubscription) {
+      this.parsedDataSubscription = this._bonusService.getData()
+        .subscribe(data => {
+          this.parsedData = data;
+        });
+    }
+
+    if (!this.apSubscription) {
       this.apSubscription = this.datas.subscribe(data => {
-        console.log(data);
-        this.annualPolicyData = data;
+        if (data && data.length > 0) {
+          this.nod.createdType = this.parsedData['createdType'] === 'ANNUAL_POLICY' ? '2' : '1';
+          this.nod.desc = this.parsedData['description'];
+          this.nod.department = this.parsedData['department'];
+          this.nod.nodYear = this.parsedData['year'];
+          this.nod.nodList = data;
+        }
       });
     }
   }
 
   ngOnDestroy() {
-    this.store$.dispatch({type:'EMPTY_ANNUAL_POLICY'});
-    if(this.apSubscription){
+    if (this.apSubscription) {
+      this.store$.dispatch({type: 'EMPTY_ANNUAL_POLICY'});
       this.apSubscription.unsubscribe();
+    }
+
+    if (this.parsedDataSubscription) {
+      this.parsedDataSubscription.unsubscribe();
     }
   }
 
@@ -74,9 +100,49 @@ export class NodAnnualPolicyComponent implements OnInit,OnDestroy {
     this.store$.dispatch({type: 'ADD_ANNUAL_POLICY', payload: tempData});
   }
 
-  saveData() {
-    this._bonusService.saveAnnualPolicyData(this.annualPolicyData)
-      .subscribe(data => console.log(data));
+  saveData(type: number) {
+    // let nodDatasByAnnualPolicy = this.transformAPDatas(this.annualPolicyData);
+    this._bonusService.saveAnnualPolicyData(this.nod, type)
+      .subscribe(data => {
+          this.saveResultInfo = [];
+          if (type === 1) {
+            this.saveResultInfo.push({severity: 'success', summary: '', detail: '保存草稿成功！'});
+          }
+          if (type === 3) {
+            this.saveResultInfo.push({severity: 'success', summary: '', detail: '保存成功！'});
+            setTimeout(() => {
+              this._router.navigate(['bonus']);
+            }, 3000);
+          }
+        },
+        err => {
+          if (err.message === '500') {
+            this.saveResultInfo = [];
+            if (type === 1) {
+              this.saveResultInfo.push({severity: 'error', summary: '', detail: '保存草稿失败！'});
+            }
+            if (type === 3) {
+              let errorStatus = err.message;
+              this.saveResultInfo.push({severity: 'error', summary: '', detail: '保存失败！'});
+              setTimeout(function () {
+                this._router.navigate(['error', errorStatus]);
+              }.bind(this, errorStatus), 3000);
+            }
+          } else {
+            this.saveResultInfo = [];
+            if (type === 1) {
+              this.saveResultInfo.push({severity: 'error', summary: '', detail: '保存草稿失败！'});
+            }
+            if (type === 3) {
+              let errorStatus = err.message;
+              this.saveResultInfo.push({severity: 'error', summary: '', detail: '保存失败！'});
+              setTimeout(function () {
+                this._router.navigate(['error', errorStatus]);
+              }.bind(this, errorStatus), 3000);
+            }
+          }
+        }
+      );
   }
 
   delCurrentRow(data: any) {

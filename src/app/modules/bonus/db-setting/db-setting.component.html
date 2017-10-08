@@ -43,8 +43,8 @@
     <button pButton type="submit" [disabled]="!dbSettingForm.valid" label="不合并" (click)="combinationValue(0)"></button>
   </form>
 
-  <p-dialog class="nodSearch" [modal]="true" [draggable]="false" [(visible)]="nodSearchDialog"
-            [closable]="true" [width]="500">
+  <p-dialog class="nodSearch" [modal]="true" [draggable]="true" [(visible)]="nodSearchDialog"
+            [closable]="true" [width]="500" (onHide)="onHide()">
     <p-header>
       <div class="header">NOD搜索</div>
     </p-header>
@@ -59,7 +59,7 @@
                    (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)"
                    scrollHeight="200px">
         <p-column [style]="{'width':'50px'}" selectionMode="multiple"></p-column>
-        <p-column field="nodNumber" [style]="{width:'150px'}" header="NOD号"></p-column>
+        <p-column field="nodNumber" [style]="{width:'200px'}" header="NOD号"></p-column>
         <p-column field="description" header="描述"></p-column>
       </p-dataTable>
 

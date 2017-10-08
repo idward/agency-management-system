@@ -50,17 +50,23 @@
         <p-calendar [(ngModel)]="data[col.field]" appendTo="body"></p-calendar>
       </ng-template>
     </p-column>
-    <p-column field="remark" header="备注" [editable]="true"></p-column>
+    <p-column field="remarks" header="备注" [editable]="true"></p-column>
     <p-footer>
       <div class="ui-helper-clearfix" style="width:100%">
         <button type="button" pButton icon="fa-plus" style="float:left"
                 (click)="addData()" label="增加">
         </button>
         <button type="button" pButton icon="fa-plus" style="float:left"
-                (click)="saveData()" label="保存">
+                (click)="saveData(1)" label="保存草稿">
+        </button>
+        <button type="button" pButton icon="fa-plus" style="float:left"
+                (click)="saveData(3)" label="保存">
         </button>
       </div>
     </p-footer>
   </p-dataTable>
+
+  <!-- 保存结果弹出框 -->
+  <p-growl [(value)]="saveResultInfo" styleClass="saveResult" sticky="true" life="2000"></p-growl>
 
 </div>

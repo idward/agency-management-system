@@ -6,6 +6,20 @@
     left: 36px;
   }
 
+  p {
+    padding: 10px;
+    border-top: 1px solid #dbdbdb;
+    //border-bottom: 1px solid #dbdbdb;
+  }
+
+  //p:last-child {
+  //  border-bottom: 1px solid #dbdbdb;
+  //}
+
+  p.basicInfo {
+    border: none;
+  }
+
   .saveItem {
     position: absolute;
     right: 5px;
@@ -18,5 +32,26 @@
     .fast_process, .bonusType {
       margin-right: 10px;
     }
+  }
+
+  .delete_icon, .modify_icon {
+    display: inline-block;
+    position: relative;
+    margin-top: 10px;
+    background-color: red;
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+    i {
+      position: absolute;
+      top: 3px;
+      left: 5px;
+      font-size: 18px;
+      color: white;
+    }
+  }
+
+  .modify_icon {
+    background-color: #2399e5;
   }
 }

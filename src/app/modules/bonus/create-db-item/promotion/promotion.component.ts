@@ -1,9 +1,12 @@
 import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {Params, ActivatedRoute} from '@angular/router';
+import {UUID} from 'angular2-uuid';
 import {Store} from "@ngrx/store";
 import {Observable} from "rxjs/Observable";
 import {Subscription} from "rxjs/Subscription";
 import * as _ from 'lodash';
+
+import {OptionItem} from "../../../../model/optionItem/optionItem.model";
 
 @Component({
   selector: 'app-promotion',
@@ -11,32 +14,43 @@ import * as _ from 'lodash';
   styleUrls: ['./promotion.component.scss']
 })
 export class DBPromotionComponent implements OnInit, OnDestroy {
-  dbNumber:string;
-  bonusType:string;
-  combinationType:number;
-  selectedNodIds:any;
-  selectedType:string;
-  dynamicTypes:any;
-  datas:Observable<any>;
-  selectedDBDatas:Observable<any>;
-  editedDBDatas:any;
-  nodItemsSubscription:Subscription;
-  selDBDataSubscription:Subscription;
+  dbNumber: string;
+  bonusType: string;
+  combinationType: number;
+  selectedNodIds: any;
+  selectedType: string;
+  selectedNodItems: any = [];
+  commonSetting: any;
+  dynamicTypes: any;
+  nodItemOptions: OptionItem[] = [];
+  datas: Observable<any>;
+  selectedDBDatas: Observable<any>;
+  createdDBDatas: Observable<any>;
+  editedDBDatas: any;
+  nodItemsSubscription: Subscription;
+  selDBDataSubscription: Subscription;
+  createdDBDataSubscription: Subscription;
 
-  constructor(private _route:ActivatedRoute, private store$:Store<any>, private store1$:Store<any>,
+  constructor(private _route: ActivatedRoute, private store$: Store<any>,
               @Inject('BonusService') private _bonusService) {
 
     const dbDatas$ = this.store$.select('dbDatas');
     const dbFilterDatas$ = this.store$.select('dbFilterDatas');
 
-    const dbSelDatas$ = this.store1$.select('dbSelDatas');
-    const dbSelFilterDatas$ = this.store1$.select('dbSelFilterDatas');
+    const dbSelDatas$ = this.store$.select('dbSelDatas');
+    const dbSelFilterDatas$ = this.store$.select('dbSelFilterDatas');
+
+    const dbCreatedDatas$ = this.store$.select('dbCreatedDatas');
+    const dbCreatedFilterDatas$ = this.store$.select('dbCreatedFilterDatas');
 
     this.datas = Observable.combineLatest(dbDatas$, dbFilterDatas$,
-      (datas:any, filter:any) => datas.filter(filter));
+      (datas: any, filter: any) => datas.filter(filter));
 
     this.selectedDBDatas = Observable.combineLatest(dbSelDatas$, dbSelFilterDatas$,
-      (datas:any, filter:any) => datas.map(filter));
+      (datas: any, filter: any) => datas.map(filter));
+
+    this.createdDBDatas = Observable.combineLatest(dbCreatedDatas$, dbCreatedFilterDatas$,
+      (datas: any, filter: any) => datas.filter(filter));
 
     this.dynamicTypes = [
       {cnName: '金融', enName: 'financial'},
@@ -52,6 +66,16 @@ export class DBPromotionComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.nodItemOptions = [new OptionItem('促销比例', 'PROMOTIONAL_RATIO'), new OptionItem('促销金额', 'PROMOTIONAL_AMOUNT')];
+
+    this.commonSetting = {
+      'desc': '',
+      'fastProcess': false,
+      'bonusType': '',
+      'startTime': '',
+      'endTime': ''
+    }
+
     this._bonusService.getData()
       .subscribe(data => {
         this.bonusType = data.bonus_type === 0 ? '促销' : '年度政策';
@@ -59,11 +83,17 @@ export class DBPromotionComponent implements OnInit, OnDestroy {
         this.selectedNodIds = data.selectedNodIds;
       });
 
-    this._route.params.subscribe((params:Params) => {
+    this._route.params.subscribe((params: Params) => {
       this.dbNumber = params.dbId;
     });
 
     this.datas.subscribe(datas => console.log('finalDatas:', datas));
+
+    if (!this.createdDBDataSubscription) {
+      this.createdDBDataSubscription = this.createdDBDatas.subscribe(datas => {
+        console.log('createdDBDatas:', datas);
+      });
+    }
 
     if (!this.selDBDataSubscription) {
       this.selDBDataSubscription = this.selectedDBDatas.subscribe(datas => {
@@ -116,13 +146,30 @@ export class DBPromotionComponent implements OnInit, OnDestroy {
       this.store$.dispatch({type: 'EMPTY_ALL_SELDBDATAS'});
       this.selDBDataSubscription.unsubscribe();
     }
+
+    if (this.createdDBDataSubscription) {
+      this.store$.dispatch({type: 'EMPTY_ALL_CREATED_DBDATAS'});
+      this.createdDBDataSubscription.unsubscribe();
+    }
   }
 
-  createNewItem(datas:any) {
+  createNewItem(datas: any) {
     this.store$.dispatch({type: 'ADD_SELECTED_DATAS', payload: datas});
   }
 
-  changeValueByPercent(percent:number) {
+  createNewDB() {
+    let newNod = {}, finalCreatedDBDatas = [];
+    newNod['nodItemNumber'] = UUID.UUID();
+    newNod['setting_condition'] = this.commonSetting;
+    newNod['promotional_ratio'] = this.editedDBDatas;
+    finalCreatedDBDatas.push(newNod);
+    this.store$.dispatch({type: 'ADD_CREATED_DB_DATAS', payload: finalCreatedDBDatas});
+
+    this.store$.dispatch({type: 'EMPTY_ALL_SELDBDATAS'});
+    this.selectedNodItems = [];
+  }
+
+  changeValueByPercent(percent: number) {
     this.store$.dispatch({type: 'GET_SELECTED_DATAS'});
     this.editedDBDatas = this.editedDBDatas.map(data => {
       _.forIn(data, (value, key) => {
@@ -132,7 +179,7 @@ export class DBPromotionComponent implements OnInit, OnDestroy {
           data[key] = percent / 100 * value;
         } else if (typeof data[key] === 'object') {
           let subdata = data[key];
-          _.forIn(subdata, (value, key)=> {
+          _.forIn(subdata, (value, key) => {
             if (key.indexOf('Percent') !== -1) {
               subdata[key] = percent / 100 * value;
             } else if (key.indexOf('Amount') !== -1 && key.indexOf('is') === -1) {
@@ -146,8 +193,8 @@ export class DBPromotionComponent implements OnInit, OnDestroy {
     });
   }
 
-  changeValueByMSRP(data:any) {
-    if(typeof data.rowData[data.fieldName] === 'object'){
+  changeValueByMSRP(data: any) {
+    if (typeof data.rowData[data.fieldName] === 'object') {
       data.rowData[data.fieldName][data.fieldName + 'Amount'] =
         data.rowData[data.fieldName][data.fieldName + 'Percent'] / 100 * data.rowData['msrp'];
     } else {

@@ -1,7 +1,7 @@
 <div class="nod_item_page">
   <app-nod-item-header [nodItemCount]="nodItemCount" [nodItemOptions]="nodItemOptions"
                        [selectedNodItem]="selectedNodItem" (createItemEvt)="chooseServiceType()"
-                       (saveDraftEvt)="saveDraft()" (previewAllItemsEvt)="previewAllItems()"
+                       (saveDraftEvt)="saveData($event)" (previewAllItemsEvt)="previewAllItems()"
                        (deleteItemEvt)="deleteItem()" (sendItemsDataEvt)="sendItemsData()"
                        (changeNodItemEvt)="chooseNodItem($event)"></app-nod-item-header>
   <div *ngFor="let nodItem of nod.nodList">
@@ -25,6 +25,10 @@
               [disabled]="selectedServiceType === undefined"  label="确定"></button>
     </p-dialog>
   </div>
+
+
+  <!-- 保存结果弹出框 -->
+  <p-growl [(value)]="saveResultInfo" styleClass="saveResult" sticky="true" life="2000"></p-growl>
 
 </div>
 
