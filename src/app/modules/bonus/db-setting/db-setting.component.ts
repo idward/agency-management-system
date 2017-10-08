@@ -96,14 +96,14 @@ export class DbSettingComponent implements OnInit, OnChanges, OnDestroy {
     this.isCombination = value;
   }
 
-  toNodMainPage(formValue:Object, isCombination) {
+  toNodMainPage(formValue:Object) {
     let parsedData = formValue;
     parsedData['isCombination'] = this.isCombination;
     let createdType = formValue['createdType'];
     let dbId = UUID.UUID().split('-')[0];
     if (createdType === 'PROMOTION') {
       let serviceType = 0;
-      let seletedNodIds = this.selectedNod.map(data => {
+      let seletedNodIds = this.searchedNODDataList.map(data => {
         return data.nodBaseInfoId;
       })
       let params = {
