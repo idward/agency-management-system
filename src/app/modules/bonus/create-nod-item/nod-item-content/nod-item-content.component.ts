@@ -101,7 +101,6 @@ export class NodItemContentComponent implements OnInit, OnChanges, OnDestroy {
 
   onChangeValue(node: any, nodeName: string, type: string): any {
     let that = this, result;
-    debugger;
     setTimeout(function () {
       that.ngOnChanges();
     })
@@ -230,7 +229,6 @@ export class NodItemContentComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   setChildNodeChecked(node: TreeNode, checkStatus: boolean): TreeNode {
-
     if (node.children && node.children.length > 0) {
       node.children = node.children.map(sNode => {
         sNode.selected = checkStatus;

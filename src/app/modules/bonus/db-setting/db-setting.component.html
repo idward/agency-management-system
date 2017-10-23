@@ -13,16 +13,9 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="createdType">创建类型:</label>
-      <p-dropdown id="createdType" [style]="{'width':'70%'}" [options]="createdTypes" formControlName="createdType"
-                  [(ngModel)]="selectedType" placeholder="请选择创建类型"></p-dropdown>
-      <div class="errorInfo" *ngIf="!dbSettingForm.controls['createdType'].valid
-      && dbSettingForm.controls['createdType'].dirty">
-        <div class="ui-message ui-messages-error ui-corner-all ui-error">
-          <i class="fa fa-close"></i>
-          创建类型选项必须选择
-        </div>
-      </div>
+      <label for="createdType">查询类型:</label>
+      <p-checkbox name="reportType" value="1" label="促销方式" [(ngModel)]="selectedType" formControlName="selectedType"></p-checkbox>
+      <p-checkbox name="reportType" value="2" label="年度政策" [(ngModel)]="selectedType" formControlName="selectedType"></p-checkbox>
     </div>
     <div class="form-group">
       <label>期间:</label>
@@ -39,9 +32,18 @@
       <button class="btn" type="button" pButton (click)="searchDBNumber()" label="添加DB号"></button>
       <button class="preview" type="button" pButton icon="fa fa-file-text-o" (click)="showSearchedDataList()"></button>
     </div>
-    <button pButton type="submit" [disabled]="!dbSettingForm.valid" label="合并" (click)="combinationValue(1)"></button>
-    <button pButton type="submit" [disabled]="!dbSettingForm.valid" label="不合并" (click)="combinationValue(0)"></button>
+    <div class="form-group" style="text-align: right; margin-right: 20px;">
+      <p-checkbox label="是否计算Saving" binary="true" formControlName="isCalSavingAmount"></p-checkbox>
+    </div>
+
+    <button pButton type="submit" [disabled]="!(dbSettingForm.valid && searchedNODDataList.length > 0)" label="合并" (click)="combinationValue(1)"></button>
+    <button pButton type="submit" [disabled]="!(dbSettingForm.valid && searchedNODDataList.length > 0)" label="不合并" (click)="combinationValue(2)"></button>
   </form>
+
+  <!-- 报表浏览 -->
+  <div class="reportView">
+    <button pButton type="button" icon="fa fa-file-text-o" (click)="reportViewDownload()" label="报表浏览"></button>
+  </div>
 
   <p-dialog class="nodSearch" [modal]="true" [draggable]="true" [(visible)]="nodSearchDialog"
             [closable]="true" [width]="500" (onHide)="onHide()">
@@ -98,4 +100,20 @@
       </div>
     </div>
   </p-dialog>
+
+  <p-dialog class="reportDownload" [modal]="true" [draggable]="false" [(visible)]="reportDownloadDialog"
+            [closable]="true" [width]="500">
+    <p-header>
+      <div class="header">报表浏览下载</div>
+    </p-header>
+
+    <div class="content">
+      <div>
+        下载地址: <a [href]="urlForReportAddress" (click)="closeReportDialog()">{{fileName}}</a>
+      </div>
+    </div>
+  </p-dialog>
+
+  <!-- loading bar -->
+  <div class="loading_icon" *ngIf="showLoading"></div>
 </div>

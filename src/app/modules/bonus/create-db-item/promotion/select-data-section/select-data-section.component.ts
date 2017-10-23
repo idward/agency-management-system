@@ -7,7 +7,10 @@ import {OptionItem} from "../../../../../model/optionItem/optionItem.model";
   styleUrls: ['./select-data-section.component.scss']
 })
 export class SelectDataSectionComponent implements OnInit {
-  selectedBonusType:string;
+  selectedBonusType: string;
+  @Input() showLoading:boolean;
+  @Input() nodOrDBNumbers: object[];
+  @Input() nodItemOrDBItemNumbers: object[];
   @Input() selectedItem: any;
   @Input() datas: any;
   @Input() nodItemOptions: OptionItem[];
@@ -21,7 +24,7 @@ export class SelectDataSectionComponent implements OnInit {
   }
 
   createNewItem() {
-    this.createItemEvt.emit(this.selectedItem);
+    this.createItemEvt.emit({selectedType: this.selectedBonusType, selectedItems: this.selectedItem});
   }
 
 }

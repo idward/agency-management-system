@@ -2,24 +2,33 @@
   <p-panel [toggleable]="true">
     <p-header>
       <h4>创建新Item</h4>
-      <button pButton class="saveItem" [disabled]="!(editedDBDatas && editedDBDatas.length > 0)" (click)="createNewDB()" label="保存"></button>
+      <button pButton class="saveItem" [disabled]="!(editedDBDatas && editedDBDatas.length > 0)" (click)="createNewDB()"
+              label="保存"></button>
     </p-header>
 
     <div class="edit_area" *ngIf="editedDBDatas && editedDBDatas.length > 0">
-      <label for="desc">ITEM描述:</label>
-      <input type="text" size="60" id="desc" [(ngModel)]="commonSetting['desc']" pInputText>
-      <p-checkbox name="fast_process" class="fast_process" value="" label="快速流程"
-                  [(ngModel)]="commonSetting['fastProcess']" binary="true"></p-checkbox>
-      <label for="bonusType" class="ui-chkbox-label">奖金类型:</label>
-      <p-dropdown id="bonusType" class="bonusType" [style]="{'width':'16%'}" [options]="nodItemOptions"
-                  [(ngModel)]="commonSetting['bonusType']" placeholder="请选择创建类型"></p-dropdown>
-      <!--<span>{{ === 'PROMOTIONAL_RATIO'? '促销比例':'促销金额'}}</span>-->
-      <label>开始时间：</label>
-      <p-calendar [(ngModel)]="commonSetting['startTime']"></p-calendar>
-      <label>结束时间：</label>
-      <p-calendar [(ngModel)]="commonSetting['endTime']"></p-calendar>
-      <label for="percentage">比例</label>
-      <input type="text" size="60" id="percentage" [(ngModel)]="percentage" (change)="changeValueByPercent()" pInputText>%
+      <p><label for="desc">ITEM描述:</label>
+        <input type="text" size="100" id="desc" [(ngModel)]="commonSetting['desc']" pInputText>
+        <p-checkbox name="fast_process" class="fast_process" value="" label="快速流程"
+                    [(ngModel)]="commonSetting['fastProcess']" binary="true"></p-checkbox>
+      </p>
+      <p><label class="ui-chkbox-label">创建的DB类型:</label>
+        {{createdDBType === 'PROMOTIONAL_RATIO' ? '单车金额':'总金额'}}
+        <label style="margin-left: 10px;">开始时间:</label>
+        <p-calendar [(ngModel)]="commonSetting['startTime']"></p-calendar>
+        <label>结束时间:</label>
+        <p-calendar [(ngModel)]="commonSetting['endTime']"></p-calendar>
+        <label *ngIf="!isShowByAnnualPolicy" for="percentage">比例:</label>
+        <input *ngIf="!isShowByAnnualPolicy" type="text" size="60" id="percentage" [(ngModel)]="percentage"
+               (change)="changeValueByPercent()"
+               pInputText><span *ngIf="!isShowByAnnualPolicy">%</span>
+        <label *ngIf="isShowByAnnualPolicy">奖金大类:</label>
+        <p-dropdown *ngIf="isShowByAnnualPolicy" [options]="BonusTypeOptions"
+                    [(ngModel)]="selectedTypeByAnnualPolicy"></p-dropdown>
+        <label *ngIf="selectedTypeByAnnualPolicy === 'ANNUAL_POLICY'" style="margin-left: 10px;">奖金明细:</label>
+        <p-dropdown *ngIf="selectedTypeByAnnualPolicy === 'ANNUAL_POLICY'" [options]="BonusDetailsOptions"
+                    [(ngModel)]="selectedDetailByAnnualPolicy"></p-dropdown>
+      </p>
     </div>
 
     <p-dataTable [value]="editedDBDatas" scrollable="true" *ngIf="editedDBDatas && editedDBDatas.length > 0">
@@ -28,63 +37,105 @@
       <p-column field="carSeries" [style]="{'width':'60px'}" header="车系"></p-column>
       <p-column field="financialDescription" [style]="{'width':'130px'}" header="财务描述"></p-column>
       <p-column field="msrp" [style]="{'width':'70px'}" header="MSRP"></p-column>
-      <p-column field="itemType" [style]="{'width':'80px'}" header="类型">
+      <p-column field="baseType" [style]="{'width':'80px'}" header="奖金大类">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          {{db[col.field] === '1' ? '促销比例' : '促销金额'}}
+          {{db[col.field] === '1' ? '促销' : '年度政策'}}
+        </ng-template>
+      </p-column>
+      <p-column field="rewardTypeDescription" [style]="{'width':'100px'}" header="奖金明细类型">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field]}}
+        </ng-template>
+      </p-column>
+      <p-column field="grantBasis" [style]="{'width':'80px'}" header="年度政策发放依据">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field]}}
+        </ng-template>
+      </p-column>
+      <p-column field="singleCarPercent" [style]="{'width':'80px'}" header="年度政策点数">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field] === 0 ? '' : db[col.field]}} <span *ngIf="db[col.field]">%</span>
+        </ng-template>
+      </p-column>
+      <p-column field="totalAmount" [style]="{'width':'80px'}" header="年度政策总金额">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field] === 0 ? '' : db[col.field]}}
+        </ng-template>
+      </p-column>
+      <p-column field="settingCondition" [style]="{'width':'80px'}" header="条件">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          <a href="#" *ngIf="db['baseType'] === '1'">条件配置</a>
         </ng-template>
       </p-column>
       <p-column field="callOffPromotionPercent" [style]="{'width':'100px'}" header="拷车比例">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          <input type="text" pInputText style="width:30px" [(ngModel)]="db[col.field]" (change)="valueChange(db,col.field)">%
-          <!--{{db[col.field]}}%-->
-          <p-checkbox [(ngModel)]="db['isCallOffPromotionPercent']" [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
+          <input type="text" *ngIf="!(db['baseType'] === '2') && db[col.field]" pInputText style="width:30px" [(ngModel)]="db[col.field]"
+                 (change)="valueChange(db,col.field)"><span *ngIf="!(db['baseType'] === '2') && db[col.field]">%</span>
+          <p-checkbox *ngIf="!(db['baseType'] === '2') && db[col.field]" [(ngModel)]="db['isCallOffPromotionPercent']" [disabled]="true"
+                      binary="true" styleClass="nod_item_box"></p-checkbox>
         </ng-template>
       </p-column>
       <p-column field="callOffPromotionAmount" [style]="{'width':'140px'}" header="拷车金额">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          <input type="text" pInputText [(ngModel)]="db[col.field]">
-          <!--{{db[col.field]}}-->
-          <p-checkbox [(ngModel)]="db['isCallOffPromotionAmount']" [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
+          <input type="text" *ngIf="!(db['baseType'] === '2') && db[col.field]" pInputText [(ngModel)]="db[col.field]">
+          <p-checkbox *ngIf="!(db['baseType'] === '2') && db[col.field]" [(ngModel)]="db['isCallOffPromotionAmount']" [disabled]="true" binary="true"
+                      styleClass="nod_item_box"></p-checkbox>
         </ng-template>
       </p-column>
       <p-column field="deliveryPromotionPercent" [style]="{'width':'100px'}" header="交车比例">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          <input type="text" pInputText style="width:30px" [(ngModel)]="db[col.field]" (change)="valueChange(db,col.field)">%
-          <!--{{db[col.field]}}%-->
-          <p-checkbox [(ngModel)]="db['isDeliveryPromotionPercent']" [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
+          <input type="text" *ngIf="!(db['baseType'] === '2') && db[col.field]" pInputText style="width:30px" [(ngModel)]="db[col.field]"
+                 (change)="valueChange(db,col.field)"><span *ngIf="!(db['baseType'] === '2') && db[col.field]">%</span>
+          <p-checkbox *ngIf="!(db['baseType'] === '2') && db[col.field]" [(ngModel)]="db['isDeliveryPromotionPercent']" [disabled]="true"
+                      binary="true" styleClass="nod_item_box"></p-checkbox>
         </ng-template>
       </p-column>
       <p-column field="deliveryPromotionAmount" [style]="{'width':'140px'}" header="交车金额">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          <input type="text" pInputText [(ngModel)]="db[col.field]">
-          <!--{{db[col.field]}}-->
-          <p-checkbox [(ngModel)]="db['isDeliveryPromotionAmount']" [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
+          <input type="text" *ngIf="!(db['baseType'] === '2') && db[col.field]" pInputText [(ngModel)]="db[col.field]">
+          <p-checkbox *ngIf="!(db['baseType'] === '2') && db[col.field]" [(ngModel)]="db['isDeliveryPromotionAmount']" [disabled]="true"
+                      binary="true" styleClass="nod_item_box"></p-checkbox>
         </ng-template>
       </p-column>
       <p-column field="dealerInventoryPercent" [style]="{'width':'100px'}" header="经销商库存比例">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          <input type="text" pInputText style="width:30px" [(ngModel)]="db[col.field]" (change)="valueChange(db,col.field)">%
-          <!--{{db[col.field]}}%-->
-          <p-checkbox [(ngModel)]="db['isDealerInventoryPercent']" [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
+          <input type="text" *ngIf="!(db['baseType'] === '2') && db[col.field]" pInputText style="width:30px" [(ngModel)]="db[col.field]"
+                 (change)="valueChange(db,col.field)"><span *ngIf="!(db['baseType'] === '2') && db[col.field]">%</span>
+          <p-checkbox *ngIf="!(db['baseType'] === '2') && db[col.field]" [(ngModel)]="db['isDealerInventoryPercent']" [disabled]="true" binary="true"
+                      styleClass="nod_item_box"></p-checkbox>
         </ng-template>
       </p-column>
       <p-column field="dealerInventoryAmount" [style]="{'width':'140px'}" header="经销商库存金额">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          <input type="text" pInputText [(ngModel)]="db[col.field]">
-          <!--{{db[col.field]}}-->
-          <p-checkbox [(ngModel)]="db['isDealerInventoryAmount']" [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
+          <input type="text" *ngIf="!(db['baseType'] === '2') && db[col.field]" pInputText [(ngModel)]="db[col.field]">
+          <p-checkbox *ngIf="!(db['baseType'] === '2') && db[col.field]" [(ngModel)]="db['isDealerInventoryAmount']" [disabled]="true" binary="true"
+                      styleClass="nod_item_box"></p-checkbox>
+        </ng-template>
+      </p-column>
+      <p-column field="cashTotalAmount" [style]="{'width':'120px'}" header="总金额(现金)">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field]}}
+        </ng-template>
+      </p-column>
+      <p-column field="savingAmount" [style]="{'width':'120px'}" header="Saving金额">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field]}}
+        </ng-template>
+      </p-column>
+      <p-column field="noncashTotalAmount" [style]="{'width':'120px'}" header="总金额(非现金)">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db[col.field]}}
         </ng-template>
       </p-column>
       <p-column field="singlecarTotalBudgetPercent" [style]="{'width':'100px'}" header="单车总预算比例">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          <input type="text" pInputText style="width:30px" [(ngModel)]="db[col.field]" (change)="valueChange(db,col.field)">%
-          <!--{{db[col.field]}}%-->
+          <input type="text" *ngIf="!(db['baseType'] === '2') && db[col.field]" pInputText style="width:30px" [(ngModel)]="db[col.field]"
+                 (change)="valueChange(db,col.field)"><span *ngIf="!(db['baseType'] === '2') && db[col.field]">%</span>
         </ng-template>
       </p-column>
       <p-column field="singlecarTotalBudgetAmount" [style]="{'width':'140px'}" header="单车总预算金额">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          <input type="text" pInputText [(ngModel)]="db[col.field]">
-          <!--{{db[col.field]}}-->
+          <input type="text" *ngIf="!(db['baseType'] === '2') && db[col.field]" pInputText [(ngModel)]="db[col.field]">
         </ng-template>
       </p-column>
       <!-- Dynamic Field -->
@@ -92,135 +143,147 @@
         <ng-template let-col let-db="rowData" pTemplate="body">
           <input type="text" pInputText style="width:30px" *ngIf="db[col.field]" (change)="valueChange(db,col.field)"
                  [(ngModel)]="db[col.field][col.field + 'Percent']">
-          <!--{{db[col.field]? db[col.field][col.field + 'Percent']:''}}-->
           <span *ngIf="db[col.field]">%</span>
         </ng-template>
       </p-column>
       <p-column field="financial" [style]="{'width':'140px'}" header="金融金额">
         <ng-template let-col let-db="rowData" pTemplate="body">
           <input type="text" pInputText *ngIf="db[col.field]" [(ngModel)]="db[col.field][col.field + 'Amount']">
-          <!--{{db[col.field]? db[col.field][col.field + 'Amount']:''}}-->
-          <p-checkbox *ngIf="db[col.field]" [(ngModel)]="db[col.field]['isFinancialPromotionAmount']" [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
+          <p-checkbox *ngIf="db[col.field]" [(ngModel)]="db[col.field]['isFinancialPromotionAmount']" [disabled]="true"
+                      binary="true" styleClass="nod_item_box"></p-checkbox>
+        </ng-template>
+      </p-column>
+      <p-column field="financialTotalAmount" [style]="{'width':'150px'}" header="金融总金额">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          <input type="text" *ngIf="db[col.field]" pInputText [(ngModel)]="db[col.field][col.field]">
+          <p-checkbox *ngIf="db[col.field]" [(ngModel)]="db[col.field]['isFinancialPromotionTotalAmount']"
+                      [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
         </ng-template>
       </p-column>
       <p-column field="insurance" [style]="{'width':'100px'}" header="保险比例">
         <ng-template let-col let-db="rowData" pTemplate="body">
           <input type="text" pInputText style="width:30px" *ngIf="db[col.field]" (change)="valueChange(db,col.field)"
                  [(ngModel)]="db[col.field][col.field + 'Percent']">
-          <!--{{db[col.field]? db[col.field][col.field + 'Percent']:''}}-->
           <span *ngIf="db[col.field]">%</span>
         </ng-template>
       </p-column>
       <p-column field="insurance" [style]="{'width':'140px'}" header="保险金额">
         <ng-template let-col let-db="rowData" pTemplate="body">
           <input type="text" pInputText *ngIf="db[col.field]" [(ngModel)]="db[col.field][col.field + 'Amount']">
-          <!--{{db[col.field]? db[col.field][col.field + 'Amount']:''}}-->
-          <p-checkbox *ngIf="db[col.field]" [(ngModel)]="db[col.field]['isInsurancePromotionAmount']" [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
+          <p-checkbox *ngIf="db[col.field]" [(ngModel)]="db[col.field]['isInsurancePromotionAmount']" [disabled]="true"
+                      binary="true" styleClass="nod_item_box"></p-checkbox>
+        </ng-template>
+      </p-column>
+      <p-column field="insuranceTotalAmount" [style]="{'width':'150px'}" header="保险总金额">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          <input type="text" *ngIf="db[col.field]" pInputText [(ngModel)]="db[col.field][col.field]">
+          <p-checkbox *ngIf="db[col.field]" [(ngModel)]="db[col.field]['isInsurancePromotionTotalAmount']"
+                      [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
         </ng-template>
       </p-column>
       <p-column field="replacement" [style]="{'width':'100px'}" header="置换比例">
         <ng-template let-col let-db="rowData" pTemplate="body">
           <input type="text" pInputText style="width:30px" *ngIf="db[col.field]" (change)="valueChange(db,col.field)"
                  [(ngModel)]="db[col.field][col.field + 'Percent']">
-          <!--{{db[col.field]? db[col.field][col.field + 'Percent']:''}}-->
           <span *ngIf="db[col.field]">%</span>
         </ng-template>
       </p-column>
       <p-column field="replacement" [style]="{'width':'140px'}" header="置换金额">
         <ng-template let-col let-db="rowData" pTemplate="body">
           <input type="text" pInputText *ngIf="db[col.field]" [(ngModel)]="db[col.field][col.field + 'Amount']">
-          <!--{{db[col.field]? db[col.field][col.field + 'Amount']:''}}-->
-          <p-checkbox *ngIf="db[col.field]" [(ngModel)]="db[col.field]['isReplacementPromotionAmount']" [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
+          <p-checkbox *ngIf="db[col.field]" [(ngModel)]="db[col.field]['isReplacementPromotionAmount']"
+                      [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
+        </ng-template>
+      </p-column>
+      <p-column field="replacementTotalAmount" [style]="{'width':'150px'}" header="置换总金额">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          <input type="text" *ngIf="db[col.field]" pInputText [(ngModel)]="db[col.field][col.field]">
+          <p-checkbox *ngIf="db[col.field]" [(ngModel)]="db[col.field]['isReplacementPromotionTotalAmount']"
+                      [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
         </ng-template>
       </p-column>
       <p-column field="expandInsurance" [style]="{'width':'100px'}" header="延保比例">
         <ng-template let-col let-db="rowData" pTemplate="body">
           <input type="text" pInputText style="width:30px" *ngIf="db[col.field]" (change)="valueChange(db,col.field)"
                  [(ngModel)]="db[col.field][col.field + 'Percent']">
-          <!--{{db[col.field]? db[col.field][col.field + 'Percent']:''}}-->
           <span *ngIf="db[col.field]">%</span>
         </ng-template>
       </p-column>
       <p-column field="expandInsurance" [style]="{'width':'140px'}" header="延保金额">
         <ng-template let-col let-db="rowData" pTemplate="body">
           <input type="text" pInputText *ngIf="db[col.field]" [(ngModel)]="db[col.field][col.field + 'Amount']">
-          <!--{{db[col.field]? db[col.field][col.field + 'Amount']:''}}-->
-          <p-checkbox *ngIf="db[col.field]" [(ngModel)]="db[col.field]['isExpandInsurancetPromotionAmount']" [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
+          <p-checkbox *ngIf="db[col.field]" [(ngModel)]="db[col.field]['isExpandInsurancetPromotionAmount']"
+                      [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
         </ng-template>
       </p-column>
       <p-column field="maintain" [style]="{'width':'100px'}" header="保养比例">
         <ng-template let-col let-db="rowData" pTemplate="body">
           <input type="text" pInputText style="width:30px" *ngIf="db[col.field]" (change)="valueChange(db,col.field)"
                  [(ngModel)]="db[col.field][col.field + 'Percent']">
-          <!--{{db[col.field]? db[col.field][col.field + 'Percent']:''}}-->
           <span *ngIf="db[col.field]">%</span>
         </ng-template>
       </p-column>
       <p-column field="maintain" [style]="{'width':'140px'}" header="保养金额">
         <ng-template let-col let-db="rowData" pTemplate="body">
           <input type="text" pInputText *ngIf="db[col.field]" [(ngModel)]="db[col.field][col.field + 'Amount']">
-          <!--{{db[col.field]? db[col.field][col.field + 'Amount']:''}}-->
-          <p-checkbox *ngIf="db[col.field]" [(ngModel)]="db[col.field]['isMaintainPromotionAmount']" [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
+          <p-checkbox *ngIf="db[col.field]" [(ngModel)]="db[col.field]['isMaintainPromotionAmount']" [disabled]="true"
+                      binary="true" styleClass="nod_item_box"></p-checkbox>
         </ng-template>
       </p-column>
       <p-column field="attachment" [style]="{'width':'100px'}" header="附件比例">
         <ng-template let-col let-db="rowData" pTemplate="body">
           <input type="text" pInputText style="width:30px" *ngIf="db[col.field]" (change)="valueChange(db,col.field)"
                  [(ngModel)]="db[col.field][col.field + 'Percent']">
-          <!--{{db[col.field]? db[col.field][col.field + 'Percent']:''}}-->
           <span *ngIf="db[col.field]">%</span>
         </ng-template>
       </p-column>
       <p-column field="attachment" [style]="{'width':'140px'}" header="附件金额">
         <ng-template let-col let-db="rowData" pTemplate="body">
           <input type="text" pInputText *ngIf="db[col.field]" [(ngModel)]="db[col.field][col.field + 'Amount']">
-          <!--{{db[col.field]? db[col.field][col.field + 'Amount']:''}}-->
-          <p-checkbox *ngIf="db[col.field]" [(ngModel)]="db[col.field]['isAttachmentPromotionAmount']" [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
+          <p-checkbox *ngIf="db[col.field]" [(ngModel)]="db[col.field]['isAttachmentPromotionAmount']" [disabled]="true"
+                      binary="true" styleClass="nod_item_box"></p-checkbox>
         </ng-template>
       </p-column>
       <p-column field="onStar" [style]="{'width':'100px'}" header="onStar比例">
         <ng-template let-col let-db="rowData" pTemplate="body">
           <input type="text" pInputText style="width:30px" *ngIf="db[col.field]" (change)="valueChange(db,col.field)"
                  [(ngModel)]="db[col.field][col.field + 'Percent']">
-          <!--{{db[col.field]? db[col.field][col.field + 'Percent']:''}}-->
           <span *ngIf="db[col.field]">%</span>
         </ng-template>
       </p-column>
       <p-column field="onStar" [style]="{'width':'140px'}" header="onStar金额">
         <ng-template let-col let-db="rowData" pTemplate="body">
           <input type="text" pInputText *ngIf="db[col.field]" [(ngModel)]="db[col.field][col.field + 'Amount']">
-          <!--{{db[col.field]? db[col.field][col.field + 'Amount']:''}}-->
-          <p-checkbox *ngIf="db[col.field]" [(ngModel)]="db[col.field]['isOnStarPromotionAmount']" [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
+          <p-checkbox *ngIf="db[col.field]" [(ngModel)]="db[col.field]['isOnStarPromotionAmount']" [disabled]="true"
+                      binary="true" styleClass="nod_item_box"></p-checkbox>
         </ng-template>
       </p-column>
       <p-column field="assignment" [style]="{'width':'100px'}" header="融资租赁-签约比例">
         <ng-template let-col let-db="rowData" pTemplate="body">
           <input type="text" pInputText style="width:30px" *ngIf="db[col.field]" (change)="valueChange(db,col.field)"
                  [(ngModel)]="db[col.field][col.field + 'Percent']">
-          <!--{{db[col.field]? db[col.field][col.field + 'Percent']:''}}-->
           <span *ngIf="db[col.field]">%</span>
         </ng-template>
       </p-column>
       <p-column field="assignment" [style]="{'width':'140px'}" header="融资租赁-签约金额">
         <ng-template let-col let-db="rowData" pTemplate="body">
           <input type="text" pInputText *ngIf="db[col.field]" [(ngModel)]="db[col.field][col.field + 'Amount']">
-          <!--{{db[col.field]? db[col.field][col.field + 'Amount']:''}}-->
-          <p-checkbox *ngIf="db[col.field]" [(ngModel)]="db[col.field]['isAssignmentPromotionAmount']" [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
+          <p-checkbox *ngIf="db[col.field]" [(ngModel)]="db[col.field]['isAssignmentPromotionAmount']" [disabled]="true"
+                      binary="true" styleClass="nod_item_box"></p-checkbox>
         </ng-template>
       </p-column>
       <p-column field="purchase" [style]="{'width':'100px'}" header="融资租赁-回购比例">
         <ng-template let-col let-db="rowData" pTemplate="body">
           <input type="text" pInputText style="width:30px" *ngIf="db[col.field]" (change)="valueChange(db,col.field)"
                  [(ngModel)]="db[col.field][col.field + 'Percent']">
-          <!--{{db[col.field]? db[col.field][col.field + 'Percent']:''}}-->
           <span *ngIf="db[col.field]">%</span>
         </ng-template>
       </p-column>
       <p-column field="purchase" [style]="{'width':'140px'}" header="融资租赁-回购金额">
         <ng-template let-col let-db="rowData" pTemplate="body">
           <input type="text" pInputText *ngIf="db[col.field]" [(ngModel)]="db[col.field][col.field + 'Amount']">
-          <!--{{db[col.field]? db[col.field][col.field + 'Amount']:''}}-->
-          <p-checkbox *ngIf="db[col.field]" [(ngModel)]="db[col.field]['isPurchasePromotionAmount']" [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
+          <p-checkbox *ngIf="db[col.field]" [(ngModel)]="db[col.field]['isPurchasePromotionAmount']" [disabled]="true"
+                      binary="true" styleClass="nod_item_box"></p-checkbox>
         </ng-template>
       </p-column>
     </p-dataTable>

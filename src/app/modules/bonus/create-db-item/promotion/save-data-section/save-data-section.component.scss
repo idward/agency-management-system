@@ -1,9 +1,14 @@
 .saveItem_area {
   margin-top: 15px;
+  overflow-x: hidden;
 
   h4 {
     position: absolute;
     left: 36px;
+  }
+
+  table>tbody>tr>td {
+    padding: 10px;
   }
 
   p {

@@ -20008,95 +20008,100 @@
   ],
   "nod": [
     {
+      "nodBaseInfoId": "5B2938CBBC2C1D6FE0531B18CB0A6AE5",
+      "nodNumber": "NOD2017-BUICK-0032",
+      "nodDraftNumber": null,
+      "description": "aaa",
+      "useDepartment": "1",
+      "businessType": "1",
+      "nodYear": "2017",
+      "nodState": "6",
+      "createBy": null,
+      "createDate": 1507603193258,
+      "updateBy": null,
+      "updateDate": 1507603193258,
+      "items": null,
+      "nodAnnualPolicyInfoes": null
+    },
+    {
+      "nodBaseInfoId": "5BB7D17130AA5A22E0531B18CB0AB55E",
+      "nodNumber": "NOD2017-BUICK-0333",
+      "nodDraftNumber": null,
+      "description": "测试",
+      "useDepartment": "1",
+      "businessType": "2",
+      "nodYear": "2017",
+      "nodState": "6",
+      "createBy": null,
+      "createDate": 1508215639584,
+      "updateBy": null,
+      "updateDate": 1508215639584,
+      "items": null,
+      "nodAnnualPolicyInfoes": null
+    },
+    {
+      "nodBaseInfoId": "5BBD30A20FAB3969E0531B18CB0A5132",
+      "nodNumber": "NOD2017-FLEET-0007",
+      "nodDraftNumber": null,
+      "description": "年度政策NOD",
+      "useDepartment": "1",
+      "businessType": "2",
+      "nodYear": "2017",
+      "nodState": "6",
+      "createBy": null,
+      "createDate": 1508238711461,
+      "updateBy": null,
+      "updateDate": 1508238711461,
+      "items": null,
+      "nodAnnualPolicyInfoes": null
+    },
+    {
+      "nodBaseInfoId": "5B2BB9493999116DE0531B18CB0A5E51",
+      "nodNumber": "NOD2017-BUICK-0033",
+      "nodDraftNumber": null,
+      "description": "aaaa",
+      "useDepartment": "1",
+      "businessType": "1",
+      "nodYear": "2017",
+      "nodState": "6",
+      "createBy": null,
+      "createDate": 1507873138000,
+      "updateBy": null,
+      "updateDate": 1507613938896,
+      "items": null,
+      "nodAnnualPolicyInfoes": null
+    },
+    {
       "nodBaseInfoId": "567339389AB27213E0531B18CB0A1000",
-      "nodNumber": "NOD-2017-0002",
+      "nodNumber": "NOD2017-FLEET-0001",
+      "nodDraftNumber": null,
       "description": "17年集团第一季度NOD",
       "useDepartment": "1",
+      "businessType": "1",
       "nodYear": "2017",
-      "nodState": "9",
+      "nodState": "6",
       "createBy": "wenbqi",
-      "createDate": 1503994287000,
+      "createDate": 1507708326000,
       "updateBy": null,
       "updateDate": null,
-      "items": null
+      "items": null,
+      "nodAnnualPolicyInfoes": null
     },
     {
-      "nodBaseInfoId": "567339389AB27213E0531B18CB0A2000",
-      "nodNumber": "NOD-2017-0003",
-      "description": "17年集团第二季度NOD",
+      "nodBaseInfoId": "5B69D6B530526B6BE0531B18CB0AC0DD",
+      "nodNumber": "NOD2017-BUICK-0037",
+      "nodDraftNumber": null,
+      "description": "2",
       "useDepartment": "1",
-      "nodYear": "2017",
-      "nodState": "9",
-      "createBy": "wangfang",
-      "createDate": 1503994287000,
-      "updateBy": null,
-      "updateDate": null,
-      "items": null
-    },
-    {
-      "nodBaseInfoId": "567339389AB27213E0531B18CB0A4450",
-      "nodNumber": "NOD-2017-0004",
-      "description": "17年集团第三季度NOD",
-      "useDepartment": "1",
-      "nodYear": "2017",
-      "nodState": "9",
-      "createBy": "liuxin",
-      "createDate": 1503994287000,
-      "updateBy": null,
-      "updateDate": null,
-      "items": null
-    },
-    {
-      "nodBaseInfoId": "567339389AB27213E0531B18CB0A4451",
-      "nodNumber": "NOD-2017-0005",
-      "description": "17年集团第四季度NOD",
-      "useDepartment": "1",
-      "nodYear": "2017",
-      "nodState": "9",
-      "createBy": "zhangsan",
-      "createDate": 1503994287000,
-      "updateBy": null,
-      "updateDate": null,
-      "items": null
-    },
-    {
-      "nodBaseInfoId": "567339389AB27213E0531B18CB0A4452",
-      "nodNumber": "NOD-2018-0001",
-      "description": "18年集团第一季度NOD",
-      "useDepartment": "1",
+      "businessType": "1",
       "nodYear": "2018",
-      "nodState": "9",
-      "createBy": "wangwu",
-      "createDate": 1503994287000,
+      "nodState": "6",
+      "createBy": null,
+      "createDate": 1507880720487,
       "updateBy": null,
-      "updateDate": null,
-      "items": null
-    },
-    {
-      "nodBaseInfoId": "567339389AB27213E0531B18CB0A4453",
-      "nodNumber": "NOD-2018-0002",
-      "description": "18年集团第二季度NOD",
-      "useDepartment": "1",
-      "nodYear": "2018",
-      "nodState": "9",
-      "createBy": "liuxiaohua",
-      "createDate": 1503994287000,
-      "updateBy": null,
-      "updateDate": null,
-      "items": null
-    },
-    {
-      "nodBaseInfoId": "567339389AB27213E0531B18CB0A4454",
-      "nodNumber": "NOD-2018-0003",
-      "description": "18年集团第三季度NOD",
-      "useDepartment": "1",
-      "nodYear": "2018",
-      "nodState": "9",
-      "createBy": "zhangsan",
-      "createDate": 1503994287000,
-      "updateBy": null,
-      "updateDate": null,
-      "items": null
+      "updateDate": 1507880720487,
+      "items": null,
+      "nodAnnualPolicyInfoes": null
     }
   ],
   "auth": {
@@ -20110,814 +20115,384 @@
       "userName": null,
       "employeeNo": null,
       "roles": []
-    },
-    "nowTime": "2017-09-04 15:50:09"
+    }
   },
   "nodDetail": {
-    "success": true,
-    "code": null,
-    "message": null,
-    "data": {
-      "singleInfo": [
-        {
-          "nodNumber": "NOD-2017-0001",
-          "baseType": "1",
-          "itemType": "1",
-          "nodDescr": "17年集团第一季度NOD",
-          "itemDescr": "促销比例item1",
-          "startDate": 1505986443000,
-          "endDate": 1505986443000,
-          "nodItemNumber": "NOD-ITEM-2017-0001-01",
-          "carBrand": null,
-          "carSeries": "别克",
-          "carPackage": "别克配置1",
-          "financialDescription": "别克财务描述1",
-          "msrp": 1000,
-          "singlecarTotalBudgetPercent": 10,
-          "singlecarTotalBudgetAmount": 2000,
-          "nodItemNoncashTypeBO": [
-            {
-              "noncashType": "1",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "2",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "3",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "4",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "5",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "6",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            }
-          ],
-          "callOffPromotionPercent": 10,
-          "isCallOffPromotionPercent": "1",
-          "callOffPromotionAmount": 1000,
-          "isCallOffPromotionAmount": "1",
-          "deliveryPromotionPercent": 10,
-          "isDeliveryPromotionPercent": "1",
-          "deliveryPromotionAmount": 1000,
-          "isDeliveryPromotionAmount": "1",
-          "dealerInventoryPercnet": 10,
-          "isDealerInventoryPercnet": "1",
-          "dealerInventoryAmount": 1000,
-          "isDealerInventoryAmount": "1"
-        },
-        {
-          "nodNumber": "NOD-2017-0001",
-          "baseType": "1",
-          "itemType": "1",
-          "nodDescr": "17年集团第一季度NOD",
-          "itemDescr": "促销比例item1",
-          "startDate": 1505986443000,
-          "endDate": 1505986443000,
-          "nodItemNumber": "NOD-ITEM-2017-0001-01",
-          "carBrand": null,
-          "carSeries": "雪佛兰",
-          "carPackage": "雪佛兰配置1",
-          "financialDescription": "雪佛兰财务描述1",
-          "msrp": 1000,
-          "singlecarTotalBudgetPercent": 10,
-          "singlecarTotalBudgetAmount": 2000,
-          "nodItemNoncashTypeBO": [
-            {
-              "noncashType": "3",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "5",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "6",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "1",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "2",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "4",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            }
-          ],
-          "callOffPromotionPercent": 10,
-          "isCallOffPromotionPercent": "1",
-          "callOffPromotionAmount": 1000,
-          "isCallOffPromotionAmount": "1",
-          "deliveryPromotionPercent": 10,
-          "isDeliveryPromotionPercent": "1",
-          "deliveryPromotionAmount": 1000,
-          "isDeliveryPromotionAmount": "1",
-          "dealerInventoryPercnet": 10,
-          "isDealerInventoryPercnet": "1",
-          "dealerInventoryAmount": 1000,
-          "isDealerInventoryAmount": "1"
-        },
-        {
-          "nodNumber": "NOD-2017-0001",
-          "baseType": "1",
-          "itemType": "1",
-          "nodDescr": "17年集团第一季度NOD",
-          "itemDescr": "促销比例item2",
-          "startDate": 1505986444000,
-          "endDate": 1505986444000,
-          "nodItemNumber": "NOD-ITEM-2017-0001-02",
-          "carBrand": null,
-          "carSeries": "雪佛兰",
-          "carPackage": "雪佛兰配置1",
-          "financialDescription": "雪佛兰财务描述1",
-          "msrp": 1000,
-          "singlecarTotalBudgetPercent": 10,
-          "singlecarTotalBudgetAmount": 2000,
-          "nodItemNoncashTypeBO": [
-            {
-              "noncashType": "1",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "2",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "3",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "4",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "5",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "6",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            }
-          ],
-          "callOffPromotionPercent": 10,
-          "isCallOffPromotionPercent": "1",
-          "callOffPromotionAmount": 1000,
-          "isCallOffPromotionAmount": "1",
-          "deliveryPromotionPercent": 10,
-          "isDeliveryPromotionPercent": "1",
-          "deliveryPromotionAmount": 1000,
-          "isDeliveryPromotionAmount": "1",
-          "dealerInventoryPercnet": 10,
-          "isDealerInventoryPercnet": "1",
-          "dealerInventoryAmount": 1000,
-          "isDealerInventoryAmount": "1"
-        },
-        {
-          "nodNumber": "NOD-2017-0001",
-          "baseType": "1",
-          "itemType": "1",
-          "nodDescr": "17年集团第一季度NOD",
-          "itemDescr": "促销比例item2",
-          "startDate": 1505986444000,
-          "endDate": 1505986444000,
-          "nodItemNumber": "NOD-ITEM-2017-0001-02",
-          "carBrand": null,
-          "carSeries": "雪佛兰",
-          "carPackage": "雪佛兰配置2",
-          "financialDescription": "雪佛兰财务描述2",
-          "msrp": 1000,
-          "singlecarTotalBudgetPercent": 10,
-          "singlecarTotalBudgetAmount": 2000,
-          "nodItemNoncashTypeBO": [
-            {
-              "noncashType": "1",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "2",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "3",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "4",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "5",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "6",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            }
-          ],
-          "callOffPromotionPercent": 10,
-          "isCallOffPromotionPercent": "1",
-          "callOffPromotionAmount": 1000,
-          "isCallOffPromotionAmount": "1",
-          "deliveryPromotionPercent": 10,
-          "isDeliveryPromotionPercent": "1",
-          "deliveryPromotionAmount": 1000,
-          "isDeliveryPromotionAmount": "1",
-          "dealerInventoryPercnet": 10,
-          "isDealerInventoryPercnet": "1",
-          "dealerInventoryAmount": 1000,
-          "isDealerInventoryAmount": "1"
-        },
-        {
-          "nodNumber": "NOD-2017-0002",
-          "baseType": "1",
-          "itemType": "1",
-          "nodDescr": "17年集团第二季度NOD",
-          "itemDescr": "促销比例item2",
-          "startDate": 1505986444000,
-          "endDate": 1505986444000,
-          "nodItemNumber": "NOD-ITEM-2017-0002-01",
-          "carBrand": null,
-          "carSeries": "别克",
-          "carPackage": "别克配置1",
-          "financialDescription": "别克财务描述1",
-          "msrp": 1000,
-          "singlecarTotalBudgetPercent": 10,
-          "singlecarTotalBudgetAmount": 2000,
-          "nodItemNoncashTypeBO": [
-            {
-              "noncashType": "3",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "5",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "1",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "4",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "2",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "6",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            }
-          ],
-          "callOffPromotionPercent": 10,
-          "isCallOffPromotionPercent": "1",
-          "callOffPromotionAmount": 1000,
-          "isCallOffPromotionAmount": "1",
-          "deliveryPromotionPercent": 10,
-          "isDeliveryPromotionPercent": "1",
-          "deliveryPromotionAmount": 1000,
-          "isDeliveryPromotionAmount": "1",
-          "dealerInventoryPercnet": 10,
-          "isDealerInventoryPercnet": "1",
-          "dealerInventoryAmount": 1000,
-          "isDealerInventoryAmount": "1"
-        },
-        {
-          "nodNumber": "NOD-2017-0002",
-          "baseType": "1",
-          "itemType": "1",
-          "nodDescr": "17年集团第二季度NOD",
-          "itemDescr": "促销比例item2",
-          "startDate": 1505986444000,
-          "endDate": 1505986444000,
-          "nodItemNumber": "NOD-ITEM-2017-0002-01",
-          "carBrand": null,
-          "carSeries": "别克",
-          "carPackage": "别克配置2",
-          "financialDescription": "别克财务描述2",
-          "msrp": 1000,
-          "singlecarTotalBudgetPercent": 10,
-          "singlecarTotalBudgetAmount": 2000,
-          "nodItemNoncashTypeBO": [
-            {
-              "noncashType": "5",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "4",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "3",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "2",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "1",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "6",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            }
-          ],
-          "callOffPromotionPercent": 10,
-          "isCallOffPromotionPercent": "1",
-          "callOffPromotionAmount": 1000,
-          "isCallOffPromotionAmount": "1",
-          "deliveryPromotionPercent": 10,
-          "isDeliveryPromotionPercent": "1",
-          "deliveryPromotionAmount": 1000,
-          "isDeliveryPromotionAmount": "1",
-          "dealerInventoryPercnet": 10,
-          "isDealerInventoryPercnet": "1",
-          "dealerInventoryAmount": 1000,
-          "isDealerInventoryAmount": "1"
-        },
-        {
-          "nodNumber": "NOD-2017-0002",
-          "baseType": "1",
-          "itemType": "1",
-          "nodDescr": "17年集团第二季度NOD",
-          "itemDescr": "促销比例item2",
-          "startDate": 1505986444000,
-          "endDate": 1505986444000,
-          "nodItemNumber": "NOD-ITEM-2017-0002-02",
-          "carBrand": null,
-          "carSeries": "别克",
-          "carPackage": "别克配置1",
-          "financialDescription": "别克财务描述1",
-          "msrp": 1000,
-          "singlecarTotalBudgetPercent": 10,
-          "singlecarTotalBudgetAmount": 2000,
-          "nodItemNoncashTypeBO": [
-            {
-              "noncashType": "6",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "5",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "4",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "3",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "2",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "1",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            }
-          ],
-          "callOffPromotionPercent": 10,
-          "isCallOffPromotionPercent": "1",
-          "callOffPromotionAmount": 1000,
-          "isCallOffPromotionAmount": "1",
-          "deliveryPromotionPercent": 10,
-          "isDeliveryPromotionPercent": "1",
-          "deliveryPromotionAmount": 1000,
-          "isDeliveryPromotionAmount": "1",
-          "dealerInventoryPercnet": 10,
-          "isDealerInventoryPercnet": "1",
-          "dealerInventoryAmount": 1000,
-          "isDealerInventoryAmount": "1"
-        },
-        {
-          "nodNumber": "NOD-2017-0002",
-          "baseType": "1",
-          "itemType": "1",
-          "nodDescr": "17年集团第二季度NOD",
-          "itemDescr": "促销比例item2",
-          "startDate": 1505986444000,
-          "endDate": 1505986444000,
-          "nodItemNumber": "NOD-ITEM-2017-0002-02",
-          "carBrand": null,
-          "carSeries": "别克",
-          "carPackage": "别克配置2",
-          "financialDescription": "别克财务描述2",
-          "msrp": 1000,
-          "singlecarTotalBudgetPercent": 10,
-          "singlecarTotalBudgetAmount": 2000,
-          "nodItemNoncashTypeBO": [
-            {
-              "noncashType": "5",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "3",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "2",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "1",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            },
-            {
-              "noncashType": "4",
-              "percent": 10,
-              "amount": 1000,
-              "isPromotionAmount": "0"
-            }
-          ],
-          "callOffPromotionPercent": 10,
-          "isCallOffPromotionPercent": "1",
-          "callOffPromotionAmount": 1000,
-          "isCallOffPromotionAmount": "1",
-          "deliveryPromotionPercent": 10,
-          "isDeliveryPromotionPercent": "1",
-          "deliveryPromotionAmount": 1000,
-          "isDeliveryPromotionAmount": "1",
-          "dealerInventoryPercnet": 10,
-          "isDealerInventoryPercnet": "1",
-          "dealerInventoryAmount": 1000,
-          "isDealerInventoryAmount": "1"
-        }
-      ],
-      "totalInfo": [
-        {
-          "nodNumber": "NOD-2017-0001",
-          "nodItemNumber": "NOD-ITEM-2017-0001-03",
-          "nodDescr": "17年集团第一季度NOD",
-          "itemDescr": "总金额item1",
-          "startDate": 1505986444000,
-          "endDate": 1505986444000,
-          "releaseDueDate": 1505986444000,
-          "itemDescription": "总金额item1",
-          "itemBusinessType": "2",
-          "nodItemBaseInfoState": "1",
-          "isPapidProcess": "0",
-          "isApprovalDb": "0",
-          "cashTotalAmount": 10000,
-          "noncashTotalAmount": 20000,
-          "carDescr": [
-            {
-              "carBrand": "",
-              "carSeries": "别克",
-              "carPackage": "别克配置1",
-              "financialDescription": "别克财务描述1",
-              "msrp": 230001
-            },
-            {
-              "carBrand": "",
-              "carSeries": "雪佛兰",
-              "carPackage": "雪佛兰配置1",
-              "financialDescription": "雪佛兰财务描述1",
-              "msrp": 230001
-            }
-          ],
-          "noncashTypeInfoes": [
-            {
-              "nodTotalNoncashTypeInfoId": "567339389AB27213E0531B18CB0A1301",
-              "nodItemBaseInfoId": "567339389AB27213E0531B18CB0A1300",
-              "noncashType": "1",
-              "totalAmount": 1000,
-              "isPromotionTotalAmount": "0",
-              "createBy": null,
-              "createDate": null,
-              "updateBy": null,
-              "updateDate": null
-            },
-            {
-              "nodTotalNoncashTypeInfoId": "567339389AB27213E0531B18CB0A1309",
-              "nodItemBaseInfoId": "567339389AB27213E0531B18CB0A1300",
-              "noncashType": "9",
-              "totalAmount": 1000,
-              "isPromotionTotalAmount": "0",
-              "createBy": null,
-              "createDate": null,
-              "updateBy": null,
-              "updateDate": null
-            },
-            {
-              "nodTotalNoncashTypeInfoId": "567339389AB27213E0531B18CB0A1308",
-              "nodItemBaseInfoId": "567339389AB27213E0531B18CB0A1300",
-              "noncashType": "8",
-              "totalAmount": 1000,
-              "isPromotionTotalAmount": "0",
-              "createBy": null,
-              "createDate": null,
-              "updateBy": null,
-              "updateDate": null
-            },
-            {
-              "nodTotalNoncashTypeInfoId": "567339389AB27213E0531B18CB0A1307",
-              "nodItemBaseInfoId": "567339389AB27213E0531B18CB0A1300",
-              "noncashType": "7",
-              "totalAmount": 1000,
-              "isPromotionTotalAmount": "0",
-              "createBy": null,
-              "createDate": null,
-              "updateBy": null,
-              "updateDate": null
-            },
-            {
-              "nodTotalNoncashTypeInfoId": "567339389AB27213E0531B18CB0A1306",
-              "nodItemBaseInfoId": "567339389AB27213E0531B18CB0A1300",
-              "noncashType": "6",
-              "totalAmount": 1000,
-              "isPromotionTotalAmount": "0",
-              "createBy": null,
-              "createDate": null,
-              "updateBy": null,
-              "updateDate": null
-            },
-            {
-              "nodTotalNoncashTypeInfoId": "567339389AB27213E0531B18CB0A1305",
-              "nodItemBaseInfoId": "567339389AB27213E0531B18CB0A1300",
-              "noncashType": "5",
-              "totalAmount": 1000,
-              "isPromotionTotalAmount": "0",
-              "createBy": null,
-              "createDate": null,
-              "updateBy": null,
-              "updateDate": null
-            },
-            {
-              "nodTotalNoncashTypeInfoId": "567339389AB27213E0531B18CB0A1304",
-              "nodItemBaseInfoId": "567339389AB27213E0531B18CB0A1300",
-              "noncashType": "4",
-              "totalAmount": 1000,
-              "isPromotionTotalAmount": "0",
-              "createBy": null,
-              "createDate": null,
-              "updateBy": null,
-              "updateDate": null
-            },
-            {
-              "nodTotalNoncashTypeInfoId": "567339389AB27213E0531B18CB0A1303",
-              "nodItemBaseInfoId": "567339389AB27213E0531B18CB0A1300",
-              "noncashType": "3",
-              "totalAmount": 1000,
-              "isPromotionTotalAmount": "0",
-              "createBy": null,
-              "createDate": null,
-              "updateBy": null,
-              "updateDate": null
-            },
-            {
-              "nodTotalNoncashTypeInfoId": "567339389AB27213E0531B18CB0A1302",
-              "nodItemBaseInfoId": "567339389AB27213E0531B18CB0A1300",
-              "noncashType": "2",
-              "totalAmount": 1000,
-              "isPromotionTotalAmount": "0",
-              "createBy": null,
-              "createDate": null,
-              "updateBy": null,
-              "updateDate": null
-            }
-          ]
-        },
-        {
-          "nodNumber": "NOD-2017-0001",
-          "nodItemNumber": "NOD-ITEM-2017-0001-04",
-          "nodDescr": "17年集团第一季度NOD",
-          "itemDescr": "总金额item1",
-          "startDate": 1505986444000,
-          "endDate": 1505986444000,
-          "releaseDueDate": 1505986444000,
-          "itemDescription": "总金额item1",
-          "itemBusinessType": "2",
-          "nodItemBaseInfoState": "1",
-          "isPapidProcess": "0",
-          "isApprovalDb": "0",
-          "cashTotalAmount": 10000,
-          "noncashTotalAmount": 20000,
-          "carDescr": [
-            {
-              "carBrand": "",
-              "carSeries": "雪佛兰",
-              "carPackage": "雪佛兰配置1",
-              "financialDescription": "雪佛兰财务描述1",
-              "msrp": 230001
-            },
-            {
-              "carBrand": "",
-              "carSeries": "雪佛兰",
-              "carPackage": "雪佛兰配置2",
-              "financialDescription": "雪佛兰财务描述2",
-              "msrp": 230001
-            }
-          ],
-          "noncashTypeInfoes": [
-            {
-              "nodTotalNoncashTypeInfoId": "567339389AB27213E0531B18CB0A1409",
-              "nodItemBaseInfoId": "567339389AB27213E0531B18CB0A1400",
-              "noncashType": "9",
-              "totalAmount": 1000,
-              "isPromotionTotalAmount": "0",
-              "createBy": null,
-              "createDate": null,
-              "updateBy": null,
-              "updateDate": null
-            },
-            {
-              "nodTotalNoncashTypeInfoId": "567339389AB27213E0531B18CB0A1408",
-              "nodItemBaseInfoId": "567339389AB27213E0531B18CB0A1400",
-              "noncashType": "8",
-              "totalAmount": 1000,
-              "isPromotionTotalAmount": "0",
-              "createBy": null,
-              "createDate": null,
-              "updateBy": null,
-              "updateDate": null
-            },
-            {
-              "nodTotalNoncashTypeInfoId": "567339389AB27213E0531B18CB0A1407",
-              "nodItemBaseInfoId": "567339389AB27213E0531B18CB0A1400",
-              "noncashType": "7",
-              "totalAmount": 1000,
-              "isPromotionTotalAmount": "0",
-              "createBy": null,
-              "createDate": null,
-              "updateBy": null,
-              "updateDate": null
-            },
-            {
-              "nodTotalNoncashTypeInfoId": "567339389AB27213E0531B18CB0A1406",
-              "nodItemBaseInfoId": "567339389AB27213E0531B18CB0A1400",
-              "noncashType": "6",
-              "totalAmount": 1000,
-              "isPromotionTotalAmount": "0",
-              "createBy": null,
-              "createDate": null,
-              "updateBy": null,
-              "updateDate": null
-            },
-            {
-              "nodTotalNoncashTypeInfoId": "567339389AB27213E0531B18CB0A1405",
-              "nodItemBaseInfoId": "567339389AB27213E0531B18CB0A1400",
-              "noncashType": "5",
-              "totalAmount": 1000,
-              "isPromotionTotalAmount": "0",
-              "createBy": null,
-              "createDate": null,
-              "updateBy": null,
-              "updateDate": null
-            },
-            {
-              "nodTotalNoncashTypeInfoId": "567339389AB27213E0531B18CB0A1404",
-              "nodItemBaseInfoId": "567339389AB27213E0531B18CB0A1400",
-              "noncashType": "4",
-              "totalAmount": 1000,
-              "isPromotionTotalAmount": "0",
-              "createBy": null,
-              "createDate": null,
-              "updateBy": null,
-              "updateDate": null
-            },
-            {
-              "nodTotalNoncashTypeInfoId": "567339389AB27213E0531B18CB0A1403",
-              "nodItemBaseInfoId": "567339389AB27213E0531B18CB0A1400",
-              "noncashType": "3",
-              "totalAmount": 1000,
-              "isPromotionTotalAmount": "0",
-              "createBy": null,
-              "createDate": null,
-              "updateBy": null,
-              "updateDate": null
-            },
-            {
-              "nodTotalNoncashTypeInfoId": "567339389AB27213E0531B18CB0A1402",
-              "nodItemBaseInfoId": "567339389AB27213E0531B18CB0A1400",
-              "noncashType": "2",
-              "totalAmount": 1000,
-              "isPromotionTotalAmount": "0",
-              "createBy": null,
-              "createDate": null,
-              "updateBy": null,
-              "updateDate": null
-            },
-            {
-              "nodTotalNoncashTypeInfoId": "567339389AB27213E0531B18CB0A1401",
-              "nodItemBaseInfoId": "567339389AB27213E0531B18CB0A1400",
-              "noncashType": "1",
-              "totalAmount": 1000,
-              "isPromotionTotalAmount": "0",
-              "createBy": null,
-              "createDate": null,
-              "updateBy": null,
-              "updateDate": null
-            }
-          ]
-        }
-      ]
-    }
+    "totalInfo": [
+      {
+        "nodNumber": "NOD2017-BUICK-0033",
+        "nodItemNumber": "63d6c6a5-18fa-4c4a-5cf6-d39181aedfe8",
+        "nodItemId": "5B2BB94939AF116DE0531B18CB0A5E51",
+        "baseType": "1",
+        "nodDescr": "aaaa",
+        "itemDescr": "yutr",
+        "startDate": 1508083200000,
+        "endDate": 1508428800000,
+        "releaseDueDate": 1571500800000,
+        "itemDescription": "yutr",
+        "itemBusinessType": "2",
+        "nodItemBaseInfoState": "6",
+        "isPapidProcess": "NO",
+        "isApprovalDb": "NO",
+        "cashTotalAmount": null,
+        "noncashTotalAmount": null,
+        "carDescr": [
+          {
+            "carBrand": "",
+            "carSeries": "Excelle GT",
+            "carPackage": null,
+            "financialDescription": "D16 1.6 GL AT(JQ)",
+            "msrp": 152700
+          },
+          {
+            "carBrand": "",
+            "carSeries": "Excelle GT",
+            "carPackage": null,
+            "financialDescription": "D16 1.6T GL AT Leather OS",
+            "msrp": 177300
+          },
+          {
+            "carBrand": "",
+            "carSeries": "Excelle GT",
+            "carPackage": null,
+            "financialDescription": "D16 1.8 GL AT Leather OS",
+            "msrp": 165300
+          }
+        ],
+        "noncashTypeInfoes": [
+          {
+            "nodTotalNoncashTypeInfoId": "5B2BB94939B7116DE0531B18CB0A5E51",
+            "nodItemBaseInfoId": "5B2BB94939AF116DE0531B18CB0A5E51",
+            "noncashType": "2",
+            "totalAmount": 754765,
+            "isPromotionTotalAmount": "NO",
+            "createBy": null,
+            "createDate": 1507613939757,
+            "updateBy": null,
+            "updateDate": 1507613939757
+          },
+          {
+            "nodTotalNoncashTypeInfoId": "5B2BB94939B5116DE0531B18CB0A5E51",
+            "nodItemBaseInfoId": "5B2BB94939AF116DE0531B18CB0A5E51",
+            "noncashType": "1",
+            "totalAmount": 2341312,
+            "isPromotionTotalAmount": "YES",
+            "createBy": null,
+            "createDate": 1507613939757,
+            "updateBy": null,
+            "updateDate": 1507613939757
+          },
+          {
+            "nodTotalNoncashTypeInfoId": "5B2BB94939B6116DE0531B18CB0A5E51",
+            "nodItemBaseInfoId": "5B2BB94939AF116DE0531B18CB0A5E51",
+            "noncashType": "3",
+            "totalAmount": 564646,
+            "isPromotionTotalAmount": "YES",
+            "createBy": null,
+            "createDate": 1507613939757,
+            "updateBy": null,
+            "updateDate": 1507613939757
+          }
+        ],
+        "savingAmount": null,
+        "summaryInfoes": null
+      }
+    ],
+    "singleInfo": [
+      {
+        "nodNumber": "NOD2017-BUICK-0033",
+        "baseType": "1",
+        "itemBusinessType": "1",
+        "nodDescr": "aaaa",
+        "itemDescr": "dfa",
+        "startDate": 1507651200000,
+        "endDate": 1507910400000,
+        "nodItemId": "5B2BB949399A116DE0531B18CB0A5E51",
+        "nodItemNumber": "4b749d11-3f61-0bab-f0c4-96584450bf86",
+        "carBrand": null,
+        "carSeries": "Encore",
+        "carPackage": null,
+        "financialDescription": "G60 1.4T G AT FWD Sunroof",
+        "msrp": 149900,
+        "singlecarTotalBudgetPercent": 12,
+        "singlecarTotalBudgetAmount": 17988,
+        "nodItemNoncashTypeBO": [
+          {
+            "noncashType": "2",
+            "percent": 78,
+            "amount": 116922,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "1",
+            "percent": 29,
+            "amount": 43471,
+            "isPromotionAmount": "YES"
+          },
+          {
+            "noncashType": "3",
+            "percent": 34,
+            "amount": 50966,
+            "isPromotionAmount": "YES"
+          }
+        ],
+        "callOffPromotionPercent": 22,
+        "isCallOffPromotionPercent": "NO",
+        "callOffPromotionAmount": 32978,
+        "isCallOffPromotionAmount": "NO",
+        "deliveryPromotionPercent": 34,
+        "isDeliveryPromotionPercent": "NO",
+        "deliveryPromotionAmount": 50966,
+        "isDeliveryPromotionAmount": "YES",
+        "dealerInventoryPercent": 56,
+        "isDealerInventoryPercent": "NO",
+        "dealerInventoryAmount": 83944,
+        "isDealerInventoryAmount": "NO",
+        "savingAmount": null,
+        "summaryInfoes": null
+      },
+      {
+        "nodNumber": "NOD2017-BUICK-0033",
+        "baseType": "1",
+        "itemBusinessType": "1",
+        "nodDescr": "aaaa",
+        "itemDescr": "dfa",
+        "startDate": 1507651200000,
+        "endDate": 1507910400000,
+        "nodItemId": "5B2BB949399A116DE0531B18CB0A5E51",
+        "nodItemNumber": "4b749d11-3f61-0bab-f0c4-96584450bf86",
+        "carBrand": null,
+        "carSeries": "Encore",
+        "carPackage": null,
+        "financialDescription": "G60 1.4T G MT FWD Sunroof",
+        "msrp": 139900,
+        "singlecarTotalBudgetPercent": 12,
+        "singlecarTotalBudgetAmount": 16788,
+        "nodItemNoncashTypeBO": [
+          {
+            "noncashType": "1",
+            "percent": 29,
+            "amount": 40571,
+            "isPromotionAmount": "YES"
+          },
+          {
+            "noncashType": "3",
+            "percent": 34,
+            "amount": 47566,
+            "isPromotionAmount": "YES"
+          },
+          {
+            "noncashType": "2",
+            "percent": 78,
+            "amount": 109122,
+            "isPromotionAmount": "NO"
+          }
+        ],
+        "callOffPromotionPercent": 22,
+        "isCallOffPromotionPercent": "NO",
+        "callOffPromotionAmount": 30778,
+        "isCallOffPromotionAmount": "NO",
+        "deliveryPromotionPercent": 34,
+        "isDeliveryPromotionPercent": "NO",
+        "deliveryPromotionAmount": 47566,
+        "isDeliveryPromotionAmount": "YES",
+        "dealerInventoryPercent": 56,
+        "isDealerInventoryPercent": "NO",
+        "dealerInventoryAmount": 78344,
+        "isDealerInventoryAmount": "NO",
+        "savingAmount": null,
+        "summaryInfoes": null
+      },
+      {
+        "nodNumber": "NOD2017-BUICK-0033",
+        "baseType": "1",
+        "itemBusinessType": "1",
+        "nodDescr": "aaaa",
+        "itemDescr": "dfa",
+        "startDate": 1507651200000,
+        "endDate": 1507910400000,
+        "nodItemId": "5B2BB949399A116DE0531B18CB0A5E51",
+        "nodItemNumber": "4b749d11-3f61-0bab-f0c4-96584450bf86",
+        "carBrand": null,
+        "carSeries": "Encore",
+        "carPackage": null,
+        "financialDescription": "G60 1.4T GL AT AWD Sunroof",
+        "msrp": 179900,
+        "singlecarTotalBudgetPercent": 12,
+        "singlecarTotalBudgetAmount": 21588,
+        "nodItemNoncashTypeBO": [
+          {
+            "noncashType": "1",
+            "percent": 29,
+            "amount": 52171,
+            "isPromotionAmount": "YES"
+          },
+          {
+            "noncashType": "3",
+            "percent": 34,
+            "amount": 61166,
+            "isPromotionAmount": "YES"
+          },
+          {
+            "noncashType": "2",
+            "percent": 78,
+            "amount": 140322,
+            "isPromotionAmount": "NO"
+          }
+        ],
+        "callOffPromotionPercent": 22,
+        "isCallOffPromotionPercent": "NO",
+        "callOffPromotionAmount": 39578,
+        "isCallOffPromotionAmount": "NO",
+        "deliveryPromotionPercent": 34,
+        "isDeliveryPromotionPercent": "NO",
+        "deliveryPromotionAmount": 61166,
+        "isDeliveryPromotionAmount": "YES",
+        "dealerInventoryPercent": 56,
+        "isDealerInventoryPercent": "NO",
+        "dealerInventoryAmount": 100744,
+        "isDealerInventoryAmount": "NO",
+        "savingAmount": null,
+        "summaryInfoes": null
+      },
+      {
+        "nodNumber": "NOD2017-BUICK-0033",
+        "baseType": "1",
+        "itemBusinessType": "1",
+        "nodDescr": "aaaa",
+        "itemDescr": "dfa",
+        "startDate": 1507651200000,
+        "endDate": 1507910400000,
+        "nodItemId": "5B2BB949399A116DE0531B18CB0A5E51",
+        "nodItemNumber": "4b749d11-3f61-0bab-f0c4-96584450bf86",
+        "carBrand": null,
+        "carSeries": "Encore",
+        "carPackage": null,
+        "financialDescription": "G60 1.4T GL AT FWD Sunroof",
+        "msrp": 166900,
+        "singlecarTotalBudgetPercent": 12,
+        "singlecarTotalBudgetAmount": 20028,
+        "nodItemNoncashTypeBO": [
+          {
+            "noncashType": "1",
+            "percent": 29,
+            "amount": 48401,
+            "isPromotionAmount": "YES"
+          },
+          {
+            "noncashType": "3",
+            "percent": 34,
+            "amount": 56746,
+            "isPromotionAmount": "YES"
+          },
+          {
+            "noncashType": "2",
+            "percent": 78,
+            "amount": 130182,
+            "isPromotionAmount": "NO"
+          }
+        ],
+        "callOffPromotionPercent": 22,
+        "isCallOffPromotionPercent": "NO",
+        "callOffPromotionAmount": 36718,
+        "isCallOffPromotionAmount": "NO",
+        "deliveryPromotionPercent": 34,
+        "isDeliveryPromotionPercent": "NO",
+        "deliveryPromotionAmount": 56746,
+        "isDeliveryPromotionAmount": "YES",
+        "dealerInventoryPercent": 56,
+        "isDealerInventoryPercent": "NO",
+        "dealerInventoryAmount": 93464,
+        "isDealerInventoryAmount": "NO",
+        "savingAmount": null,
+        "summaryInfoes": null
+      }
+    ],
+    "annualPolicies": [
+      {
+        "nodAnnualPolicyInfoId": "5BBD30A20FAF3969E0531B18CB0A5132",
+        "nodBaseInfoId": "5BBD30A20FAB3969E0531B18CB0A5132",
+        "nodItemNumber": "1962dd96-728d-7605-f2a7-159620ff90fb",
+        "rewardTypeDescription": "销售达标奖",
+        "grantBasis": null,
+        "singleCarPercent": 0,
+        "totalAmount": 100000,
+        "startDate": 1483269080000,
+        "endDate": 1514718680000,
+        "remark": null,
+        "createBy": null,
+        "createDate": 1508238711475,
+        "updateBy": null,
+        "updateDate": 1508238711475,
+        "baseType": "2",
+        "savingAmount": 0,
+        "nodNumber": "NOD2017-FLEET-0007",
+        "nodDescr": "年度政策NOD",
+        "itemBusinessType": "2"
+      },
+      {
+        "nodAnnualPolicyInfoId": "5BBD30A20FAE3969E0531B18CB0A5132",
+        "nodBaseInfoId": "5BBD30A20FAB3969E0531B18CB0A5132",
+        "nodItemNumber": "298f1929-e9b8-2fd7-d2f3-e5e9802bc9e7",
+        "rewardTypeDescription": "客户忠诚度",
+        "grantBasis": "交车",
+        "singleCarPercent": 10,
+        "totalAmount": 0,
+        "startDate": 1483269012000,
+        "endDate": 1514718612000,
+        "remark": null,
+        "createBy": null,
+        "createDate": 1508238711475,
+        "updateBy": null,
+        "updateDate": 1508238711475,
+        "baseType": "2",
+        "savingAmount": 0,
+        "nodNumber": "NOD2017-FLEET-0007",
+        "nodDescr": "年度政策NOD",
+        "itemBusinessType": "1"
+      },
+      {
+        "nodAnnualPolicyInfoId": "5BBD30A20FAD3969E0531B18CB0A5132",
+        "nodBaseInfoId": "5BBD30A20FAB3969E0531B18CB0A5132",
+        "nodItemNumber": "6ac39fa3-f6d6-4847-1b6e-9394834ef574",
+        "rewardTypeDescription": "销售满意度",
+        "grantBasis": "交车",
+        "singleCarPercent": 10,
+        "totalAmount": 0,
+        "startDate": 1483269006000,
+        "endDate": 1514718606000,
+        "remark": null,
+        "createBy": null,
+        "createDate": 1508238711475,
+        "updateBy": null,
+        "updateDate": 1508238711475,
+        "baseType": "2",
+        "savingAmount": 0,
+        "nodNumber": "NOD2017-FLEET-0007",
+        "nodDescr": "年度政策NOD",
+        "itemBusinessType": "1"
+      },
+      {
+        "nodAnnualPolicyInfoId": "5BBD30A20FAC3969E0531B18CB0A5132",
+        "nodBaseInfoId": "5BBD30A20FAB3969E0531B18CB0A5132",
+        "nodItemNumber": "e723b4d6-23ae-5288-17ec-4948cf970762",
+        "rewardTypeDescription": "销售满意度",
+        "grantBasis": "交车",
+        "singleCarPercent": 10,
+        "totalAmount": 0,
+        "startDate": 1483269002000,
+        "endDate": 1514718602000,
+        "remark": null,
+        "createBy": null,
+        "createDate": 1508238711475,
+        "updateBy": null,
+        "updateDate": 1508238711475,
+        "baseType": "2",
+        "savingAmount": 0,
+        "nodNumber": "NOD2017-FLEET-0007",
+        "nodDescr": "年度政策NOD",
+        "itemBusinessType": "1"
+      }
+    ]
   }
 }

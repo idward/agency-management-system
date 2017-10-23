@@ -2,6 +2,13 @@
   width: 400px;
   margin: 0 auto;
 
+  .reportView {
+    position: absolute;
+    width: 110px;
+    top: 0;
+    right: 15px;
+  }
+
   .form-group {
     position: relative;
     margin: 10px 0;
@@ -62,10 +69,11 @@
     }
   }
 
-  .datalist {
+  .datalist, .reportDownload {
     .header {
       float: left;
       font-size: 14px;
+      font-weight: bold;
     }
 
     .content {
@@ -94,5 +102,14 @@
     p {
       margin: 10px 0;
     }
+  }
+
+  .loading_icon {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 160px;
+    left: 50%;
+    background: url("../../../../assets/images/loading.gif") no-repeat;
   }
 }

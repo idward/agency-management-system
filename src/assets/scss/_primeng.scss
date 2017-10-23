@@ -127,6 +127,10 @@
       padding: 0;
     }
   }
+
+  p-checkbox.ng-dirty.ng-invalid .ui-chkbox-box {
+    border-bottom-color: #c0c0c0;
+  }
 }
 
 .createItem_area, .updateItem_area, .saveItem_area {
@@ -147,6 +151,10 @@
     padding: 0;
   }
 
+  .ui-datatable-scrollable-header {
+    overflow: inherit;
+  }
+
   .ui-widget-content {
     //overflow-x: auto;
   }
@@ -165,12 +173,12 @@
 }
 
 .saveItem_area {
-  .ui-datatable .ui-datatable-data>tr>td {
-    padding: 0;
+  .ui-datatable .ui-datatable-data > tr > td {
+    padding: 5px;
   }
 }
 
-.nod_item_page,.annual_policy {
+.nod_item_page, .annual_policy {
   .saveResult {
     .ui-growl-item-container {
       height: 100px;
@@ -219,5 +227,11 @@
 
   .ui-growl-icon-close.fa.fa-close {
     display: none;
+  }
+}
+
+.updateItem_area {
+  .ui-datatable-scrollable-view {
+    overflow-x: hidden;
   }
 }

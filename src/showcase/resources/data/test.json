@@ -1,0 +1,1047 @@
+{
+  "data": {
+    "totalInfo": [
+      {
+        "nodNumber": "NOD2017-BUICK-0033",
+        "nodItemNumber": "63d6c6a5-18fa-4c4a-5cf6-d39181aedfe8",
+        "nodItemId": "5B2BB94939AF116DE0531B18CB0A5E51",
+        "nodDescr": "aaaa",
+        "itemDescr": "yutr",
+        "startDate": 1508083200000,
+        "endDate": 1508428800000,
+        "releaseDueDate": 1571500800000,
+        "itemDescription": "yutr",
+        "itemBusinessType": "2",
+        "nodItemBaseInfoState": "6",
+        "isPapidProcess": "NO",
+        "isApprovalDb": "NO",
+        "cashTotalAmount": null,
+        "noncashTotalAmount": null,
+        "carDescr": [
+          {
+            "carBrand": "",
+            "carSeries": "Excelle GT",
+            "carPackage": null,
+            "financialDescription": "D16 1.6 GL AT(JQ)",
+            "msrp": 152700
+          },
+          {
+            "carBrand": "",
+            "carSeries": "Excelle GT",
+            "carPackage": null,
+            "financialDescription": "D16 1.6T GL AT Leather OS",
+            "msrp": 177300
+          },
+          {
+            "carBrand": "",
+            "carSeries": "Excelle GT",
+            "carPackage": null,
+            "financialDescription": "D16 1.8 GL AT Leather OS",
+            "msrp": 165300
+          }
+        ],
+        "noncashTypeInfoes": [
+          {
+            "nodTotalNoncashTypeInfoId": "5B2BB94939B7116DE0531B18CB0A5E51",
+            "nodItemBaseInfoId": "5B2BB94939AF116DE0531B18CB0A5E51",
+            "noncashType": "2",
+            "totalAmount": 754765,
+            "isPromotionTotalAmount": "NO",
+            "createBy": null,
+            "createDate": 1507613939757,
+            "updateBy": null,
+            "updateDate": 1507613939757
+          },
+          {
+            "nodTotalNoncashTypeInfoId": "5B2BB94939B5116DE0531B18CB0A5E51",
+            "nodItemBaseInfoId": "5B2BB94939AF116DE0531B18CB0A5E51",
+            "noncashType": "1",
+            "totalAmount": 2341312,
+            "isPromotionTotalAmount": "YES",
+            "createBy": null,
+            "createDate": 1507613939757,
+            "updateBy": null,
+            "updateDate": 1507613939757
+          },
+          {
+            "nodTotalNoncashTypeInfoId": "5B2BB94939B6116DE0531B18CB0A5E51",
+            "nodItemBaseInfoId": "5B2BB94939AF116DE0531B18CB0A5E51",
+            "noncashType": "3",
+            "totalAmount": 564646,
+            "isPromotionTotalAmount": "YES",
+            "createBy": null,
+            "createDate": 1507613939757,
+            "updateBy": null,
+            "updateDate": 1507613939757
+          }
+        ],
+        "savingAmount": 23875947,
+        "summaryInfoes": [
+          {
+            "nodItemBaseInfoId": "5B2BB94939AF116DE0531B18CB0A5E51",
+            "grantBasis": null,
+            "nodNumber": "NOD2017-BUICK-0033",
+            "nodItemNumber": "63d6c6a5-18fa-4c4a-5cf6-d39181aedfe8",
+            "nodSummaryInfoState": "1",
+            "rewardType": "30",
+            "carBrand": null,
+            "carSeries": null,
+            "financialDescription": null,
+            "carPackage": null,
+            "amounts": [
+              {
+                "nodSummaryInfoId": "5B52621327506517E0531B18CB0AE660",
+                "nodFromDate": 1508083200000,
+                "nodToDate": 1508428800000,
+                "originalBudget": 454535,
+                "budgetChange": null,
+                "actualUse": 0,
+                "availableBalances": 454535,
+                "salesNumber": 0,
+                "createBy": null,
+                "createDate": 1507779979454,
+                "updateBy": null,
+                "updateDate": 1507779979454
+              },
+              {
+                "nodSummaryInfoId": "5B52621327516517E0531B18CB0AE660",
+                "nodFromDate": 1508083200000,
+                "nodToDate": 1508428800000,
+                "originalBudget": 23421412,
+                "budgetChange": null,
+                "actualUse": 0,
+                "availableBalances": 23421412,
+                "salesNumber": 0,
+                "createBy": null,
+                "createDate": 1507779979454,
+                "updateBy": null,
+                "updateDate": 1507779979454
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "singleInfo": [
+      {
+        "nodNumber": "NOD2017-BUICK-0033",
+        "baseType": "1",
+        "itemBusinessType": "1",
+        "nodDescr": "aaaa",
+        "itemDescr": "dfa",
+        "startDate": 1507651200000,
+        "endDate": 1507910400000,
+        "nodItemId": "5B2BB949399A116DE0531B18CB0A5E51",
+        "nodItemNumber": "4b749d11-3f61-0bab-f0c4-96584450bf86",
+        "carBrand": null,
+        "carSeries": "Encore",
+        "carPackage": null,
+        "financialDescription": "G60 1.4T G AT FWD Sunroof",
+        "msrp": 149900,
+        "singlecarTotalBudgetPercent": 12,
+        "singlecarTotalBudgetAmount": 17988,
+        "nodItemNoncashTypeBO": [
+          {
+            "noncashType": "2",
+            "percent": 78,
+            "amount": 116922,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "1",
+            "percent": 29,
+            "amount": 43471,
+            "isPromotionAmount": "YES"
+          },
+          {
+            "noncashType": "3",
+            "percent": 34,
+            "amount": 50966,
+            "isPromotionAmount": "YES"
+          }
+        ],
+        "callOffPromotionPercent": 22,
+        "isCallOffPromotionPercent": "NO",
+        "callOffPromotionAmount": 32978,
+        "isCallOffPromotionAmount": "NO",
+        "deliveryPromotionPercent": 34,
+        "isDeliveryPromotionPercent": "NO",
+        "deliveryPromotionAmount": 50966,
+        "isDeliveryPromotionAmount": "YES",
+        "dealerInventoryPercent": 56,
+        "isDealerInventoryPercent": "NO",
+        "dealerInventoryAmount": 83944,
+        "isDealerInventoryAmount": "NO",
+        "savingAmount": 0,
+        "summaryInfoes": [
+          {
+            "nodItemBaseInfoId": "5B2BB949399A116DE0531B18CB0A5E51",
+            "grantBasis": null,
+            "nodNumber": "NOD2017-BUICK-0033",
+            "nodItemNumber": "4b749d11-3f61-0bab-f0c4-96584450bf86",
+            "nodSummaryInfoState": "1",
+            "rewardType": "12",
+            "carBrand": "Encore",
+            "carSeries": "Encore",
+            "financialDescription": "G60 1.4T G AT FWD Sunroof",
+            "carPackage": null,
+            "amounts": [
+              {
+                "nodSummaryInfoId": "5B526213274C6517E0531B18CB0AE660",
+                "nodFromDate": 1507651200000,
+                "nodToDate": 1507910400000,
+                "originalBudget": 116922,
+                "budgetChange": null,
+                "actualUse": 0,
+                "availableBalances": 116922,
+                "salesNumber": 0,
+                "createBy": null,
+                "createDate": 1507779979454,
+                "updateBy": null,
+                "updateDate": 1507779979454
+              }
+            ]
+          },
+          {
+            "nodItemBaseInfoId": "5B2BB949399A116DE0531B18CB0A5E51",
+            "grantBasis": null,
+            "nodNumber": "NOD2017-BUICK-0033",
+            "nodItemNumber": "4b749d11-3f61-0bab-f0c4-96584450bf86",
+            "nodSummaryInfoState": "1",
+            "rewardType": "11",
+            "carBrand": "Encore",
+            "carSeries": "Encore",
+            "financialDescription": "G60 1.4T G AT FWD Sunroof",
+            "carPackage": null,
+            "amounts": [
+              {
+                "nodSummaryInfoId": "5B526213274B6517E0531B18CB0AE660",
+                "nodFromDate": 1507651200000,
+                "nodToDate": 1507910400000,
+                "originalBudget": 43471,
+                "budgetChange": null,
+                "actualUse": 0,
+                "availableBalances": 43471,
+                "salesNumber": 0,
+                "createBy": null,
+                "createDate": 1507779979454,
+                "updateBy": null,
+                "updateDate": 1507779979454
+              }
+            ]
+          },
+          {
+            "nodItemBaseInfoId": "5B2BB949399A116DE0531B18CB0A5E51",
+            "grantBasis": null,
+            "nodNumber": "NOD2017-BUICK-0033",
+            "nodItemNumber": "4b749d11-3f61-0bab-f0c4-96584450bf86",
+            "nodSummaryInfoState": "1",
+            "rewardType": "13",
+            "carBrand": "Encore",
+            "carSeries": "Encore",
+            "financialDescription": "G60 1.4T G AT FWD Sunroof",
+            "carPackage": null,
+            "amounts": [
+              {
+                "nodSummaryInfoId": "5B526213274A6517E0531B18CB0AE660",
+                "nodFromDate": 1507651200000,
+                "nodToDate": 1507910400000,
+                "originalBudget": 50966,
+                "budgetChange": null,
+                "actualUse": 0,
+                "availableBalances": 50966,
+                "salesNumber": 0,
+                "createBy": null,
+                "createDate": 1507779979454,
+                "updateBy": null,
+                "updateDate": 1507779979454
+              }
+            ]
+          },
+          {
+            "nodItemBaseInfoId": "5B2BB949399A116DE0531B18CB0A5E51",
+            "grantBasis": null,
+            "nodNumber": "NOD2017-BUICK-0033",
+            "nodItemNumber": "4b749d11-3f61-0bab-f0c4-96584450bf86",
+            "nodSummaryInfoState": "1",
+            "rewardType": "3",
+            "carBrand": "Encore",
+            "carSeries": "Encore",
+            "financialDescription": "G60 1.4T G AT FWD Sunroof",
+            "carPackage": null,
+            "amounts": [
+              {
+                "nodSummaryInfoId": "5B526213273A6517E0531B18CB0AE660",
+                "nodFromDate": 1507651200000,
+                "nodToDate": 1507910400000,
+                "originalBudget": 83944,
+                "budgetChange": null,
+                "actualUse": 0,
+                "availableBalances": 83944,
+                "salesNumber": 0,
+                "createBy": null,
+                "createDate": 1507779979454,
+                "updateBy": null,
+                "updateDate": 1507779979454
+              }
+            ]
+          },
+          {
+            "nodItemBaseInfoId": "5B2BB949399A116DE0531B18CB0A5E51",
+            "grantBasis": null,
+            "nodNumber": "NOD2017-BUICK-0033",
+            "nodItemNumber": "4b749d11-3f61-0bab-f0c4-96584450bf86",
+            "nodSummaryInfoState": "1",
+            "rewardType": "2",
+            "carBrand": "Encore",
+            "carSeries": "Encore",
+            "financialDescription": "G60 1.4T G AT FWD Sunroof",
+            "carPackage": null,
+            "amounts": [
+              {
+                "nodSummaryInfoId": "5B52621327396517E0531B18CB0AE660",
+                "nodFromDate": 1507651200000,
+                "nodToDate": 1507910400000,
+                "originalBudget": 50966,
+                "budgetChange": null,
+                "actualUse": 0,
+                "availableBalances": 50966,
+                "salesNumber": 0,
+                "createBy": null,
+                "createDate": 1507779979454,
+                "updateBy": null,
+                "updateDate": 1507779979454
+              }
+            ]
+          },
+          {
+            "nodItemBaseInfoId": "5B2BB949399A116DE0531B18CB0A5E51",
+            "grantBasis": null,
+            "nodNumber": "NOD2017-BUICK-0033",
+            "nodItemNumber": "4b749d11-3f61-0bab-f0c4-96584450bf86",
+            "nodSummaryInfoState": "1",
+            "rewardType": "1",
+            "carBrand": "Encore",
+            "carSeries": "Encore",
+            "financialDescription": "G60 1.4T G AT FWD Sunroof",
+            "carPackage": null,
+            "amounts": [
+              {
+                "nodSummaryInfoId": "5B52621327386517E0531B18CB0AE660",
+                "nodFromDate": 1507651200000,
+                "nodToDate": 1507910400000,
+                "originalBudget": 32978,
+                "budgetChange": null,
+                "actualUse": 0,
+                "availableBalances": 32978,
+                "salesNumber": 0,
+                "createBy": null,
+                "createDate": 1507779979454,
+                "updateBy": null,
+                "updateDate": 1507779979454
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nodNumber": "NOD2017-BUICK-0033",
+        "baseType": "1",
+        "itemBusinessType": "1",
+        "nodDescr": "aaaa",
+        "itemDescr": "dfa",
+        "startDate": 1507651200000,
+        "endDate": 1507910400000,
+        "nodItemId": "5B2BB949399A116DE0531B18CB0A5E51",
+        "nodItemNumber": "4b749d11-3f61-0bab-f0c4-96584450bf86",
+        "carBrand": null,
+        "carSeries": "Encore",
+        "carPackage": null,
+        "financialDescription": "G60 1.4T G MT FWD Sunroof",
+        "msrp": 139900,
+        "singlecarTotalBudgetPercent": 12,
+        "singlecarTotalBudgetAmount": 16788,
+        "nodItemNoncashTypeBO": [
+          {
+            "noncashType": "2",
+            "percent": 78,
+            "amount": 109122,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "1",
+            "percent": 29,
+            "amount": 40571,
+            "isPromotionAmount": "YES"
+          },
+          {
+            "noncashType": "3",
+            "percent": 34,
+            "amount": 47566,
+            "isPromotionAmount": "YES"
+          }
+        ],
+        "callOffPromotionPercent": 22,
+        "isCallOffPromotionPercent": "NO",
+        "callOffPromotionAmount": 30778,
+        "isCallOffPromotionAmount": "NO",
+        "deliveryPromotionPercent": 34,
+        "isDeliveryPromotionPercent": "NO",
+        "deliveryPromotionAmount": 47566,
+        "isDeliveryPromotionAmount": "YES",
+        "dealerInventoryPercent": 56,
+        "isDealerInventoryPercent": "NO",
+        "dealerInventoryAmount": 78344,
+        "isDealerInventoryAmount": "NO",
+        "savingAmount": 0,
+        "summaryInfoes": [
+          {
+            "nodItemBaseInfoId": "5B2BB949399A116DE0531B18CB0A5E51",
+            "grantBasis": null,
+            "nodNumber": "NOD2017-BUICK-0033",
+            "nodItemNumber": "4b749d11-3f61-0bab-f0c4-96584450bf86",
+            "nodSummaryInfoState": "1",
+            "rewardType": "13",
+            "carBrand": "Encore",
+            "carSeries": "Encore",
+            "financialDescription": "G60 1.4T G MT FWD Sunroof",
+            "carPackage": null,
+            "amounts": [
+              {
+                "nodSummaryInfoId": "5B526213274F6517E0531B18CB0AE660",
+                "nodFromDate": 1507651200000,
+                "nodToDate": 1507910400000,
+                "originalBudget": 47566,
+                "budgetChange": null,
+                "actualUse": 0,
+                "availableBalances": 47566,
+                "salesNumber": 0,
+                "createBy": null,
+                "createDate": 1507779979454,
+                "updateBy": null,
+                "updateDate": 1507779979454
+              }
+            ]
+          },
+          {
+            "nodItemBaseInfoId": "5B2BB949399A116DE0531B18CB0A5E51",
+            "grantBasis": null,
+            "nodNumber": "NOD2017-BUICK-0033",
+            "nodItemNumber": "4b749d11-3f61-0bab-f0c4-96584450bf86",
+            "nodSummaryInfoState": "1",
+            "rewardType": "12",
+            "carBrand": "Encore",
+            "carSeries": "Encore",
+            "financialDescription": "G60 1.4T G MT FWD Sunroof",
+            "carPackage": null,
+            "amounts": [
+              {
+                "nodSummaryInfoId": "5B526213274E6517E0531B18CB0AE660",
+                "nodFromDate": 1507651200000,
+                "nodToDate": 1507910400000,
+                "originalBudget": 109122,
+                "budgetChange": null,
+                "actualUse": 0,
+                "availableBalances": 109122,
+                "salesNumber": 0,
+                "createBy": null,
+                "createDate": 1507779979454,
+                "updateBy": null,
+                "updateDate": 1507779979454
+              }
+            ]
+          },
+          {
+            "nodItemBaseInfoId": "5B2BB949399A116DE0531B18CB0A5E51",
+            "grantBasis": null,
+            "nodNumber": "NOD2017-BUICK-0033",
+            "nodItemNumber": "4b749d11-3f61-0bab-f0c4-96584450bf86",
+            "nodSummaryInfoState": "1",
+            "rewardType": "11",
+            "carBrand": "Encore",
+            "carSeries": "Encore",
+            "financialDescription": "G60 1.4T G MT FWD Sunroof",
+            "carPackage": null,
+            "amounts": [
+              {
+                "nodSummaryInfoId": "5B526213274D6517E0531B18CB0AE660",
+                "nodFromDate": 1507651200000,
+                "nodToDate": 1507910400000,
+                "originalBudget": 40571,
+                "budgetChange": null,
+                "actualUse": 0,
+                "availableBalances": 40571,
+                "salesNumber": 0,
+                "createBy": null,
+                "createDate": 1507779979454,
+                "updateBy": null,
+                "updateDate": 1507779979454
+              }
+            ]
+          },
+          {
+            "nodItemBaseInfoId": "5B2BB949399A116DE0531B18CB0A5E51",
+            "grantBasis": null,
+            "nodNumber": "NOD2017-BUICK-0033",
+            "nodItemNumber": "4b749d11-3f61-0bab-f0c4-96584450bf86",
+            "nodSummaryInfoState": "1",
+            "rewardType": "3",
+            "carBrand": "Encore",
+            "carSeries": "Encore",
+            "financialDescription": "G60 1.4T G MT FWD Sunroof",
+            "carPackage": null,
+            "amounts": [
+              {
+                "nodSummaryInfoId": "5B526213273D6517E0531B18CB0AE660",
+                "nodFromDate": 1507651200000,
+                "nodToDate": 1507910400000,
+                "originalBudget": 78344,
+                "budgetChange": null,
+                "actualUse": 0,
+                "availableBalances": 78344,
+                "salesNumber": 0,
+                "createBy": null,
+                "createDate": 1507779979454,
+                "updateBy": null,
+                "updateDate": 1507779979454
+              }
+            ]
+          },
+          {
+            "nodItemBaseInfoId": "5B2BB949399A116DE0531B18CB0A5E51",
+            "grantBasis": null,
+            "nodNumber": "NOD2017-BUICK-0033",
+            "nodItemNumber": "4b749d11-3f61-0bab-f0c4-96584450bf86",
+            "nodSummaryInfoState": "1",
+            "rewardType": "2",
+            "carBrand": "Encore",
+            "carSeries": "Encore",
+            "financialDescription": "G60 1.4T G MT FWD Sunroof",
+            "carPackage": null,
+            "amounts": [
+              {
+                "nodSummaryInfoId": "5B526213273C6517E0531B18CB0AE660",
+                "nodFromDate": 1507651200000,
+                "nodToDate": 1507910400000,
+                "originalBudget": 47566,
+                "budgetChange": null,
+                "actualUse": 0,
+                "availableBalances": 47566,
+                "salesNumber": 0,
+                "createBy": null,
+                "createDate": 1507779979454,
+                "updateBy": null,
+                "updateDate": 1507779979454
+              }
+            ]
+          },
+          {
+            "nodItemBaseInfoId": "5B2BB949399A116DE0531B18CB0A5E51",
+            "grantBasis": null,
+            "nodNumber": "NOD2017-BUICK-0033",
+            "nodItemNumber": "4b749d11-3f61-0bab-f0c4-96584450bf86",
+            "nodSummaryInfoState": "1",
+            "rewardType": "1",
+            "carBrand": "Encore",
+            "carSeries": "Encore",
+            "financialDescription": "G60 1.4T G MT FWD Sunroof",
+            "carPackage": null,
+            "amounts": [
+              {
+                "nodSummaryInfoId": "5B526213273B6517E0531B18CB0AE660",
+                "nodFromDate": 1507651200000,
+                "nodToDate": 1507910400000,
+                "originalBudget": 30778,
+                "budgetChange": null,
+                "actualUse": 0,
+                "availableBalances": 30778,
+                "salesNumber": 0,
+                "createBy": null,
+                "createDate": 1507779979454,
+                "updateBy": null,
+                "updateDate": 1507779979454
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nodNumber": "NOD2017-BUICK-0033",
+        "baseType": "1",
+        "itemBusinessType": "1",
+        "nodDescr": "aaaa",
+        "itemDescr": "dfa",
+        "startDate": 1507651200000,
+        "endDate": 1507910400000,
+        "nodItemId": "5B2BB949399A116DE0531B18CB0A5E51",
+        "nodItemNumber": "4b749d11-3f61-0bab-f0c4-96584450bf86",
+        "carBrand": null,
+        "carSeries": "Encore",
+        "carPackage": null,
+        "financialDescription": "G60 1.4T GL AT AWD Sunroof",
+        "msrp": 179900,
+        "singlecarTotalBudgetPercent": 12,
+        "singlecarTotalBudgetAmount": 21588,
+        "nodItemNoncashTypeBO": [
+          {
+            "noncashType": "2",
+            "percent": 78,
+            "amount": 140322,
+            "isPromotionAmount": "NO"
+          },
+          {
+            "noncashType": "3",
+            "percent": 34,
+            "amount": 61166,
+            "isPromotionAmount": "YES"
+          },
+          {
+            "noncashType": "1",
+            "percent": 29,
+            "amount": 52171,
+            "isPromotionAmount": "YES"
+          }
+        ],
+        "callOffPromotionPercent": 22,
+        "isCallOffPromotionPercent": "NO",
+        "callOffPromotionAmount": 39578,
+        "isCallOffPromotionAmount": "NO",
+        "deliveryPromotionPercent": 34,
+        "isDeliveryPromotionPercent": "NO",
+        "deliveryPromotionAmount": 61166,
+        "isDeliveryPromotionAmount": "YES",
+        "dealerInventoryPercent": 56,
+        "isDealerInventoryPercent": "NO",
+        "dealerInventoryAmount": 100744,
+        "isDealerInventoryAmount": "NO",
+        "savingAmount": 0,
+        "summaryInfoes": [
+          {
+            "nodItemBaseInfoId": "5B2BB949399A116DE0531B18CB0A5E51",
+            "grantBasis": null,
+            "nodNumber": "NOD2017-BUICK-0033",
+            "nodItemNumber": "4b749d11-3f61-0bab-f0c4-96584450bf86",
+            "nodSummaryInfoState": "1",
+            "rewardType": "11",
+            "carBrand": "Encore",
+            "carSeries": "Encore",
+            "financialDescription": "G60 1.4T GL AT AWD Sunroof",
+            "carPackage": null,
+            "amounts": [
+              {
+                "nodSummaryInfoId": "5B52621327496517E0531B18CB0AE660",
+                "nodFromDate": 1507651200000,
+                "nodToDate": 1507910400000,
+                "originalBudget": 52171,
+                "budgetChange": null,
+                "actualUse": 0,
+                "availableBalances": 52171,
+                "salesNumber": 0,
+                "createBy": null,
+                "createDate": 1507779979454,
+                "updateBy": null,
+                "updateDate": 1507779979454
+              }
+            ]
+          },
+          {
+            "nodItemBaseInfoId": "5B2BB949399A116DE0531B18CB0A5E51",
+            "grantBasis": null,
+            "nodNumber": "NOD2017-BUICK-0033",
+            "nodItemNumber": "4b749d11-3f61-0bab-f0c4-96584450bf86",
+            "nodSummaryInfoState": "1",
+            "rewardType": "13",
+            "carBrand": "Encore",
+            "carSeries": "Encore",
+            "financialDescription": "G60 1.4T GL AT AWD Sunroof",
+            "carPackage": null,
+            "amounts": [
+              {
+                "nodSummaryInfoId": "5B52621327486517E0531B18CB0AE660",
+                "nodFromDate": 1507651200000,
+                "nodToDate": 1507910400000,
+                "originalBudget": 61166,
+                "budgetChange": null,
+                "actualUse": 0,
+                "availableBalances": 61166,
+                "salesNumber": 0,
+                "createBy": null,
+                "createDate": 1507779979454,
+                "updateBy": null,
+                "updateDate": 1507779979454
+              }
+            ]
+          },
+          {
+            "nodItemBaseInfoId": "5B2BB949399A116DE0531B18CB0A5E51",
+            "grantBasis": null,
+            "nodNumber": "NOD2017-BUICK-0033",
+            "nodItemNumber": "4b749d11-3f61-0bab-f0c4-96584450bf86",
+            "nodSummaryInfoState": "1",
+            "rewardType": "12",
+            "carBrand": "Encore",
+            "carSeries": "Encore",
+            "financialDescription": "G60 1.4T GL AT AWD Sunroof",
+            "carPackage": null,
+            "amounts": [
+              {
+                "nodSummaryInfoId": "5B52621327476517E0531B18CB0AE660",
+                "nodFromDate": 1507651200000,
+                "nodToDate": 1507910400000,
+                "originalBudget": 140322,
+                "budgetChange": null,
+                "actualUse": 0,
+                "availableBalances": 140322,
+                "salesNumber": 0,
+                "createBy": null,
+                "createDate": 1507779979454,
+                "updateBy": null,
+                "updateDate": 1507779979454
+              }
+            ]
+          },
+          {
+            "nodItemBaseInfoId": "5B2BB949399A116DE0531B18CB0A5E51",
+            "grantBasis": null,
+            "nodNumber": "NOD2017-BUICK-0033",
+            "nodItemNumber": "4b749d11-3f61-0bab-f0c4-96584450bf86",
+            "nodSummaryInfoState": "1",
+            "rewardType": "3",
+            "carBrand": "Encore",
+            "carSeries": "Encore",
+            "financialDescription": "G60 1.4T GL AT AWD Sunroof",
+            "carPackage": null,
+            "amounts": [
+              {
+                "nodSummaryInfoId": "5B52621327406517E0531B18CB0AE660",
+                "nodFromDate": 1507651200000,
+                "nodToDate": 1507910400000,
+                "originalBudget": 100744,
+                "budgetChange": null,
+                "actualUse": 0,
+                "availableBalances": 100744,
+                "salesNumber": 0,
+                "createBy": null,
+                "createDate": 1507779979454,
+                "updateBy": null,
+                "updateDate": 1507779979454
+              }
+            ]
+          },
+          {
+            "nodItemBaseInfoId": "5B2BB949399A116DE0531B18CB0A5E51",
+            "grantBasis": null,
+            "nodNumber": "NOD2017-BUICK-0033",
+            "nodItemNumber": "4b749d11-3f61-0bab-f0c4-96584450bf86",
+            "nodSummaryInfoState": "1",
+            "rewardType": "2",
+            "carBrand": "Encore",
+            "carSeries": "Encore",
+            "financialDescription": "G60 1.4T GL AT AWD Sunroof",
+            "carPackage": null,
+            "amounts": [
+              {
+                "nodSummaryInfoId": "5B526213273F6517E0531B18CB0AE660",
+                "nodFromDate": 1507651200000,
+                "nodToDate": 1507910400000,
+                "originalBudget": 61166,
+                "budgetChange": null,
+                "actualUse": 0,
+                "availableBalances": 61166,
+                "salesNumber": 0,
+                "createBy": null,
+                "createDate": 1507779979454,
+                "updateBy": null,
+                "updateDate": 1507779979454
+              }
+            ]
+          },
+          {
+            "nodItemBaseInfoId": "5B2BB949399A116DE0531B18CB0A5E51",
+            "grantBasis": null,
+            "nodNumber": "NOD2017-BUICK-0033",
+            "nodItemNumber": "4b749d11-3f61-0bab-f0c4-96584450bf86",
+            "nodSummaryInfoState": "1",
+            "rewardType": "1",
+            "carBrand": "Encore",
+            "carSeries": "Encore",
+            "financialDescription": "G60 1.4T GL AT AWD Sunroof",
+            "carPackage": null,
+            "amounts": [
+              {
+                "nodSummaryInfoId": "5B526213273E6517E0531B18CB0AE660",
+                "nodFromDate": 1507651200000,
+                "nodToDate": 1507910400000,
+                "originalBudget": 39578,
+                "budgetChange": null,
+                "actualUse": 0,
+                "availableBalances": 39578,
+                "salesNumber": 0,
+                "createBy": null,
+                "createDate": 1507779979454,
+                "updateBy": null,
+                "updateDate": 1507779979454
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nodNumber": "NOD2017-BUICK-0033",
+        "baseType": "1",
+        "itemBusinessType": "1",
+        "nodDescr": "aaaa",
+        "itemDescr": "dfa",
+        "startDate": 1507651200000,
+        "endDate": 1507910400000,
+        "nodItemId": "5B2BB949399A116DE0531B18CB0A5E51",
+        "nodItemNumber": "4b749d11-3f61-0bab-f0c4-96584450bf86",
+        "carBrand": null,
+        "carSeries": "Encore",
+        "carPackage": null,
+        "financialDescription": "G60 1.4T GL AT FWD Sunroof",
+        "msrp": 166900,
+        "singlecarTotalBudgetPercent": 12,
+        "singlecarTotalBudgetAmount": 20028,
+        "nodItemNoncashTypeBO": [
+          {
+            "noncashType": "3",
+            "percent": 34,
+            "amount": 56746,
+            "isPromotionAmount": "YES"
+          },
+          {
+            "noncashType": "1",
+            "percent": 29,
+            "amount": 48401,
+            "isPromotionAmount": "YES"
+          },
+          {
+            "noncashType": "2",
+            "percent": 78,
+            "amount": 130182,
+            "isPromotionAmount": "NO"
+          }
+        ],
+        "callOffPromotionPercent": 22,
+        "isCallOffPromotionPercent": "NO",
+        "callOffPromotionAmount": 36718,
+        "isCallOffPromotionAmount": "NO",
+        "deliveryPromotionPercent": 34,
+        "isDeliveryPromotionPercent": "NO",
+        "deliveryPromotionAmount": 56746,
+        "isDeliveryPromotionAmount": "YES",
+        "dealerInventoryPercent": 56,
+        "isDealerInventoryPercent": "NO",
+        "dealerInventoryAmount": 93464,
+        "isDealerInventoryAmount": "NO",
+        "savingAmount": 0,
+        "summaryInfoes": [
+          {
+            "nodItemBaseInfoId": "5B2BB949399A116DE0531B18CB0A5E51",
+            "grantBasis": null,
+            "nodNumber": "NOD2017-BUICK-0033",
+            "nodItemNumber": "4b749d11-3f61-0bab-f0c4-96584450bf86",
+            "nodSummaryInfoState": "1",
+            "rewardType": "11",
+            "carBrand": "Encore",
+            "carSeries": "Encore",
+            "financialDescription": "G60 1.4T GL AT FWD Sunroof",
+            "carPackage": null,
+            "amounts": [
+              {
+                "nodSummaryInfoId": "5B52621327466517E0531B18CB0AE660",
+                "nodFromDate": 1507651200000,
+                "nodToDate": 1507910400000,
+                "originalBudget": 48401,
+                "budgetChange": null,
+                "actualUse": 0,
+                "availableBalances": 48401,
+                "salesNumber": 0,
+                "createBy": null,
+                "createDate": 1507779979454,
+                "updateBy": null,
+                "updateDate": 1507779979454
+              }
+            ]
+          },
+          {
+            "nodItemBaseInfoId": "5B2BB949399A116DE0531B18CB0A5E51",
+            "grantBasis": null,
+            "nodNumber": "NOD2017-BUICK-0033",
+            "nodItemNumber": "4b749d11-3f61-0bab-f0c4-96584450bf86",
+            "nodSummaryInfoState": "1",
+            "rewardType": "12",
+            "carBrand": "Encore",
+            "carSeries": "Encore",
+            "financialDescription": "G60 1.4T GL AT FWD Sunroof",
+            "carPackage": null,
+            "amounts": [
+              {
+                "nodSummaryInfoId": "5B52621327456517E0531B18CB0AE660",
+                "nodFromDate": 1507651200000,
+                "nodToDate": 1507910400000,
+                "originalBudget": 130182,
+                "budgetChange": null,
+                "actualUse": 0,
+                "availableBalances": 130182,
+                "salesNumber": 0,
+                "createBy": null,
+                "createDate": 1507779979454,
+                "updateBy": null,
+                "updateDate": 1507779979454
+              }
+            ]
+          },
+          {
+            "nodItemBaseInfoId": "5B2BB949399A116DE0531B18CB0A5E51",
+            "grantBasis": null,
+            "nodNumber": "NOD2017-BUICK-0033",
+            "nodItemNumber": "4b749d11-3f61-0bab-f0c4-96584450bf86",
+            "nodSummaryInfoState": "1",
+            "rewardType": "13",
+            "carBrand": "Encore",
+            "carSeries": "Encore",
+            "financialDescription": "G60 1.4T GL AT FWD Sunroof",
+            "carPackage": null,
+            "amounts": [
+              {
+                "nodSummaryInfoId": "5B52621327446517E0531B18CB0AE660",
+                "nodFromDate": 1507651200000,
+                "nodToDate": 1507910400000,
+                "originalBudget": 56746,
+                "budgetChange": null,
+                "actualUse": 0,
+                "availableBalances": 56746,
+                "salesNumber": 0,
+                "createBy": null,
+                "createDate": 1507779979454,
+                "updateBy": null,
+                "updateDate": 1507779979454
+              }
+            ]
+          },
+          {
+            "nodItemBaseInfoId": "5B2BB949399A116DE0531B18CB0A5E51",
+            "grantBasis": null,
+            "nodNumber": "NOD2017-BUICK-0033",
+            "nodItemNumber": "4b749d11-3f61-0bab-f0c4-96584450bf86",
+            "nodSummaryInfoState": "1",
+            "rewardType": "3",
+            "carBrand": "Encore",
+            "carSeries": "Encore",
+            "financialDescription": "G60 1.4T GL AT FWD Sunroof",
+            "carPackage": null,
+            "amounts": [
+              {
+                "nodSummaryInfoId": "5B52621327436517E0531B18CB0AE660",
+                "nodFromDate": 1507651200000,
+                "nodToDate": 1507910400000,
+                "originalBudget": 93464,
+                "budgetChange": null,
+                "actualUse": 0,
+                "availableBalances": 93464,
+                "salesNumber": 0,
+                "createBy": null,
+                "createDate": 1507779979454,
+                "updateBy": null,
+                "updateDate": 1507779979454
+              }
+            ]
+          },
+          {
+            "nodItemBaseInfoId": "5B2BB949399A116DE0531B18CB0A5E51",
+            "grantBasis": null,
+            "nodNumber": "NOD2017-BUICK-0033",
+            "nodItemNumber": "4b749d11-3f61-0bab-f0c4-96584450bf86",
+            "nodSummaryInfoState": "1",
+            "rewardType": "2",
+            "carBrand": "Encore",
+            "carSeries": "Encore",
+            "financialDescription": "G60 1.4T GL AT FWD Sunroof",
+            "carPackage": null,
+            "amounts": [
+              {
+                "nodSummaryInfoId": "5B52621327426517E0531B18CB0AE660",
+                "nodFromDate": 1507651200000,
+                "nodToDate": 1507910400000,
+                "originalBudget": 56746,
+                "budgetChange": null,
+                "actualUse": 0,
+                "availableBalances": 56746,
+                "salesNumber": 0,
+                "createBy": null,
+                "createDate": 1507779979454,
+                "updateBy": null,
+                "updateDate": 1507779979454
+              }
+            ]
+          },
+          {
+            "nodItemBaseInfoId": "5B2BB949399A116DE0531B18CB0A5E51",
+            "grantBasis": null,
+            "nodNumber": "NOD2017-BUICK-0033",
+            "nodItemNumber": "4b749d11-3f61-0bab-f0c4-96584450bf86",
+            "nodSummaryInfoState": "1",
+            "rewardType": "1",
+            "carBrand": "Encore",
+            "carSeries": "Encore",
+            "financialDescription": "G60 1.4T GL AT FWD Sunroof",
+            "carPackage": null,
+            "amounts": [
+              {
+                "nodSummaryInfoId": "5B52621327416517E0531B18CB0AE660",
+                "nodFromDate": 1507651200000,
+                "nodToDate": 1507910400000,
+                "originalBudget": 36718,
+                "budgetChange": null,
+                "actualUse": 0,
+                "availableBalances": 36718,
+                "salesNumber": 0,
+                "createBy": null,
+                "createDate": 1507779979454,
+                "updateBy": null,
+                "updateDate": 1507779979454
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "annualPolicies": [
+      {
+        "nodNumber": "NOD-2017-0001",
+        "description": "",
+        "useDepartment": "1",
+        "businessType": "2",
+        "nodYear": "2017",
+        "nodState": "6",
+        "nodItemNumber": "NOD-ITEM-2017-0002",
+        "rewardTypeDescription": "10",
+        "grantBasis": "11",
+        "singleCarPercent": 10,
+        "totalAmount": null,
+        "startDate": 1504082219488,
+        "endDate": 1504082219488,
+        "remark": "1234"
+      },
+      {
+        "nodNumber": "NOD-2017-0002",
+        "description": "",
+        "useDepartment": "1",
+        "businessType": "2",
+        "nodYear": "2017",
+        "nodState": "6",
+        "nodItemNumber": "NOD-ITEM-2017-0002",
+        "rewardTypeDescription": "10",
+        "grantBasis": "",
+        "singleCarPercent": 0,
+        "totalAmount": 4525354,
+        "startDate": 1504082219488,
+        "endDate": 1504082219488,
+        "remark": "1234"
+      }
+    ]
+  }
+}
+

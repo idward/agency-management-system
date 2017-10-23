@@ -1,5 +1,6 @@
 .createItem_area {
   margin-top: 15px;
+  overflow-x: hidden;
 
   h4 {
     position: absolute;
@@ -16,5 +17,14 @@
     position: absolute;
     right: 90px;
     top: 9px;
+  }
+
+  .loading_icon {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 160px;
+    left: 50%;
+    background: url("../../../../../../assets/images/loading.gif") no-repeat;
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-annual-policy',
@@ -19,7 +19,7 @@ export class DBAnnualPolicyComponent implements OnInit {
       {name:'a5', age:25},
       {name:'a6', age:26},
       {name:'a7', age:27},
-    ]
+    ];
   }
 
 }

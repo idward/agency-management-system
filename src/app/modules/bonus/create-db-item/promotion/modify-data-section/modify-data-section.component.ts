@@ -12,7 +12,13 @@ export class ModifyDataSectionComponent implements OnInit {
   selectedType: string;
   percentage: string;
   createdTypes: OptionItem[];
-  @Input() nodItemOptions:OptionItem[];
+  selectedTypeByAnnualPolicy: string;
+  selectedDetailByAnnualPolicy: string;
+  @Input() BonusTypeOptions: OptionItem[];
+  @Input() BonusDetailsOptions: OptionItem[];
+  @Input() isShowByAnnualPolicy: boolean;
+  @Input() createdDBType: string;
+  @Input() nodItemOptions: OptionItem[];
   @Input() commonSetting: any;
   @Input() editedDBDatas: any;
   @Output() changeValueByPercentEvt: EventEmitter<any> = new EventEmitter<any>();
@@ -23,7 +29,6 @@ export class ModifyDataSectionComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.createdTypes = TYPES;
   }
 
   changeValueByPercent() {

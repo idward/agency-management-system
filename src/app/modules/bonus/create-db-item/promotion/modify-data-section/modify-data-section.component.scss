@@ -1,5 +1,6 @@
 .updateItem_area {
   margin-top: 15px;
+  //overflow-x: hidden;
 
   h4 {
     position: absolute;
@@ -14,6 +15,14 @@
 
   .edit_area {
     padding: 10px;
+
+    p {
+      margin-bottom: 10px;
+    }
+
+    #desc {
+      width: 800px;
+    }
 
     .fast_process, .bonusType {
       margin-right: 10px;

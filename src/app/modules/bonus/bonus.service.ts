@@ -11,30 +11,30 @@ import {Nod, NodSHData} from "../../model/nod/nod.model";
 
 @Injectable()
 export class BonusService {
-  private _parsedData:ReplaySubject<any> = new ReplaySubject<any>(1);
-  private _internalUrl:string = 'http://localhost:3000';
-  private _externalUrl:string = 'http://localhost:8080/service/rest';
-  private _publishUrl:string = 'http://10.203.102.119/service/rest';
-  private _url:string;
+  private _parsedData: ReplaySubject<any> = new ReplaySubject<any>(1);
+  private _internalUrl: string = 'http://localhost:3000';
+  private _externalUrl: string = 'http://localhost:8080/service/rest';
+  private _publishUrl: string = 'http://10.203.102.119/service/rest';
+  private _url: string;
 
-  constructor(private _http:HttpClient) {
+  constructor(private _http: HttpClient) {
     this._url = this.setAPIUrl(this._internalUrl);
     console.log('bonus:', this._url);
   }
 
-  setAPIUrl(url:string):string {
+  setAPIUrl(url: string): string {
     return url;
   }
 
-  sendData(data:any) {
+  sendData(data: any) {
     this._parsedData.next(data);
   }
 
-  getData():Observable<any> {
+  getData(): Observable<any> {
     return this._parsedData.map(data => data);
   }
 
-  saveNodInfo(data:any, submitType:number):Observable<any> {
+  saveNodInfo(data: any, submitType: number): Observable<any> {
     let nodData = this.transformData(data, submitType);
     let body = JSON.stringify(nodData);
     return this._http.post(this._url + '/rewardNod/saveNodInfo', body)
@@ -42,7 +42,7 @@ export class BonusService {
       .catch(this._handleError);
   }
 
-  transformData(data:any, submitType:number) {
+  transformData(data: any, submitType: number) {
     let nod = {}, nodItems = [];
     if (submitType === 1) {
       nod['nodDraftNumber'] = data['nodId'];
@@ -151,7 +151,7 @@ export class BonusService {
     return nod;
   }
 
-  buildPromotionAmount(brandName:string, carSeries:string, nodItemNo:string, node:any):any {
+  buildPromotionAmount(brandName: string, carSeries: string, nodItemNo: string, node: any): any {
     let cashBo = {}, noCashBo = {};
     cashBo['carBrand'] = brandName;
     cashBo['carSeries'] = carSeries;
@@ -191,7 +191,7 @@ export class BonusService {
     return {cashBo, noCashBo};
   }
 
-  buildPromotionRatio(brandName:string, carSeries:string, nodItemNo:string, node:any):any {
+  buildPromotionRatio(brandName: string, carSeries: string, nodItemNo: string, node: any): any {
     let cashBo = {}, noCashBo = {};
     cashBo['carBrand'] = brandName;
     cashBo['carSeries'] = carSeries;
@@ -206,8 +206,8 @@ export class BonusService {
     cashBo['isDeliveryPromotionPercent'] = node.data.jiaoche_bili_check ? 'YES' : 'NO';
     cashBo['deliveryPromotionAmount'] = this.convertToNormalValue(node.data.jiaoche_jine);
     cashBo['isDeliveryPromotionAmount'] = node.data.jiaoche_jine_check ? 'YES' : 'NO';
-    cashBo['dealerInventoryPercnet'] = this.convertToNormalPercent(node.data.store_bili);
-    cashBo['isDealerInventoryPercnet'] = node.data.store_bili_check ? 'YES' : 'NO';
+    cashBo['dealerInventoryPercent'] = this.convertToNormalPercent(node.data.store_bili);
+    cashBo['isDealerInventoryPercent'] = node.data.store_bili_check ? 'YES' : 'NO';
     cashBo['dealerInventoryAmount'] = this.convertToNormalValue(node.data.store_jine);
     cashBo['isDealerInventoryAmount'] = node.data.store_jine_check ? 'YES' : 'NO';
     noCashBo['nodItemNumber'] = nodItemNo;
@@ -245,7 +245,7 @@ export class BonusService {
     return {cashBo, noCashBo};
   }
 
-  convertToNormalValue(value:string) {
+  convertToNormalValue(value: string) {
     let result = '';
     let v = value.slice(0, value.indexOf('.'));
     let arr = v.split(',');
@@ -255,11 +255,11 @@ export class BonusService {
     return result;
   }
 
-  convertToNormalPercent(value:string) {
+  convertToNormalPercent(value: string) {
     return value.slice(0, value.indexOf('.'));
   }
 
-  createNODItem(serviceType:string):NodItem {
+  createNODItem(serviceType: string): NodItem {
     let nodItem_id = UUID.UUID();
     let nodItem, nodItemData;
 
@@ -285,22 +285,23 @@ export class BonusService {
     return nodItem;
   }
 
-  getNodSearchedDatas(keyword:string):Observable<NodSHData[]> {
-    // return this._http.get(this._url + '/rewardNod/getNodBaseInfoByCodeAndDescr?key=' + keyword)
+  getNodSearchedDatas(datas: object): Observable<NodSHData[]> {
+    let body = datas;
     return this._http.get(this._url + '/nod')
+    // return this._http.post(this._url + '/rewardNod/getNodBaseInfoByCodeAndDescr', body)
+    //   .map(res => res['data'] as NodSHData[])
       .map(res => res as NodSHData[])
-      // .map(res => res['data'] as NodSHData[])
       .catch(this._handleError);
   }
 
-  saveAnnualPolicyData(nodData:Nod, submitType:number):Observable<any> {
+  saveAnnualPolicyData(nodData: Nod, submitType: number): Observable<any> {
     let annualPolicyData = this.transformAPDatas(nodData, submitType);
     let body = JSON.stringify(annualPolicyData);
     return this._http.post(this._url + '/rewardNod/nodSaveAnnualPolicyInfo', body)
       .catch(this._handleError);
   }
 
-  transformAPDatas(nodData:Nod, submitType:number) {
+  transformAPDatas(nodData: Nod, submitType: number) {
     let data = {};
     if (submitType === 1) {
       data['nodDraftNumber'] = nodData['nodId'];
@@ -316,7 +317,7 @@ export class BonusService {
       let temp = {};
       temp['nodItemNumber'] = data['id'];
       temp['rewardTypeDescription'] = data['bonusTypeDesc'];
-      temp['grantBasis'] = data['issueBasis'];
+      temp['grantBasis'] = data['issueBasis'] === '请选择...' ? '' : data['issueBasis'];
       temp['singleCarPercent'] = this.convertToNormalPercent(data['carPoint']);
       temp['totalAmount'] = this.convertToNormalValue(data['totalAmount']);
       temp['startDate'] = data['expStartTime'].getTime();
@@ -327,13 +328,24 @@ export class BonusService {
     return data;
   }
 
-  getNodDetailByIds(combinationType:number, nodIds:any):Observable<any> {
-    let body = {type: combinationType, ids: nodIds};
+  getNodDetailByIds(combinationType: number, nodIds: any, isCalSavingAmt: number): Observable<any> {
+    let body = {type: combinationType, ids: nodIds, isSaving: isCalSavingAmt};
+    // return this._http.post(this._url + '/rewardNod/getNodDetailByIds', body)
     return this._http.get(this._url + '/nodDetail')
+      // .map(res => res['data'])
+      .map(res => res)
       .catch(this._handleError);
   }
 
-  private _handleError(error:any):Observable<any> {
+
+  searchReportDatas(paramas: object): Observable<any> {
+    let body = paramas;
+    return this._http.post(this._url + '/rewardDb/createExcel', body)
+      .map(res => res['data'])
+      .catch(this._handleError);
+  }
+
+  private _handleError(error: any): Observable<any> {
     if (error.status < 400 || error.status == 500) {
       return Observable.throw(new Error(error.status));
     } else if (error.status === 400 || error.status === 415) {
