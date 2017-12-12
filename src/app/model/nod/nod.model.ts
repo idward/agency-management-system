@@ -11,3 +11,8 @@ export class NodSHData {
               public updateDate: number, public useDepartment: number) {
   }
 }
+
+export interface SelectedNodItem {
+  itemName: string,
+  itemValue: string
+}

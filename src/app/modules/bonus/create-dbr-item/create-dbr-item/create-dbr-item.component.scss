@@ -1,0 +1,65 @@
+.dbr-item {
+  .dbSearchedList, .uploadList, .uploadResultList, .singleBatchNumber, .historyBatchNumber {
+    .header {
+      float: left;
+      font-size: 14px;
+      font-weight: bold;
+    }
+  }
+
+  .dbSearchedList {
+    .db_list, .db_selected_item, .db_selected_result {
+      float: left;
+      margin-right: 20px;
+    }
+
+    .db_selected_item, .db_selected_result {
+      margin-top: 10px;
+    }
+
+    .db_list, .db_selected_item, .db_selected_result {
+      button {
+        width: 200px;
+        margin-top: 5px;
+      }
+    }
+  }
+
+  .uploadList {
+    .uploadList_condition {
+      margin-top: 20px;
+    }
+
+    .uploadList_content {
+      width: 250px;
+      margin: 0 auto;
+
+      button {
+        margin-left: 30px;
+      }
+    }
+
+    .confirm_btn {
+      margin-top: 30px;
+      text-align: center;
+    }
+  }
+
+  .uploadResultList {
+    .btn_group {
+      width: 300px;
+      margin: 30px auto;
+
+      button {
+        margin-left: 20px;
+      }
+    }
+  }
+
+  .historyBatchNumber {
+    .uploadList_content_hbn {
+      text-align: center;
+    }
+  }
+
+}

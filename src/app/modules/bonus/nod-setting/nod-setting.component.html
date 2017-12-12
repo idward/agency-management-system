@@ -1,7 +1,7 @@
 <div class="bonus_setting_page">
   <form [formGroup]="nodSettingForm" (submit)="toNodMainPage(nodSettingForm.value)" novalidate>
     <div class="form-group">
-      <label for="description">描述:</label>
+      <label for="description">主题:</label>
       <input id="description" type="text" pInputText="" formControlName="description">
       <div class="errorInfo" *ngIf="!nodSettingForm.controls['description'].valid
        && nodSettingForm.controls['description'].dirty">

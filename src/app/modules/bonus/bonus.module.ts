@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {CommonModule,DatePipe} from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -7,7 +7,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {InputTextModule, DropdownModule, ButtonModule, CheckboxModule, CalendarModule} from 'primeng/primeng';
 import {TreeTableModule, TreeModule, SharedModule, DialogModule, DataTableModule} from 'primeng/primeng';
 import {ConfirmDialogModule, ConfirmationService, PanelModule} from 'primeng/primeng';
-import {GrowlModule} from 'primeng/primeng';
+import {RadioButtonModule, GrowlModule, OrderListModule, FileUploadModule} from 'primeng/primeng';
+import {SplitButtonModule} from 'primeng/primeng';
 
 import {BonusMainComponent} from './bonus-main/bonus-main.component';
 import {NodSettingComponent} from './nod-setting/nod-setting.component';
@@ -20,15 +21,17 @@ import {NodItemContentComponent} from './create-nod-item/nod-item-content/nod-it
 import {CreateDbItemComponent} from './create-db-item/create-db-item.component';
 import {DBPromotionComponent} from "./create-db-item/promotion/promotion.component";
 import {DBAnnualPolicyComponent} from './create-db-item/annual-policy/annual-policy.component';
-import { ModifyDataSectionComponent } from './create-db-item/promotion/modify-data-section/modify-data-section.component';
-import { SelectDataSectionComponent } from './create-db-item/promotion/select-data-section/select-data-section.component';
-import { SaveDataSectionComponent } from './create-db-item/promotion/save-data-section/save-data-section.component';
+import {ModifyDataSectionComponent} from './create-db-item/promotion/modify-data-section/modify-data-section.component';
+import {SelectDataSectionComponent} from './create-db-item/promotion/select-data-section/select-data-section.component';
+import {SaveDataSectionComponent} from './create-db-item/promotion/save-data-section/save-data-section.component';
+import {CreateDbrItemComponent} from './create-dbr-item/create-dbr-item/create-dbr-item.component';
+import {DbrItemHeaderComponent} from './create-dbr-item/dbr-item-header/dbr-item-header.component';
+import {DbrItemContentComponent} from './create-dbr-item/dbr-item-content/dbr-item-content.component';
 
 import {BonusRoutesModule} from "./bonus.routing.module";
 import {BonusService} from "./bonus.service";
 import {CarTreeService} from "./car-tree.service";
 import {OrderModule} from 'ngx-order-pipe';
-
 
 @NgModule({
   imports: [
@@ -41,6 +44,8 @@ import {OrderModule} from 'ngx-order-pipe';
     InputTextModule,
     DropdownModule,
     ButtonModule,
+    SplitButtonModule,
+    RadioButtonModule,
     CheckboxModule,
     CalendarModule,
     TreeTableModule,
@@ -51,7 +56,9 @@ import {OrderModule} from 'ngx-order-pipe';
     DataTableModule,
     PanelModule,
     OrderModule,
-    GrowlModule
+    GrowlModule,
+    OrderListModule,
+    FileUploadModule
   ],
   declarations: [
     NodSettingComponent,
@@ -67,7 +74,10 @@ import {OrderModule} from 'ngx-order-pipe';
     DBAnnualPolicyComponent,
     ModifyDataSectionComponent,
     SelectDataSectionComponent,
-    SaveDataSectionComponent
+    SaveDataSectionComponent,
+    CreateDbrItemComponent,
+    DbrItemHeaderComponent,
+    DbrItemContentComponent
   ],
   providers: [
     {provide: 'BonusService', useClass: BonusService},

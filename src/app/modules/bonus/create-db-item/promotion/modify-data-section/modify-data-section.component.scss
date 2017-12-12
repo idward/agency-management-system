@@ -13,6 +13,36 @@
     top: 7px;
   }
 
+  .uploadList {
+    position: absolute;
+    right: 68px;
+    top: 7px;
+    padding: 5px 10px;
+    overflow: hidden;
+
+    border: 1px solid #2399e5;
+    color: #FFFFFF;
+    background: #2399e5;
+    transition: background-color .2s;
+    border-radius: 3px;
+    cursor: pointer;
+
+    input {
+      position: absolute;
+      right: 0;
+      top: 0;
+      opacity: 0;
+      -ms-filter: 'alpha(opacity=0)';
+      cursor: pointer;
+    }
+  }
+
+  .downloadList {
+    position: absolute;
+    right: 148px;
+    top: 7px;
+  }
+
   .edit_area {
     padding: 10px;
 

@@ -1,34 +1,43 @@
 <div class="nod_item_page">
   <app-nod-item-header [nodItemCount]="nodItemCount" [nodItemOptions]="nodItemOptions"
-                       [selectedNodItem]="selectedNodItem" (createItemEvt)="chooseServiceType()"
+                       [selectedNodItem]="selectedNodItem?.itemValue" (createItemEvt)="chooseServiceType()"
                        (saveDraftEvt)="saveData($event)" (previewAllItemsEvt)="previewAllItems()"
                        (deleteItemEvt)="deleteItem()" (sendItemsDataEvt)="sendItemsData()"
                        (changeNodItemEvt)="chooseNodItem($event)"></app-nod-item-header>
   <div *ngFor="let nodItem of nod.nodList">
-    <app-nod-item-content *ngIf="nodItem.nodItem_id === selectedNodItem" [files]="files | async"
+    <app-nod-item-content *ngIf="nodItem.nodItem_id === selectedNodItem?.itemValue" [files]="files | async" [showLoading]="showLoading"
                           [display]="display" [carTree]="carTree" [selectedCars]="selectedCars" [currentNodItem]="currentNodItem"
-                          [selectedServiceType]="serviceType" [commonSetting]="currentNodItem.nodItem_data.setting_condition"
-                          (totalAmountChangeEvt)="updateTotalAmount($event)" (editCarCategoryEvt)="editCarCategory($event)"
-                          (hideDialogEvt)="onHide($event)" (commonSettingEvt)="getCommonData($event)"></app-nod-item-content>
+                          [controlTypeOptions]="controlTypeOptions" [selectedServiceType]="serviceType"
+                          [commonSetting]="currentNodItem.nodItem_data.setting_condition" (totalAmountChangeEvt)="updateTotalAmount($event)"
+                          (editCarCategoryEvt)="editCarCategory($event)" (hideDialogEvt)="onHide($event)" (commonSettingEvt)="getCommonData($event)">
+    </app-nod-item-content>
   </div>
-
 
   <!-- NODITEM 业务类型选择 -->
   <div class="nod_item_serviceType">
-    <p-dialog [modal]="true" [draggable]="false" [(visible)]="isShowServiceType"
-              [closable]="false" [width]="500">
-      <p-header><h4 style="font-size: 14px; font-weight: bold;">选择业务类型</h4></p-header>
-
-      <p-dropdown id="nodItemServiceType" [style]="{'width':'70%'}" [options]="serviceTypes"
-                  [(ngModel)]="selectedServiceType" placeholder="请选择业务类型"></p-dropdown>
-      <button style="margin-left: 20px;" pButton type="button" (click)="createItem()"
-              [disabled]="selectedServiceType === undefined"  label="确定"></button>
+    <p-dialog [modal]="true" [draggable]="false" [(visible)]="isShowServiceType" [width]="500" [height]="200">
+      <p-header>
+        <div class="header">选择业务类型</div>
+      </p-header>
+      <form [formGroup]="createdItemForm" action="" (submit)="createItem(createdItemForm.value)">
+        <div class="form-group">
+          <label for="itemName">Item名称:</label>
+          <input type="text" pInputText id="itemName" formControlName="createdItemName">
+        </div>
+        <div class="form-group">
+          <label for="nodItemServiceType">业务类型:</label>
+          <p-dropdown id="nodItemServiceType" [style]="{'width':'56%'}" formControlName="selectedServiceType"
+                      [options]="serviceTypes" [(ngModel)]="selectedServiceType" placeholder="请选择业务类型"></p-dropdown>
+        </div>
+        <div class="form-group btn">
+          <button style="margin-left: 68px;" pButton type="submit" [disabled]="!createdItemForm.valid"  label="确定"></button>
+        </div>
+      </form>
     </p-dialog>
   </div>
 
-
   <!-- 保存结果弹出框 -->
-  <p-growl [(value)]="saveResultInfo" styleClass="saveResult" sticky="true" life="2000"></p-growl>
+  <p-growl [(value)]="saveResultInfo" styleClass="saveResult nodSave" sticky="true" life="2000"></p-growl>
 
 </div>
 

@@ -1,5 +1,6 @@
 import {Component, Input, Output, EventEmitter, OnInit,} from '@angular/core';
 import {OptionItem} from "../../../../model/optionItem/optionItem.model";
+import {TreeNode} from "primeng/primeng";
 
 @Component({
   selector: 'app-nod-item-header',

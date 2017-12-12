@@ -2,7 +2,7 @@
   <form [formGroup]="loginForm" (submit)="loginAuth(loginForm.value)" >
     <div class="form-group">
       <label for="username">用户名:</label>
-      <input type="text" id="username" pInputText [(ngModel)]="user.username"
+      <input type="text" id="username" pInputText [(ngModel)]="username"
              formControlName="username" placeholder="请填写用户名">
       <div class="errorInfo" *ngIf="!loginForm.controls['username'].valid
        && loginForm.controls['username'].dirty">
@@ -14,7 +14,7 @@
     </div>
     <div class="form-group">
       <label for="password">密码:</label>
-      <input type="password" id="password" pInputText [(ngModel)]="user.password"
+      <input type="password" id="password" pInputText [(ngModel)]="password"
              formControlName="password" placeholder="请填写密码">
       <div class="errorInfo" *ngIf="!loginForm.controls['password'].valid
        && loginForm.controls['password'].dirty">
@@ -27,6 +27,10 @@
     <div style="text-align: center; margin-top: 20px;">
       <button type="submit" pButton [disabled]="!loginForm.valid" label="登录"></button>
     </div>
-
   </form>
+
+  <!-- 保存结果弹出框 -->
+  <p-growl [(value)]="loginResultInfo" styleClass="loginResult" sticky="true" life="2000"></p-growl>
 </div>
+
+

@@ -8,7 +8,8 @@ import {OptionItem} from "../../../../../model/optionItem/optionItem.model";
 })
 export class SelectDataSectionComponent implements OnInit {
   selectedBonusType: string;
-  @Input() showLoading:boolean;
+  @Input() bonusTypeDescription: object;
+  @Input() showLoading: boolean;
   @Input() nodOrDBNumbers: object[];
   @Input() nodItemOrDBItemNumbers: object[];
   @Input() selectedItem: any;

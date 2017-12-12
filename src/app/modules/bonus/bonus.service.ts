@@ -15,10 +15,11 @@ export class BonusService {
   private _internalUrl: string = 'http://localhost:3000';
   private _externalUrl: string = 'http://localhost:8080/service/rest';
   private _publishUrl: string = 'http://10.203.102.119/service/rest';
+  private _normalUrl: string = 'http://10.203.102.120:8001/service/rest';
   private _url: string;
 
   constructor(private _http: HttpClient) {
-    this._url = this.setAPIUrl(this._internalUrl);
+    this._url = this.setAPIUrl(this._externalUrl);
     console.log('bonus:', this._url);
   }
 
@@ -34,9 +35,21 @@ export class BonusService {
     return this._parsedData.map(data => data);
   }
 
+  getDepartments(): Observable<any> {
+    debugger;
+    return this._http.get(this._url + '/rewardNod/getByCategoryAndValues')
+      .map(res => res['data'])
+      .catch(this._handleError);
+  }
+
+  getBonusTypesOfAnnualPolicy(): Observable<any> {
+    return this._http.get(this._url + '/rewardNod/getRewardPolicyType')
+      .map(res => res['data'])
+      .catch(this._handleError);
+  }
+
   saveNodInfo(data: any, submitType: number): Observable<any> {
-    let nodData = this.transformData(data, submitType);
-    let body = JSON.stringify(nodData);
+    let body = this.transformData(data, submitType);
     return this._http.post(this._url + '/rewardNod/saveNodInfo', body)
     // .map(data => data.json())
       .catch(this._handleError);
@@ -56,30 +69,33 @@ export class BonusService {
     nod['nodState'] = submitType;
     for (let i = 0; i < data.nodList.length; i++) {
       let nodItem = {}, nodItemCash = [], nodItemNoCash = [];
+      let isFastProcess = data.nodList[i]['nodItem_data']['setting_condition']['fastProcess']['rapidProcessType'] !== '' ? 1 : 0;
+
       nodItem['nodBaseItemNumber'] = data.nodList[i]['nodItem_id'];
       nodItem['itemBusinessType'] = data.nodList[i]['nodItem_type'] === 'PROMOTIONAL_RATIO' ? 1 : 2;
       nodItem['startDate'] = data.nodList[i]['nodItem_data']['setting_condition']['startTime'].getTime();
       nodItem['endDate'] = data.nodList[i]['nodItem_data']['setting_condition']['endTime'].getTime();
       nodItem['releaseDueDate'] = data.nodList[i]['nodItem_data']['setting_condition']['releaseTime'].getTime();
       nodItem['itemDescription'] = data.nodList[i]['nodItem_data']['setting_condition']['description'];
-      nodItem['isPapidProcess'] = data.nodList[i]['nodItem_data']['setting_condition']['isFastProcess'] ? 'YES' : 'NO';
+      nodItem['controlType'] = data.nodList[i]['nodItem_data']['setting_condition']['controlType'];
       nodItem['isApprovalDb'] = data.nodList[i]['nodItem_data']['setting_condition']['isApproval'] ? 'YES' : 'NO';
       nodItem['nodItemBaseInfoState'] = submitType;
+      nodItem['isRapidProcess'] = isFastProcess ? 'YES' : 'NO';
+
+      if (isFastProcess) {
+        nodItem['nodRapidProcessBO'] = data.nodList[i]['nodItem_data']['setting_condition']['fastProcess'];
+      } else {
+        nodItem['nodRapidProcessBO'] = null;
+      }
 
       if (data.nodList[i]['nodItem_data']['saved_promotional_ratio']) {
         let spr = data.nodList[i]['nodItem_data']['saved_promotional_ratio'];
         for (let j = 0; j < spr.length; j++) {
           let brandName = spr[j].data.name;
-          // let first = this.buildCashBo(nodItem['nodBaseItemNumber'], spr[i]);
-          // nodItemCash.push(first.cashBo);
-          // nodItemNoCash.push(first.noCashBo);
           if (spr[j].children) {
             let sChild = spr[j].children;
             for (let k = 0; k < sChild.length; k++) {
               let carSeries = sChild[k].data.name;
-              // let second = this.buildCashBo(nodItem['nodBaseItemNumber'], sChild[k]);
-              // nodItemCash.push(second.cashBo);
-              // nodItemNoCash.push(second.noCashBo);
               if (sChild[k].children) {
                 let ssChild = sChild[k].children;
                 for (let h = 0; h < ssChild.length; h++) {
@@ -120,21 +136,21 @@ export class BonusService {
 
         if (spa[0]['financial_total_amount']) {
           nodItem['nodTotalNoncashTypeBO'].push({
-            'noncashType': 1,
+            'noncashType': 'Z301',
             'totalAmount': this.convertToNormalValue(spa[0]['financial_total_amount']),
             'isPromotionTotalAmount': spa[0]['financial_total_amount_check'] ? 'YES' : 'NO'
           });
         }
         if (spa[0]['replacement_total_amount']) {
           nodItem['nodTotalNoncashTypeBO'].push({
-            'noncashType': 3,
+            'noncashType': 'Z302',
             'totalAmount': this.convertToNormalValue(spa[0]['replacement_total_amount']),
             'isPromotionTotalAmount': spa[0]['replacement_total_amount_check'] ? 'YES' : 'NO'
           });
         }
         if (spa[0]['insurance_total_amount']) {
           nodItem['nodTotalNoncashTypeBO'].push({
-            'noncashType': 2,
+            'noncashType': 'Z303',
             'totalAmount': this.convertToNormalValue(spa[0]['insurance_total_amount']),
             'isPromotionTotalAmount': spa[0]['insurance_total_amount_check'] ? 'YES' : 'NO'
           });
@@ -164,29 +180,6 @@ export class BonusService {
     noCashBo['nodItemNumber'] = nodItemNo;
     noCashBo['financialDescription'] = node.data.name;
     noCashBo['msrp'] = node.data.msrp;
-    // noCashBo['nodTotalNoncashTypeBO'] = [];
-
-    // if (node.parent.parent.financial_total_amount) {
-    //   noCashBo['nodTotalNoncashTypeBO'].push({
-    //     'noncashType': 1,
-    //     'amount': this.convertToNormalValue(node.parent.parent.financial_total_amount),
-    //     'isPromotionAmount': node.parent.parent.financial_total_amount_check ? 'YES' : 'NO'
-    //   });
-    // }
-    // if (node.parent.parent.replacement_total_amount) {
-    //   noCashBo['nodTotalNoncashTypeBO'].push({
-    //     'noncashType': 3,
-    //     'amount': this.convertToNormalValue(node.parent.parent.replacement_total_amount),
-    //     'isPromotionAmount': node.parent.parent.replacement_total_amount_check ? 'YES' : 'NO'
-    //   });
-    // }
-    // if (node.parent.parent.insurance_total_amount) {
-    //   noCashBo['nodTotalNoncashTypeBO'].push({
-    //     'noncashType': 2,
-    //     'amount': this.convertToNormalValue(node.parent.parent.insurance_total_amount),
-    //     'isPromotionAmount': node.parent.parent.insurance_total_amount_check ? 'YES' : 'NO'
-    //   });
-    // }
 
     return {cashBo, noCashBo};
   }
@@ -220,7 +213,7 @@ export class BonusService {
     noCashBo['nodItemNoncashTypeBO'] = [];
     if (node.data.financial_bili) {
       noCashBo['nodItemNoncashTypeBO'].push({
-        'noncashType': 1,
+        'noncashType': 'Z301',
         'percent': this.convertToNormalPercent(node.data.financial_bili),
         'amount': this.convertToNormalValue(node.data.financial_jine),
         'isPromotionAmount': node.data.financial_jine_check ? 'YES' : 'NO'
@@ -228,7 +221,7 @@ export class BonusService {
     }
     if (node.data.replacement_bili) {
       noCashBo['nodItemNoncashTypeBO'].push({
-        'noncashType': 3,
+        'noncashType': 'Z302',
         'percent': this.convertToNormalPercent(node.data.replacement_bili),
         'amount': this.convertToNormalValue(node.data.replacement_jine),
         'isPromotionAmount': node.data.replacement_jine_check ? 'YES' : 'NO'
@@ -236,7 +229,7 @@ export class BonusService {
     }
     if (node.data.insurance_bili) {
       noCashBo['nodItemNoncashTypeBO'].push({
-        'noncashType': 2,
+        'noncashType': 'Z303',
         'percent': this.convertToNormalPercent(node.data.insurance_bili),
         'amount': this.convertToNormalValue(node.data.insurance_jine),
         'isPromotionAmount': node.data.insurance_jine_check ? 'YES' : 'NO'
@@ -247,16 +240,17 @@ export class BonusService {
 
   convertToNormalValue(value: string) {
     let result = '';
-    let v = value.slice(0, value.indexOf('.'));
+    // let v = value.slice(0, value.indexOf('.'));
+    let v = value;
     let arr = v.split(',');
     for (let i = 0; i < arr.length; i++) {
       result += arr[i];
     }
-    return result;
+    return parseFloat(result);
   }
 
   convertToNormalPercent(value: string) {
-    return value.slice(0, value.indexOf('.'));
+    return parseFloat(value);
   }
 
   createNODItem(serviceType: string): NodItem {
@@ -287,16 +281,14 @@ export class BonusService {
 
   getNodSearchedDatas(datas: object): Observable<NodSHData[]> {
     let body = datas;
-    return this._http.get(this._url + '/nod')
-    // return this._http.post(this._url + '/rewardNod/getNodBaseInfoByCodeAndDescr', body)
-    //   .map(res => res['data'] as NodSHData[])
-      .map(res => res as NodSHData[])
+    return this._http.post(this._url + '/rewardNod/getNodBaseInfoByCodeAndDescr', body)
+      .map(res => res['data'] as NodSHData[])
       .catch(this._handleError);
   }
 
   saveAnnualPolicyData(nodData: Nod, submitType: number): Observable<any> {
-    let annualPolicyData = this.transformAPDatas(nodData, submitType);
-    let body = JSON.stringify(annualPolicyData);
+    let body = this.transformAPDatas(nodData, submitType);
+    //let body = JSON.stringify(annualPolicyData);
     return this._http.post(this._url + '/rewardNod/nodSaveAnnualPolicyInfo', body)
       .catch(this._handleError);
   }
@@ -316,7 +308,7 @@ export class BonusService {
     data['nodAnnualPolicyBO'] = nodData.nodList.map(data => {
       let temp = {};
       temp['nodItemNumber'] = data['id'];
-      temp['rewardTypeDescription'] = data['bonusTypeDesc'];
+      temp['rewardTypeDescription'] = data['bonusTypeDesc'] === '请选择...' ? '' : data['bonusTypeDesc'];
       temp['grantBasis'] = data['issueBasis'] === '请选择...' ? '' : data['issueBasis'];
       temp['singleCarPercent'] = this.convertToNormalPercent(data['carPoint']);
       temp['totalAmount'] = this.convertToNormalValue(data['totalAmount']);
@@ -329,19 +321,74 @@ export class BonusService {
   }
 
   getNodDetailByIds(combinationType: number, nodIds: any, isCalSavingAmt: number): Observable<any> {
-    let body = {type: combinationType, ids: nodIds, isSaving: isCalSavingAmt};
-    // return this._http.post(this._url + '/rewardNod/getNodDetailByIds', body)
-    return this._http.get(this._url + '/nodDetail')
-      // .map(res => res['data'])
-      .map(res => res)
+    let body = {type: combinationType, nodIds: nodIds, isSaving: isCalSavingAmt};
+    return this._http.post(this._url + '/rewardNod/getNodDetailByIds', body)
+      .map(res => res['data'])
       .catch(this._handleError);
   }
-
 
   searchReportDatas(paramas: object): Observable<any> {
     let body = paramas;
     return this._http.post(this._url + '/rewardDb/createExcel', body)
       .map(res => res['data'])
+      .catch(this._handleError);
+  }
+
+  saveDBInfo(datas: any): Observable<any> {
+    let body = datas;
+    return this._http.post(this._url + '/rewardDb/saveDdInfo', body)
+      .catch(this._handleError);
+  }
+
+  getDipsBonusInfoByStaticReportId(batchNumber: string, choiceDBList: object[]): Observable<any> {
+    let body = {staticReportId: batchNumber, choiceDbList: choiceDBList};
+    return this._http.post(this._url + '/rewardDbr/getDipsBonusInfoByStaticReportId', body)
+      .map(res => res)
+      .catch(this._handleError);
+  }
+
+  queryDipsDealerListBatchNumber(): Observable<any> {
+    return this._http.get(this._url + '/rewardDbr/queryDipsDealerListBatchNumber')
+      .map(res => res)
+      .catch(this._handleError);
+  }
+
+  queryDipsDealerListForBatchNumber(batchNumber: string): Observable<any> {
+    return this._http.get(this._url + '/rewardDbr/queryDipsDealerListForBatchNumber/' + batchNumber)
+      .map(res => res)
+      .catch(this._handleError);
+  }
+
+  getBonusTypeByDBR(): Observable<any> {
+    return this._http.get(this._url + '/rewardDbr/getDbrRewardTypeInfo')
+      .map(res => res['data'])
+      .catch(this._handleError);
+  }
+
+  getDbDetailForDbrCreate(keyword: string): Observable<any> {
+    return this._http.get(this._url + '/rewardDbr/getDbDetailForDbrCreate/' + keyword)
+      .map(res => res['data'])
+      .catch(this._handleError);
+  }
+
+  getDbDetailOfSummaryInfo(dbItemsInfo: object[]): Observable<any> {
+    let body = dbItemsInfo;
+    return this._http.post(this._url + '/rewardDbr/getDbDetailOfSummaryInfo', body)
+      .map(res => res['data'])
+      .catch(this._handleError);
+  }
+
+  dealerUploadDbrListAutoMatchDbInfo(datas: any): Observable<any> {
+    let body = datas;
+    return this._http.post(this._url + '/rewardDbr/dealerUploadDbrListAutoMatchDbInfo', body)
+      .map(res => res['data'])
+      .catch(this._handleError);
+  }
+
+  saveDbrInfo(datas: any): Observable<any> {
+    let body = datas;
+    return this._http.post(this._url + '/rewardDbr/saveDbrInfo', body)
+      .map(res => res)
       .catch(this._handleError);
   }
 

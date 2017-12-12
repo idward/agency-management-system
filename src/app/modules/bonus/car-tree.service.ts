@@ -11,6 +11,7 @@ export class CarTreeService {
   private _internalUrl: string = 'http://localhost:3000/carTree';
   private _externalUrl: string = 'http://localhost:8080/service/rest/rewardNod/getVehicleTree/all';
   private _publishUrl: string = 'http://10.203.102.119/service/rest/rewardNod/getVehicleTree/all';
+  private _normalUrl: string = 'http://10.203.102.120:8001/service/rest/rewardNod/getVehicleTree/all';
   private _url: string;
 
   constructor(private _http: HttpClient) {

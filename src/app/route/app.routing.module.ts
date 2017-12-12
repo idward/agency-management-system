@@ -2,12 +2,15 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {LoginComponent} from "../modules/login/login.component";
 import {PageErrorComponent} from "../error-page/error/page-error.component";
+import {HomeComponent} from "../modules/home/home.component";
+import {AuthGuard} from "../core/auth/auth.guard";
+
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'bonus',
-    pathMatch: 'full'
+    component: HomeComponent,
+    // canActivate: [AuthGuard]
   },
   {
     path: 'login',
@@ -32,6 +35,4 @@ const routes: Routes = [
   ]
 })
 
-export class AppRoutesModule {
-}
-;
+export class AppRoutesModule {};

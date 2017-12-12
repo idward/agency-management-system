@@ -1,0 +1,20 @@
+<div class="dbr-item-header">
+  <p>
+    <label>DBR描述:</label>
+    <input type="text" style="width: 600px;" pInputText="" (change)="commonSettingData($event)">
+    <label>奖金类型:</label>
+    <p-dropdown [style]="{'width':'170px'}" [options]="bonusTypeItemOptions" [(ngModel)]="selectedBonusTypeItem" (onChange)="changeBonusTypeItem($event)"  placeholder="请选择奖金类型"></p-dropdown>
+  </p>
+  <p>
+    <label>发放时间:</label>
+    <p-calendar [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030" (onSelect)="commonSettingData($event,'startTime')"></p-calendar>--
+    <p-calendar [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030" (onSelect)="commonSettingData($event,'endTime')"></p-calendar>
+    <p-checkbox label="需要hold" (onChange)="commonSettingData($event,'needToHold')" binary="true"></p-checkbox>
+    <label style="margin-left: 5px;">发放地:</label>
+    <p-dropdown [style]="{'width':'120px'}" [options]="locationOptions" [(ngModel)]="selectedLocation" (onChange)="changeLocation($event)"  placeholder="请选择发放地"></p-dropdown>
+    <button pButton type="button" (click)="addDBData()" label="添加DB"></button>
+    <button pButton type="button" [disabled]="!(queryResultDatas && queryResultDatas.length > 0)" (click)="uploadList()" label="上传清单"></button>
+    <button pButton type="button" [disabled]="!isApprovedDBrDatas" (click)="submitDBRDatas()" label="提交"></button>
+    <!--<button pButton type="button" (click)="submitDBRDatas()" label="提交"></button>-->
+  </p>
+</div>

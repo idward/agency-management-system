@@ -2,36 +2,80 @@
   <p-panel [toggleable]="true">
     <p-header>
       <h4>创建新Item</h4>
-      <button pButton class="saveItem" [disabled]="!(editedDBDatas && editedDBDatas.length > 0)" (click)="createNewDB()"
-              label="保存"></button>
+      <span class="btn btn-success uploadList fileinput-button" *ngIf="showButton">
+        <span>导入数据</span>
+        <input type="file" (change)="uploadSelectedList($event)">
+      </span>
+      <button pButton class="downloadList" *ngIf="showButton" (click)="downloadSelectedList()" label="下载数据"></button>
+      <button pButton class="saveItem" [disabled]="!(editedDBDatas && editedDBDatas.length > 0)" (click)="createNewDB()" label="保存"></button>
     </p-header>
 
     <div class="edit_area" *ngIf="editedDBDatas && editedDBDatas.length > 0">
       <p><label for="desc">ITEM描述:</label>
         <input type="text" size="100" id="desc" [(ngModel)]="commonSetting['desc']" pInputText>
-        <p-checkbox name="fast_process" class="fast_process" value="" label="快速流程"
-                    [(ngModel)]="commonSetting['fastProcess']" binary="true"></p-checkbox>
+        <!--<p-checkbox name="fast_process" class="fast_process" value="" label="快速流程"-->
+                    <!--[(ngModel)]="commonSetting['fastProcess']" binary="true"></p-checkbox>-->
+        <a style="margin-left: 10px; margin-top: 5px;" href="" *ngIf="createdDBType === 'PROMOTIONAL_RATIO'" (click)="setFastProcess($event)">快速流程</a>
       </p>
       <p><label class="ui-chkbox-label">创建的DB类型:</label>
         {{createdDBType === 'PROMOTIONAL_RATIO' ? '单车金额':'总金额'}}
         <label style="margin-left: 10px;">开始时间:</label>
-        <p-calendar [(ngModel)]="commonSetting['startTime']"></p-calendar>
+        <p-calendar [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030" [(ngModel)]="commonSetting['startTime']"></p-calendar>
         <label>结束时间:</label>
-        <p-calendar [(ngModel)]="commonSetting['endTime']"></p-calendar>
-        <label *ngIf="!isShowByAnnualPolicy" for="percentage">比例:</label>
-        <input *ngIf="!isShowByAnnualPolicy" type="text" size="60" id="percentage" [(ngModel)]="percentage"
+        <p-calendar [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030" [(ngModel)]="commonSetting['endTime']"></p-calendar>
+        <label *ngIf="!isShowByAnnualPolicy && createdDBType === 'PROMOTIONAL_RATIO'" for="percentage">比例:</label>
+        <input *ngIf="!isShowByAnnualPolicy && createdDBType === 'PROMOTIONAL_RATIO'" type="text" size="60" id="percentage" [(ngModel)]="percentage"
                (change)="changeValueByPercent()"
-               pInputText><span *ngIf="!isShowByAnnualPolicy">%</span>
-        <label *ngIf="isShowByAnnualPolicy">奖金大类:</label>
-        <p-dropdown *ngIf="isShowByAnnualPolicy" [options]="BonusTypeOptions"
-                    [(ngModel)]="selectedTypeByAnnualPolicy"></p-dropdown>
-        <label *ngIf="selectedTypeByAnnualPolicy === 'ANNUAL_POLICY'" style="margin-left: 10px;">奖金明细:</label>
-        <p-dropdown *ngIf="selectedTypeByAnnualPolicy === 'ANNUAL_POLICY'" [options]="BonusDetailsOptions"
-                    [(ngModel)]="selectedDetailByAnnualPolicy"></p-dropdown>
+               pInputText><span *ngIf="!isShowByAnnualPolicy && createdDBType === 'PROMOTIONAL_RATIO'">%</span>
+        <label style="margin-left: 10px;">奖金大类:</label>
+        <span>{{isShowByAnnualPolicy ? '年度政策' : '促销'}}</span>
+        <!--<label *ngIf="isShowByAnnualPolicy">奖金大类:</label>-->
+        <!--<p-dropdown *ngIf="isShowByAnnualPolicy" [options]="BonusTypeOptions"-->
+                    <!--[(ngModel)]="selectedTypeByAnnualPolicy"></p-dropdown>-->
+        <!--<label *ngIf="selectedTypeByAnnualPolicy === 'ANNUAL_POLICY'" style="margin-left: 10px;">奖金明细:</label>-->
+        <!--<p-dropdown *ngIf="selectedTypeByAnnualPolicy === 'ANNUAL_POLICY'" [options]="BonusDetailsOptions"-->
+                    <!--[(ngModel)]="selectedDetailByAnnualPolicy"></p-dropdown>-->
       </p>
     </div>
 
-    <p-dataTable [value]="editedDBDatas" scrollable="true" *ngIf="editedDBDatas && editedDBDatas.length > 0">
+    <!-- 快速流程 -->
+    <p-dialog class="fastProcess" *ngIf="createdDBType === 'PROMOTIONAL_RATIO'" [modal]="true" [draggable]="false" [(visible)]="fastProcessDialog" [width]="300">
+      <p-header>
+        <div class="header">快速流程</div>
+      </p-header>
+
+      <div class="ui-g" style="width:250px;margin-bottom:10px">
+        <div class="ui-g-12">
+          <p-radioButton #opt1 value="1" label="即时拷车奖金" (onClick)="chooseRapidProcessType(opt1.value)"
+                         [(ngModel)]="commonSetting['fastProcess']['rapidProcessType']"></p-radioButton>
+        </div>
+        <div class="ui-g-12">
+          <p-radioButton #opt2 value="2" label="其他" (onClick)="chooseRapidProcessType(opt2.value)"
+                         [(ngModel)]="commonSetting['fastProcess']['rapidProcessType']"></p-radioButton>
+        </div>
+
+        <div class="otherInfo" *ngIf="isOtherInfo">
+          <div class="ui-g-12">
+            <label>期间:</label>
+            <p-radioButton name="period" value="1" label="天" [(ngModel)]="commonSetting['fastProcess']['period']"></p-radioButton>
+            <p-radioButton name="period" value="2" label="周" [(ngModel)]="commonSetting['fastProcess']['period']"></p-radioButton>
+            <p-radioButton name="period" value="3" label="月" [(ngModel)]="commonSetting['fastProcess']['period']"></p-radioButton>
+          </div>
+          <div class="ui-g-12">
+            <label>发放地:</label>
+            <p-radioButton name="releaseSystem" value="1" label="DOL" [(ngModel)]="commonSetting['fastProcess']['releaseSystem']"></p-radioButton>
+            <p-radioButton name="releaseSystem" value="2" label="DMS" [(ngModel)]="commonSetting['fastProcess']['releaseSystem']"></p-radioButton>
+          </div>
+          <div class="ui-g-12">
+            <p-checkbox name="isNeedHold" value="" label="需要hold" [(ngModel)]="commonSetting['fastProcess']['isNeedHold']" binary="true"></p-checkbox>
+          </div>
+        </div>
+      </div>
+
+      <button style="float: right;" pButton type="button" (click)="closeFastProcessDialog()" label="确认"></button>
+    </p-dialog>
+
+    <p-dataTable #dt [value]="editedDBDatas" scrollable="true" *ngIf="editedDBDatas && editedDBDatas.length > 0">
       <p-column field="nodNumber" [style]="{'width':'120px'}" header="NOD/DB号"></p-column>
       <p-column field="nodItemNumber" [style]="{'width':'180px'}" header="Item"></p-column>
       <p-column field="carSeries" [style]="{'width':'60px'}" header="车系"></p-column>
@@ -42,100 +86,102 @@
           {{db[col.field] === '1' ? '促销' : '年度政策'}}
         </ng-template>
       </p-column>
-      <p-column field="rewardTypeDescription" [style]="{'width':'100px'}" header="奖金明细类型">
+      <p-column field="rewardTypeDescription" [style]="{'width':'120px'}" header="奖金明细类型">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{bonusTypeDescription[db[col.field]]}}
+        </ng-template>
+      </p-column>
+      <p-column field="grantBasis" [style]="{'width':'100px'}" header="年度政策发放依据">
         <ng-template let-col let-db="rowData" pTemplate="body">
           {{db[col.field]}}
         </ng-template>
       </p-column>
-      <p-column field="grantBasis" [style]="{'width':'80px'}" header="年度政策发放依据">
+      <p-column field="singleCarPercent" [style]="{'width':'100px'}" header="年度政策点数">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          {{db[col.field]}}
+          <input type="text" *ngIf="db[col.field] !== undefined" pInputText style="width:30px" [(ngModel)]="db[col.field]">
+          <span *ngIf="db[col.field] !== undefined">%</span>
         </ng-template>
       </p-column>
-      <p-column field="singleCarPercent" [style]="{'width':'80px'}" header="年度政策点数">
+      <p-column field="totalAmount" [style]="{'width':'100px'}" header="年度政策总金额">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          {{db[col.field] === 0 ? '' : db[col.field]}} <span *ngIf="db[col.field]">%</span>
-        </ng-template>
-      </p-column>
-      <p-column field="totalAmount" [style]="{'width':'80px'}" header="年度政策总金额">
-        <ng-template let-col let-db="rowData" pTemplate="body">
-          {{db[col.field] === 0 ? '' : db[col.field]}}
+          <input type="text" *ngIf="db[col.field] !== undefined" pInputText style="width:80px" [(ngModel)]="db[col.field]">
         </ng-template>
       </p-column>
       <p-column field="settingCondition" [style]="{'width':'80px'}" header="条件">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          <a href="#" *ngIf="db['baseType'] === '1'">条件配置</a>
+          <a href="#" *ngIf="db['carDescr'] && db['carDescr'].length > 0">条件配置</a>
         </ng-template>
       </p-column>
       <p-column field="callOffPromotionPercent" [style]="{'width':'100px'}" header="拷车比例">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          <input type="text" *ngIf="!(db['baseType'] === '2') && db[col.field]" pInputText style="width:30px" [(ngModel)]="db[col.field]"
-                 (change)="valueChange(db,col.field)"><span *ngIf="!(db['baseType'] === '2') && db[col.field]">%</span>
-          <p-checkbox *ngIf="!(db['baseType'] === '2') && db[col.field]" [(ngModel)]="db['isCallOffPromotionPercent']" [disabled]="true"
+          <input type="text" *ngIf="db[col.field] !== undefined && db['baseType'] !== '2'" pInputText style="width:30px" [(ngModel)]="db[col.field]"
+                 (change)="valueChange(db,col.field)"><span *ngIf="db[col.field] !== undefined && db['baseType'] !== '2'">%</span>
+          <p-checkbox *ngIf="db[col.field] !== undefined && db['baseType'] !== '2'" [(ngModel)]="db['isCallOffPromotionPercent']" [disabled]="true"
                       binary="true" styleClass="nod_item_box"></p-checkbox>
         </ng-template>
       </p-column>
       <p-column field="callOffPromotionAmount" [style]="{'width':'140px'}" header="拷车金额">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          <input type="text" *ngIf="!(db['baseType'] === '2') && db[col.field]" pInputText [(ngModel)]="db[col.field]">
-          <p-checkbox *ngIf="!(db['baseType'] === '2') && db[col.field]" [(ngModel)]="db['isCallOffPromotionAmount']" [disabled]="true" binary="true"
+          <input type="text" *ngIf="db[col.field] !== undefined && db['baseType'] !== '2'" pInputText [(ngModel)]="db[col.field]">
+          <p-checkbox *ngIf="db[col.field] !== undefined && db['baseType'] !== '2'" [(ngModel)]="db['isCallOffPromotionAmount']" [disabled]="true" binary="true"
                       styleClass="nod_item_box"></p-checkbox>
         </ng-template>
       </p-column>
       <p-column field="deliveryPromotionPercent" [style]="{'width':'100px'}" header="交车比例">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          <input type="text" *ngIf="!(db['baseType'] === '2') && db[col.field]" pInputText style="width:30px" [(ngModel)]="db[col.field]"
-                 (change)="valueChange(db,col.field)"><span *ngIf="!(db['baseType'] === '2') && db[col.field]">%</span>
-          <p-checkbox *ngIf="!(db['baseType'] === '2') && db[col.field]" [(ngModel)]="db['isDeliveryPromotionPercent']" [disabled]="true"
+          <input type="text" *ngIf="db[col.field] !== undefined && db['baseType'] !== '2'" pInputText style="width:30px" [(ngModel)]="db[col.field]"
+                 (change)="valueChange(db,col.field)"><span *ngIf="db[col.field] !== undefined && db['baseType'] !== '2'">%</span>
+          <p-checkbox *ngIf="db[col.field] !== undefined && db['baseType'] !== '2'" [(ngModel)]="db['isDeliveryPromotionPercent']" [disabled]="true"
                       binary="true" styleClass="nod_item_box"></p-checkbox>
         </ng-template>
       </p-column>
       <p-column field="deliveryPromotionAmount" [style]="{'width':'140px'}" header="交车金额">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          <input type="text" *ngIf="!(db['baseType'] === '2') && db[col.field]" pInputText [(ngModel)]="db[col.field]">
-          <p-checkbox *ngIf="!(db['baseType'] === '2') && db[col.field]" [(ngModel)]="db['isDeliveryPromotionAmount']" [disabled]="true"
+          <input type="text" *ngIf="db[col.field] !== undefined && db['baseType'] !== '2'" pInputText [(ngModel)]="db[col.field]">
+          <p-checkbox *ngIf="db[col.field] !== undefined && db['baseType'] !== '2'" [(ngModel)]="db['isDeliveryPromotionAmount']" [disabled]="true"
                       binary="true" styleClass="nod_item_box"></p-checkbox>
         </ng-template>
       </p-column>
       <p-column field="dealerInventoryPercent" [style]="{'width':'100px'}" header="经销商库存比例">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          <input type="text" *ngIf="!(db['baseType'] === '2') && db[col.field]" pInputText style="width:30px" [(ngModel)]="db[col.field]"
-                 (change)="valueChange(db,col.field)"><span *ngIf="!(db['baseType'] === '2') && db[col.field]">%</span>
-          <p-checkbox *ngIf="!(db['baseType'] === '2') && db[col.field]" [(ngModel)]="db['isDealerInventoryPercent']" [disabled]="true" binary="true"
+          <input type="text" *ngIf="db[col.field] !== undefined && db['baseType'] !== '2'" pInputText style="width:30px" [(ngModel)]="db[col.field]"
+                 (change)="valueChange(db,col.field)"><span *ngIf="db[col.field] !== undefined && db['baseType'] !== '2'">%</span>
+          <p-checkbox *ngIf="db[col.field] !== undefined && db['baseType'] !== '2'" [(ngModel)]="db['isDealerInventoryPercent']" [disabled]="true" binary="true"
                       styleClass="nod_item_box"></p-checkbox>
         </ng-template>
       </p-column>
       <p-column field="dealerInventoryAmount" [style]="{'width':'140px'}" header="经销商库存金额">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          <input type="text" *ngIf="!(db['baseType'] === '2') && db[col.field]" pInputText [(ngModel)]="db[col.field]">
-          <p-checkbox *ngIf="!(db['baseType'] === '2') && db[col.field]" [(ngModel)]="db['isDealerInventoryAmount']" [disabled]="true" binary="true"
+          <input type="text" *ngIf="db[col.field] !== undefined && db['baseType'] !== '2'" pInputText [(ngModel)]="db[col.field]">
+          <p-checkbox *ngIf="db[col.field] !== undefined && db['baseType'] !== '2'" [(ngModel)]="db['isDealerInventoryAmount']" [disabled]="true" binary="true"
                       styleClass="nod_item_box"></p-checkbox>
         </ng-template>
       </p-column>
       <p-column field="cashTotalAmount" [style]="{'width':'120px'}" header="总金额(现金)">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          {{db[col.field]}}
+          <input type="text" *ngIf="db['baseType'] === '1' && db['itemBusinessType'] === '2'" pInputText [(ngModel)]="db[col.field]">
         </ng-template>
       </p-column>
       <p-column field="savingAmount" [style]="{'width':'120px'}" header="Saving金额">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          {{db[col.field]}}
+          <!--<input type="text" *ngIf="db[col.field]" pInputText [(ngModel)]="db[col.field]">-->
+          <input type="text" pInputText [(ngModel)]="db[col.field]" *ngIf="db['baseType'] === '1' && db['itemBusinessType'] === '1'">
         </ng-template>
       </p-column>
       <p-column field="noncashTotalAmount" [style]="{'width':'120px'}" header="总金额(非现金)">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          {{db[col.field]}}
+          <input type="text" *ngIf="db['baseType'] === '1' && db['itemBusinessType'] === '2'" pInputText [(ngModel)]="db[col.field]">
         </ng-template>
       </p-column>
       <p-column field="singlecarTotalBudgetPercent" [style]="{'width':'100px'}" header="单车总预算比例">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          <input type="text" *ngIf="!(db['baseType'] === '2') && db[col.field]" pInputText style="width:30px" [(ngModel)]="db[col.field]"
-                 (change)="valueChange(db,col.field)"><span *ngIf="!(db['baseType'] === '2') && db[col.field]">%</span>
+          <input type="text" *ngIf="db[col.field] !== undefined && db['baseType'] !== '2'" pInputText style="width:30px" [(ngModel)]="db[col.field]"
+                 (change)="valueChange(db,col.field)"><span *ngIf="db[col.field] !== undefined && db['baseType'] !== '2'">%</span>
         </ng-template>
       </p-column>
       <p-column field="singlecarTotalBudgetAmount" [style]="{'width':'140px'}" header="单车总预算金额">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          <input type="text" *ngIf="!(db['baseType'] === '2') && db[col.field]" pInputText [(ngModel)]="db[col.field]">
+          <input type="text" *ngIf="db[col.field] !== undefined && db['baseType'] !== '2'" pInputText [(ngModel)]="db[col.field]">
         </ng-template>
       </p-column>
       <!-- Dynamic Field -->

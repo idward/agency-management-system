@@ -2,29 +2,40 @@
   <p-panel [toggleable]="true">
     <p-header>
       <h4>已建新Item</h4>
-      <button pButton class="saveItem" [disabled]="!(savedDBDatas && savedDBDatas.length > 0)" label="审批"></button>
+      <button pButton class="saveItem" [disabled]="!(savedDBDatas && savedDBDatas.length > 0)"
+             (click)="approvalProcess()" label="审批"></button>
     </p-header>
 
     <p-dataTable [value]="savedDBDatas" sortField="dbItemNumber" rowGroupMode="rowspan" scrollable="true" *ngIf="savedDBDatas && savedDBDatas.length > 0">
       <p-column field="dbItemNumber" header="操作" [style]="{'width':'50px','text-align':'center','padding':'5px 0'}">
         <ng-template let-db="rowData" pTemplate="rowgroup">
-            <a href="" *ngIf="db['rowNumber'] === 1" [attr.href]="db['dbItemNumber']" class="delete_icon"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-            <a href="" *ngIf="db['rowNumber'] === 1" [attr.href]="db['dbItemNumber']" class="modify_icon"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+            <a href="" *ngIf="db['rowNumber'] === 1" [attr.href]="db['dbItemNumber']" (click)="deleteDBItem($event,db['dbItemNumber'])" class="delete_icon"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+            <!--<a href="" *ngIf="db['rowNumber'] === 1" [attr.href]="db['dbItemNumber']" (click)="modifyDBItem($event,db['dbItemNumber'])" class="modify_icon"><i class="fa fa-pencil" aria-hidden="true"></i></a>-->
         </ng-template>
       </p-column>
       <p-column field="dbItemNumber" header="基本信息" [style]="{'width':'140px','padding':'10px 0 20px 0'}">
         <ng-template let-db="rowData" pTemplate="rowgroup">
-          <p class="basicInfo">
-            ITEM: {{db['dbItemNumber']}}
-          </p>
+          <!--<p class="basicInfo">-->
+            <!--ITEM: {{db['dbItemNumber']}}-->
+          <!--</p>-->
           <p class="basicInfo">
             描述： {{db['setting_condition']['desc']}}
           </p>
           <p class="basicInfo">
             快速流程:
             <p-checkbox name="fast_process" class="fast_process" value="" [disabled]="true"
-                        [(ngModel)]="db['setting_condition']['fastProcess']" binary="true"></p-checkbox>
+                        [(ngModel)]="db['setting_condition']['isFastProcess']" binary="true"></p-checkbox>
           </p>
+        </ng-template>
+      </p-column>
+      <p-column field="startTime" [style]="{'width':'100px'}" header="开始时间">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db['setting_condition'][col.field] | date:'yyyy/MM/dd'}}
+        </ng-template>
+      </p-column>
+      <p-column field="endTime" [style]="{'width':'100px'}" header="结束时间">
+        <ng-template let-col let-db="rowData" pTemplate="body">
+          {{db['setting_condition'][col.field] | date:'yyyy/MM/dd'}}
         </ng-template>
       </p-column>
       <p-column field="data.carSeries" [style]="{'width':'60px'}" header="车系"></p-column>
@@ -35,9 +46,9 @@
           {{db['data'][col.field] === '1' ? '促销' : '年度政策'}}
         </ng-template>
       </p-column>
-      <p-column field="rewardTypeDescription" [style]="{'width':'100px'}" header="奖金明细类型">
+      <p-column field="rewardTypeDescription" [style]="{'width':'120px'}" header="奖金明细类型">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          {{db['data'][col.field]}}
+          {{bonusTypeDescription[db[col.field]]}}
         </ng-template>
       </p-column>
       <p-column field="grantBasis" [style]="{'width':'80px'}" header="年度政策发放依据">
@@ -76,14 +87,14 @@
       </p-column>
       <p-column field="deliveryPromotionPercent" [style]="{'width':'100px'}" header="交车比例">
         <ng-template let-col let-db="rowData" pTemplate="body">
-         {{db['data'][col.field]}}<span *ngIf="db['data'][col.field]">%</span>
+          <span class="limited_amount">{{db['data'][col.field]}}<span *ngIf="db['data'][col.field]">%</span></span>
           <p-checkbox *ngIf="db['data'][col.field]" [(ngModel)]="db['data']['isDeliveryPromotionPercent']" [disabled]="true"
                       binary="true" styleClass="nod_item_box"></p-checkbox>
         </ng-template>
       </p-column>
       <p-column field="deliveryPromotionAmount" [style]="{'width':'140px'}" header="交车金额">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          {{db['data'][col.field]}}
+          <span class="limited_amount">{{db['data'][col.field]}}</span>
           <p-checkbox *ngIf="db['data'][col.field]" [(ngModel)]="db['data']['isDeliveryPromotionAmount']" [disabled]="true"
                       binary="true" styleClass="nod_item_box"></p-checkbox>
         </ng-template>
@@ -97,24 +108,24 @@
       </p-column>
       <p-column field="dealerInventoryAmount" [style]="{'width':'140px'}" header="经销商库存金额">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          {{db['data'][col.field]}}
+          <span class="limited_amount">{{db['data'][col.field]}}</span>
           <p-checkbox *ngIf="db['data'][col.field]" [(ngModel)]="db['data']['isDealerInventoryAmount']" [disabled]="true" binary="true"
                       styleClass="nod_item_box"></p-checkbox>
         </ng-template>
       </p-column>
       <p-column field="cashTotalAmount" [style]="{'width':'120px'}" header="总金额(现金)">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          {{db['data'][col.field]}}
+          <span class="limited_amount">{{db['data'][col.field]}}</span>
         </ng-template>
       </p-column>
       <p-column field="savingAmount" [style]="{'width':'120px'}" header="Saving金额">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          {{db['data'][col.field]}}
+          <span class="limited_amount">{{db['data'][col.field]}}</span>
         </ng-template>
       </p-column>
       <p-column field="noncashTotalAmount" [style]="{'width':'120px'}" header="总金额(非现金)">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          {{db['data'][col.field]}}
+          <span class="limited_amount">{{db['data'][col.field]}}</span>
         </ng-template>
       </p-column>
       <p-column field="singlecarTotalBudgetPercent" [style]="{'width':'100px'}" header="单车总预算比例">
@@ -124,7 +135,7 @@
       </p-column>
       <p-column field="singlecarTotalBudgetAmount" [style]="{'width':'140px'}" header="单车总预算金额">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          {{db['data'][col.field]}}
+          <span class="limited_amount">{{db['data'][col.field]}}</span>
         </ng-template>
       </p-column>
       <!-- Dynamic Field -->
@@ -135,14 +146,14 @@
       </p-column>
       <p-column field="financial" [style]="{'width':'140px'}" header="金融金额">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          {{db['data'][col.field] ? db['data'][col.field][col.field + 'Amount']: ''}}
+          <span class="limited_amount">{{db['data'][col.field] ? db['data'][col.field][col.field + 'Amount']: ''}}</span>
           <p-checkbox *ngIf="db['data'][col.field]" [(ngModel)]="db['data'][col.field]['isFinancialPromotionAmount']" [disabled]="true"
                       binary="true" styleClass="nod_item_box"></p-checkbox>
         </ng-template>
       </p-column>
       <p-column field="financialTotalAmount" [style]="{'width':'150px'}" header="金融总金额">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          {{db['data'][col.field] ? db['data'][col.field][col.field] : ''}}
+          <span class="limited_amount">{{db['data'][col.field] ? db['data'][col.field][col.field] : ''}}</span>
           <p-checkbox *ngIf="db['data'][col.field]" [(ngModel)]="db['data'][col.field]['isFinancialPromotionTotalAmount']"
                       [disabled]="true" binary="true" styleClass="nod_item_box"></p-checkbox>
         </ng-template>

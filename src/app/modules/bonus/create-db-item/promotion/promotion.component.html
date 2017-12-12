@@ -1,17 +1,20 @@
 <div class="promotion">
-  <div class="db_info">
-    <span>DB号: {{dbNumber}}</span>
-  </div>
+  <div class="db_info"><span>DB号: {{dbNumber}}</span></div>
 
-  <app-select-data-section [datas]="datas | async" [nodOrDBNumbers]="nodOrDBNumbers"
+  <app-select-data-section [datas]="datas | async" [nodOrDBNumbers]="nodOrDBNumbers" [bonusTypeDescription]="bonusTypeDescription"
                            [nodItemOrDBItemNumbers]="nodItemOrDBItemNumbers" [selectedItem]="selectedNodItems"
                            [nodItemOptions]="nodItemOptions" [showLoading]="showLoading"
                            (createItemEvt)="createNewItem($event)"></app-select-data-section>
-  <app-modify-data-section [editedDBDatas]="editedDBDatas" [commonSetting]="commonSetting"
-                           [BonusDetailsOptions]="BonusDetailsOptions"
-                           [isShowByAnnualPolicy]="isShowByAnnualPolicy" [BonusTypeOptions]="BonusTypeOptions"
-                           [nodItemOptions]="nodItemOptions" [createdDBType]="createdDBType"
+  <app-modify-data-section [editedDBDatas]="editedDBDatas" [commonSetting]="commonSetting" [bonusTypeDescription]="bonusTypeDescription"
+                           [BonusDetailsOptions]="BonusDetailsOptions" (commonSettingEvt)="getCommonData($event)"
+                           [isShowByAnnualPolicy]="isShowByAnnualPolicy" [BonusTypeOptions]="BonusTypeOptions" [showButton]="isShowButton"
+                           [nodItemOptions]="nodItemOptions" [createdDBType]="createdDBType" (downloadSelectedListEvt)="downloadSelectedList()"
                            (changeValueByPercentEvt)="changeValueByPercent($event)" (changeValueEvt)="changeValueByMSRP($event)"
-                           (createNewDBEvt)="createNewDB()"></app-modify-data-section>
-  <app-save-data-section [savedDBDatas]="createdDBDatas | async"></app-save-data-section>
+                           (createNewDBEvt)="createNewDB()" (uploadSelectedListEvt)="uploadSelectedList($event)"></app-modify-data-section>
+  <app-save-data-section [savedDBDatas]="createdDBDatas | async" (approvalProcessEvt)="approvalProcess()" [bonusTypeDescription]="bonusTypeDescription"
+  (deleteDBItemEvt)="deleteDBItem($event)" (modifyDBItemEvt)="modifyDBItem($event)"></app-save-data-section>
+
+  <!-- 保存结果弹出框 -->
+  <!--<p-growl [(value)]="saveResultInfo" styleClass="saveResult" sticky="true" life="2000"></p-growl>-->
+  <p-growl [(value)]="saveResultInfo" styleClass="saveResult dbSave" sticky="true" life="3000"></p-growl>
 </div>

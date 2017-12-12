@@ -25,6 +25,7 @@ export class NodAnnualPolicyComponent implements OnInit, OnDestroy {
   issueBasis: OptionItem[];
   apSubscription: Subscription;
   parsedDataSubscription: Subscription;
+  bonusTypeSubs: Subscription;
   saveResultInfo: Message[];
 
   constructor(private store$: Store<AnnualPolicy[]>, private _route: ActivatedRoute,
@@ -33,20 +34,25 @@ export class NodAnnualPolicyComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.bonusTypeDescription = BONUSTYPEDESC;
     this.issueBasis = ISSUEBASIS;
-    this.store$.dispatch({type: 'GET_ANNUAL_POLICY'});
 
     this._route.params.subscribe((parms: Params) => {
       this.nod = new Nod(parms.nodId);
     });
 
-    if (!this.parsedDataSubscription) {
-      this.parsedDataSubscription = this._bonusService.getData()
-        .subscribe(data => {
-          this.parsedData = data;
-        });
-    }
+    this._bonusService.getBonusTypesOfAnnualPolicy()
+      .subscribe(datas => {
+        this.bonusTypeDescription = [];
+        this.bonusTypeDescription.push(new OptionItem('请选择...', ''));
+        for (let i = 0; i < datas.length; i++) {
+          this.bonusTypeDescription.push(new OptionItem(datas[i].dataValue, datas[i].dataName));
+        }
+      });
+
+    this._bonusService.getData()
+      .subscribe(data => {
+        this.parsedData = data;
+      });
 
     if (!this.apSubscription) {
       this.apSubscription = this.datas.subscribe(data => {
@@ -66,23 +72,13 @@ export class NodAnnualPolicyComponent implements OnInit, OnDestroy {
       this.store$.dispatch({type: 'EMPTY_ANNUAL_POLICY'});
       this.apSubscription.unsubscribe();
     }
-
-    if (this.parsedDataSubscription) {
-      this.parsedDataSubscription.unsubscribe();
-    }
   }
 
   addData() {
     //默认起始时间
-    let defaultStartTime = new Date();
-    defaultStartTime.setMonth(0);
-    defaultStartTime.setDate(1);
-    defaultStartTime = new Date(defaultStartTime);
+    let defaultStartTime = new Date(new Date().getFullYear(), 0, 1);
     //默认结束时间
-    let defaultEndtime = new Date();
-    defaultEndtime.setMonth(11);
-    defaultEndtime.setDate(31);
-    defaultEndtime = new Date(defaultEndtime);
+    let defaultEndtime = new Date(new Date().getFullYear(), 11, 31);
 
     let tempData: AnnualPolicy[] = [];
     let annualPolicy = new AnnualPolicy();
@@ -101,15 +97,24 @@ export class NodAnnualPolicyComponent implements OnInit, OnDestroy {
   }
 
   saveData(type: number) {
-    // let nodDatasByAnnualPolicy = this.transformAPDatas(this.annualPolicyData);
+    let result = this.checkAnnualPolicy(this.nod.nodList);
+
+    if(!result){
+      window.alert('单车点数或总金额不能为空');
+      return;
+    }
+
     this._bonusService.saveAnnualPolicyData(this.nod, type)
       .subscribe(data => {
           this.saveResultInfo = [];
           if (type === 1) {
-            this.saveResultInfo.push({severity: 'success', summary: '', detail: '保存草稿成功！'});
+            this.saveResultInfo.push({severity: 'success', summary: '', detail: `${data.code} 保存草稿成功！`});
+            setTimeout(() => {
+              this._router.navigate(['nodList/myDraftBoxList']);
+            }, 3000);
           }
           if (type === 3) {
-            this.saveResultInfo.push({severity: 'success', summary: '', detail: '保存成功！'});
+            this.saveResultInfo.push({severity: 'success', summary: '', detail: `${data.code} 保存成功！`});
             setTimeout(() => {
               this._router.navigate(['bonus']);
             }, 3000);
@@ -145,31 +150,97 @@ export class NodAnnualPolicyComponent implements OnInit, OnDestroy {
       );
   }
 
+  checkAnnualPolicy(datas: AnnualPolicy[]): boolean {
+    let result = true;
+
+    for (let i = 0; i < datas.length; i++) {
+      if(datas[i].carPoint === '0.00' && datas[i].totalAmount === '0.00'){
+        result = false;
+      }
+    }
+
+    return result;
+  }
+
+  changeDate(value: any, data: any) {
+    let startTime = data['expStartTime'].getTime();
+    let endTime = value.getTime();
+    if (endTime <= startTime) {
+      window.alert('输入结束有效期必须大于输入开始有效期');
+      data['expEndTime'] = new Date(startTime + 1000 * 60 * 60 * 24);
+    }
+  }
+
   delCurrentRow(data: any) {
     this.store$.dispatch({type: 'DEL_ANNUAL_POLICY', payload: data});
   }
 
+  changeBonusTypeDesc(data: any) {
+    console.log(data);
+  }
+
   issueBasisChanged(data: any, annualPolicy: AnnualPolicy) {
-    if (data.value !== '请选择...') {
+    if (data.value !== '') {
       annualPolicy.isAmountUsed = true;
-      this.store$.dispatch({type: 'UPDATE_ANNUAL_POLICY', payload: annualPolicy});
+    } else {
+      if (annualPolicy.carPoint !== '0.00') {
+        annualPolicy.isAmountUsed = true;
+      } else {
+        annualPolicy.isAmountUsed = false;
+      }
     }
+    this.store$.dispatch({type: 'UPDATE_ANNUAL_POLICY', payload: annualPolicy});
   }
 
   valueChangeByPercent(value: any, annualPolicy: AnnualPolicy) {
-    if (value !== '0.00') {
-      annualPolicy.isAmountUsed = true;
-      annualPolicy.carPoint = Number(value).toFixed(2);
-      this.store$.dispatch({type: 'UPDATE_ANNUAL_POLICY', payload: annualPolicy});
+    let valueCheck = Number(value);
+    let valueFixed;
+
+    if (isNaN(valueCheck)) {
+      window.alert('非法格式');
+      valueFixed = 0;
+      annualPolicy.isAmountUsed = false;
+    } else {
+      if ((valueCheck > 0 && valueCheck > 100) || (value < 0 && valueCheck < -100)) {
+        window.alert('单车点数输入超出范围');
+        valueFixed = 0;
+        annualPolicy.isAmountUsed = false;
+      } else if ((valueCheck > 0 && valueCheck <= 100) || (valueCheck < 0 && valueCheck >= -100)) {
+        annualPolicy.isAmountUsed = true;
+        valueFixed = valueCheck;
+      } else if (annualPolicy.issueBasis !== '请选择...' && annualPolicy.issueBasis !== '') {
+        annualPolicy.isAmountUsed = true;
+        valueFixed = 0;
+      } else {
+        annualPolicy.isAmountUsed = false;
+        valueFixed = 0;
+      }
     }
+
+    annualPolicy.carPoint = valueFixed.toFixed(2);
+    this.store$.dispatch({type: 'UPDATE_ANNUAL_POLICY', payload: annualPolicy});
   }
 
   valueChangeByAmount(value: any, annualPolicy: AnnualPolicy) {
-    if (value !== '0.00') {
-      annualPolicy.isPercentUsed = true;
-      annualPolicy.totalAmount = this.formatCurrency(value);
-      this.store$.dispatch({type: 'UPDATE_ANNUAL_POLICY', payload: annualPolicy});
+    let valueCheck = Number(value);
+    let valueFixed;
+
+    if (isNaN(valueCheck)) {
+      window.alert('非法格式');
+      valueFixed = 0;
+      annualPolicy.isPercentUsed = false;
+    } else {
+      if (valueCheck !== 0) {
+        valueFixed = valueCheck;
+        annualPolicy.isPercentUsed = true;
+      } else {
+        valueFixed = 0;
+        annualPolicy.isPercentUsed = false;
+      }
     }
+
+    annualPolicy.totalAmount = this.formatCurrency(valueFixed);
+    this.store$.dispatch({type: 'UPDATE_ANNUAL_POLICY', payload: annualPolicy});
   }
 
   formatCurrency(num) {

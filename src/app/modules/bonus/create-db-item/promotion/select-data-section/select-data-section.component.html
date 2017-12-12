@@ -36,9 +36,9 @@
           {{db[col.field] === '1' ? '促销' : '年度政策'}}
         </ng-template>
       </p-column>
-      <p-column field="rewardTypeDescription" [style]="{'width':'100px'}" header="奖金明细类型">
+      <p-column field="rewardTypeDescription" [style]="{'width':'120px'}" header="奖金明细类型">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          {{db[col.field]}}
+          {{bonusTypeDescription[db[col.field]]}}
         </ng-template>
       </p-column>
       <p-column field="grantBasis" [style]="{'width':'80px'}" header="年度政策发放依据">
@@ -58,7 +58,7 @@
       </p-column>
       <p-column field="settingCondition" [style]="{'width':'80px'}" header="条件">
         <ng-template let-col let-db="rowData" pTemplate="body">
-          <a href="#" *ngIf="db['baseType'] === '1'">条件配置</a>
+          <a href="#" *ngIf="db['carDescr'] && db['carDescr'].length > 0">条件配置</a>
         </ng-template>
       </p-column>
       <p-column field="callOffPromotionPercent" [style]="{'width':'80px'}" header="拷车比例">

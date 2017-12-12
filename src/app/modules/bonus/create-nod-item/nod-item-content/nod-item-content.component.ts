@@ -1,8 +1,4 @@
-///<reference path="../../../../../../node_modules/@angular/core/src/metadata/lifecycle_hooks.d.ts"/>
-import {
-  Component, EventEmitter, Input, OnInit, Output, OnChanges, OnDestroy, DoCheck,
-  AfterContentChecked, AfterViewChecked
-} from '@angular/core';
+import {Component, EventEmitter, Input, Output, OnInit, OnChanges, OnDestroy} from '@angular/core';
 import {Observable} from "rxjs/Observable";
 import {TreeNode} from "primeng/primeng";
 import * as _ from 'lodash';
@@ -10,6 +6,7 @@ import {Subject} from "rxjs/Subject";
 import {Subscription} from "rxjs/Subscription";
 import {Nod} from "../../../../model/nod/nod.model";
 import {NodItem} from "../../../../model/nod/nodItem.model";
+import {OptionItem} from "../../../../model/optionItem/optionItem.model";
 
 @Component({
   selector: 'app-nod-item-content',
@@ -19,7 +16,9 @@ import {NodItem} from "../../../../model/nod/nodItem.model";
 export class NodItemContentComponent implements OnInit, OnChanges, OnDestroy {
   selectedFiles: TreeNode[];
   selectedCarTreeNode: TreeNode[] = [];
+  selectedControlType: string;
   carTreeNode: TreeNode;
+  isOtherInfo: boolean;
   isCashModule: boolean = true;
   caoche_amount: boolean = false;
   jiaoche_amount: boolean = false;
@@ -31,7 +30,11 @@ export class NodItemContentComponent implements OnInit, OnChanges, OnDestroy {
   insurance: boolean = false;
   maintenance: boolean = false;
   keyword: string;
-  loading:boolean = false;
+  loading: boolean = false;
+  fastProcessDialog: boolean;
+  isFilledCashData: boolean;
+  @Input() showLoading: boolean;
+  @Input() controlTypeOptions: OptionItem[];
   @Input() currentNodItem: NodItem;
   @Input() selectedCars: TreeNode[] = [];
   @Input() display: boolean;
@@ -44,6 +47,7 @@ export class NodItemContentComponent implements OnInit, OnChanges, OnDestroy {
   @Output() editCarCategoryEvt: EventEmitter<any> = new EventEmitter<any>();
   @Output() hideDialogEvt: EventEmitter<any> = new EventEmitter<any>();
   @Output() totalAmountChangeEvt: EventEmitter<any> = new EventEmitter<any>();
+  @Output() fastProcessEvt: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() {
   }
@@ -103,33 +107,161 @@ export class NodItemContentComponent implements OnInit, OnChanges, OnDestroy {
     let that = this, result;
     setTimeout(function () {
       that.ngOnChanges();
-    })
+    });
+
     if (type === 'RATIO') {
-      result = Number(node.data[nodeName]).toFixed(2);
+      let checkFieldList = ['financial_bili', 'replacement_bili', 'insurance_bili'];
+      let fieldIsExisted = checkFieldList.indexOf(nodeName);
       let jine = nodeName.slice(0, nodeName.indexOf('_')) + '_jine';
-      node.data[jine] = this.formatCurrency(node.data['msrp'] * node.data[nodeName] / 100);
+
+      result = Number(node.data[nodeName]) ? Number(node.data[nodeName]).toFixed(2) : '0.00';
+
       if (node.data.level === 1) {
         if (node.children && node.children.length > 0) {
           for (let i = 0; i < node.children.length; i++) {
+            // if (fieldIsExisted !== -1) {
+            //   if (node.children[i].data['singleCar_jine'] === '0.00') {
+            //     window.alert('请设置单车总预算');
+            //     node.data[nodeName] = 0;
+            //     result = node.data[nodeName].toFixed(2);
+            //     break;
+            //   }
+            // }
             node.children[i].data[nodeName] = result;
             node.children[i].data[jine] = this.formatCurrency(node.children[i].data['msrp'] * node.children[i].data[nodeName] / 100);
           }
         }
-      }
-    } else if (type === 'AMOUNT') {
-      if (this.selectedServiceType === 'PROMOTIONAL_AMOUNT') {
-        result = this.formatCurrency(node[nodeName]);
-      } else {
-        result = this.formatCurrency(node.data[nodeName]);
-        if (node.data.level === 1) {
-          if (node.children && node.children.length > 0) {
-            for (let i = 0; i < node.children.length; i++) {
-              node.children[i].data[nodeName] = this.formatCurrency(node.data[nodeName]);
+      } else if (node.data.level === 2) {
+        if (fieldIsExisted !== -1) {
+          if (node.data['singleCar_jine'] === '0.00') {
+            window.alert('请设置单车总预算');
+            node.data[nodeName] = 0;
+            result = node.data[nodeName].toFixed(2);
+          } else {
+            node.data[jine] = this.formatCurrency(node.data['msrp'] * node.data[nodeName] / 100);
+            let financial_jine = this.converToNormalValue(node.data['financial_jine']);
+            let replacement_jine = this.converToNormalValue(node.data['replacement_jine']);
+            let insurance_jine = this.converToNormalValue(node.data['insurance_jine']);
+            let singleCar_jine = this.converToNormalValue(node.data['singleCar_jine']);
+
+            let isExceededTotalAmount = (Number(financial_jine) + Number(replacement_jine)
+              + Number(insurance_jine)) > Number(singleCar_jine);
+
+            if (isExceededTotalAmount) {
+              window.alert('超过单车总预算范围');
+              node.data[nodeName] = 0;
+              result = node.data[nodeName].toFixed(2);
+              node.data[jine] = this.formatCurrency(node.data['msrp'] * node.data[nodeName] / 100);
             }
           }
         }
       }
+
+    } else if (type === 'AMOUNT') {
+      if (this.selectedServiceType === 'PROMOTIONAL_AMOUNT') {
+        let checkFieldList = ['financial_total_amount', 'replacement_total_amount', 'insurance_total_amount'];
+        let fieldIsExisted = checkFieldList.indexOf(nodeName);
+
+        if (fieldIsExisted !== -1) {
+          if (node['nocash_total_amount'] === '0.00') {
+            window.alert('请设置总金额');
+            node[nodeName] = 0;
+          } else {
+            let financial_total_amount = this.converToNormalValue(node['financial_total_amount']);
+            let replacement_total_amount = this.converToNormalValue(node['replacement_total_amount']);
+            let insurance_total_amount = this.converToNormalValue(node['insurance_total_amount']);
+            let nocash_total_amount = this.converToNormalValue(node['nocash_total_amount']);
+
+            let isExceededTotalAmount = (Number(financial_total_amount) + Number(replacement_total_amount)
+              + Number(insurance_total_amount)) > Number(nocash_total_amount);
+
+            if (isExceededTotalAmount) {
+              window.alert('超过总金额范围');
+              node[nodeName] = 0;
+            }
+          }
+        }
+
+        result = this.formatCurrency(node[nodeName]);
+
+        if (result !== '0.00') {
+          this.isFilledCashData = true;
+        }
+
+      } else {
+        let checkFieldList = ['financial_jine', 'replacement_jine', 'insurance_jine'];
+        let fieldIsExisted = checkFieldList.indexOf(nodeName);
+
+        if (node.data.level === 1) {
+          if (node.children && node.children.length > 0) {
+            for (let i = 0; i < node.children.length; i++) {
+              // if (fieldIsExisted !== -1) {
+              //   if (node.children[i].data['singleCar_jine'] === '0.00') {
+              //     window.alert('请设置单车总预算');
+              //     node.data[nodeName] = 0;
+              //     break;
+              //   } else {
+              //     let financial_jine = node.data['financial_jine'] !== '0.00' ? this.converToNormalValue(node.data['financial_jine']) :
+              //       this.converToNormalValue(node.children[i].data['financial_jine']);
+              //     let replacement_jine = node.data['replacement_jine'] !== '0.00' ? this.converToNormalValue(node.data['replacement_jine']) :
+              //       this.converToNormalValue(node.children[i].data['replacement_jine']);
+              //     let insurance_jine = node.data['insurance_jine'] !== '0.00' ? this.converToNormalValue(node.data['insurance_jine']) :
+              //       this.converToNormalValue(node.children[i].data['insurance_jine']);
+              //     let singleCar_jine = this.converToNormalValue(node.children[i].data['singleCar_jine']);
+              //
+              //     let isExceededTotalAmount = (Number(financial_jine) + Number(replacement_jine)
+              //       + Number(insurance_jine)) > Number(singleCar_jine);
+              //
+              //     if (isExceededTotalAmount) {
+              //       window.alert('超过单车总预算范围');
+              //       node.data[nodeName] = 0;
+              //       break;
+              //     }
+              //   }
+              // }
+              node.children[i].data[nodeName] = this.formatCurrency(node.data[nodeName]);
+            }
+          }
+        } else if (node.data.level === 2) {
+          if (fieldIsExisted !== -1) {
+            if (node.data['singleCar_jine'] === '0.00') {
+              window.alert('请设置单车总预算');
+              node.data[nodeName] = 0;
+            } else {
+              let financial_jine = this.converToNormalValue(node.data['financial_jine']);
+              let replacement_jine = this.converToNormalValue(node.data['replacement_jine']);
+              let insurance_jine = this.converToNormalValue(node.data['insurance_jine']);
+              let singleCar_jine = this.converToNormalValue(node.data['singleCar_jine']);
+
+              let isExceededTotalAmount = (Number(financial_jine) + Number(replacement_jine)
+                + Number(insurance_jine)) > Number(singleCar_jine);
+
+              if (isExceededTotalAmount) {
+                window.alert('超过单车总预算范围');
+                node.data[nodeName] = 0;
+              }
+            }
+          }
+        }
+
+        result = this.formatCurrency(node.data[nodeName]);
+      }
     }
+    return result;
+  }
+
+  converToNormalValue(value: string) {
+    let result = '';
+
+    if (value.indexOf(',') !== -1) {
+      let arr = value.split(',');
+      for (let i = 0; i < arr.length; i++) {
+        result += arr[i];
+      }
+    } else {
+      result = value;
+    }
+
     return result;
   }
 
@@ -162,11 +294,40 @@ export class NodItemContentComponent implements OnInit, OnChanges, OnDestroy {
     this.commonSettingEvt.emit(this.commonSetting);
   }
 
+  setFastProcess(event: Event) {
+    event.preventDefault();
+    this.fastProcessDialog = true;
+  }
+
+  closeFastProcessDialog() {
+    this.fastProcessDialog = false;
+    this.commonSettingEvt.emit(this.commonSetting);
+  }
+
+  chooseRapidProcessType(value: string) {
+    if (value === '2') {
+      this.isOtherInfo = true;
+    } else {
+      this.isOtherInfo = false;
+      this.commonSetting['fastProcess']['period'] = '';
+      this.commonSetting['fastProcess']['releaseSystem'] = '';
+      this.commonSetting['fastProcess']['isNeedHold'] = false;
+    }
+  }
+
   toggleCash() {
+    if (this.isFilledCashData) {
+      window.alert('现金和非现金数据无法同时操作');
+      return;
+    }
     this.isCashModule = true;
   }
 
   toggleNonCash() {
+    if (this.isFilledCashData) {
+      window.alert('现金和非现金数据无法同时操作');
+      return;
+    }
     this.isCashModule = false;
   }
 
@@ -248,7 +409,7 @@ export class NodItemContentComponent implements OnInit, OnChanges, OnDestroy {
     if (node.parent) {
       node.parent.selected = checkStatus;
       node.parent.partialSelected = true;
-      if(node.parent.parent){
+      if (node.parent.parent) {
         node.parent.parent.selected = checkStatus;
         node.parent.parent.partialSelected = true;
       }

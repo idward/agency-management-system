@@ -16,21 +16,29 @@ import {Year} from "../../../model/year/year.model";
 })
 
 export class NodSettingComponent implements OnInit {
-  selectedType:any;
-  selectedDep:any;
-  selectedYear:any;
-  createdTypes:OptionItem[];
-  departments:OptionItem[];
-  years:YearItem[];
-  nodSettingForm:FormGroup;
+  selectedType: any;
+  selectedDep: any;
+  selectedYear: any;
+  createdTypes: OptionItem[];
+  departments: OptionItem[];
+  years: YearItem[];
+  nodSettingForm: FormGroup;
 
-  constructor(private _fb:FormBuilder, private _router:Router,
+  constructor(private _fb: FormBuilder, private _router: Router,
               @Inject('BonusService') private _bonusService) {
     this.createdTypes = TYPES;
-    this.departments = DEPTS;
   }
 
-  ngOnInit():void {
+  ngOnInit(): void {
+    this._bonusService.getDepartments()
+      .subscribe(datas => {
+        debugger;
+        this.departments = [];
+        for (let i = 0; i < datas.length; i++) {
+          this.departments.push(new OptionItem(datas[i].dataValue, datas[i].dataName));
+        }
+      });
+
     this.nodSettingForm = this._fb.group({
       description: ['', Validators.required],
       createdType: ['', Validators.required],
@@ -38,14 +46,12 @@ export class NodSettingComponent implements OnInit {
       year: ['', Validators.required]
     });
 
-    this.years = this.productYear(1990, 2025);
+    this.years = this.productYear(2016, 2030);
   }
 
-  toNodMainPage(formValue:Object) {
-    // console.log(formValue);
+  toNodMainPage(formValue: Object) {
     let createdType = formValue['createdType'];
     this._bonusService.sendData(formValue);
-    // let nodId = UUID.UUID().split('-')[0];
     let nodId = UUID.UUID();
     if (createdType === 'PROMOTION') {
       this._router.navigate(['bonus/create-nod/promotion', nodId]);
@@ -54,8 +60,8 @@ export class NodSettingComponent implements OnInit {
     }
   }
 
-  private productYear(startTime:number, endTime:number):Array<YearItem> {
-    let lt_years:YearItem[] = [], gt_years:YearItem[] = [];
+  private productYear(startTime: number, endTime: number): Array<YearItem> {
+    let lt_years: YearItem[] = [], gt_years: YearItem[] = [];
     let currentYear = new Date().getFullYear();
     if (startTime && startTime < currentYear) {
       for (let i = currentYear; i >= startTime; i--) {
@@ -68,6 +74,11 @@ export class NodSettingComponent implements OnInit {
       }
     }
     let final_years = [...gt_years, ...lt_years];
+
+    final_years.sort((a:YearItem,b:YearItem) => {
+      return Number(a.label) - Number(b.label);
+    });
+
     return final_years;
   }
 

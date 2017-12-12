@@ -1,0 +1,52 @@
+<div class="dbr-item-content">
+  <p-dataTable *ngIf="queryResultDatas && queryResultDatas.length > 0" [value]="queryResultDatas" styleClass="dbItems" scrollable="true">
+    <p-header>已选DB列表</p-header>
+    <p-column field="dbNumber" [style]="{'width':'100px'}" header="DB号"></p-column>
+    <p-column field="itemDescription" [style]="{'width':'130px'}" header="ITEM"></p-column>
+    <p-column field="rewardType" [style]="{'width':'130px'}" header="奖金类型">
+      <ng-template let-col let-db="rowData" pTemplate="body">
+        <span *ngFor="let reward of db[col.field]">
+          {{reward.name}}<br>
+        </span>
+      </ng-template>
+    </p-column>
+    <p-column field="controlType" [style]="{'width':'100px'}" header="校验层次">
+      <ng-template let-col let-db="rowData" pTemplate="body">
+         <div [ngSwitch]="db[col.field]">
+           <span *ngSwitchCase="0">品牌</span>
+           <span *ngSwitchCase="1">车系</span>
+           <span *ngSwitchCase="2">财务描述</span>
+           <span *ngSwitchDefault></span>
+         </div>
+      </ng-template>
+    </p-column>
+    <p-column field="isApproved" [style]="{'width':'100px'}" header="是否审批">
+      <ng-template let-col let-db="rowData" pTemplate="body">
+        {{db[col.field] === 'NO' ? '否' : '是'}}
+      </ng-template>
+    </p-column>
+    <p-column field="carSeries" [style]="{'width':'100px'}" header="车系"></p-column>
+    <p-column field="financialDescription" [style]="{'width':'200px'}" header="财务描述"></p-column>
+    <p-column field="amount" [style]="{'width':'100px'}" header="汇总金额"></p-column>
+    <p-column field="changeAmount" [style]="{'width':'100px'}" header="匹配金额"></p-column>
+    <p-column field="totalAmount" [style]="{'width':'100px'}" header="金额"></p-column>
+    <p-column field="checkResultMessage" [style]="{'width':'100px'}" header="匹配结果">
+      <ng-template let-col let-db="rowData" pTemplate="body">
+        <span style="color: darkred;" *ngIf="db[col.field]">{{db[col.field]}}</span>
+        <span style="color: green;" *ngIf="db[col.field] === null">通过</span>
+      </ng-template>
+    </p-column>
+
+  </p-dataTable>
+  <!--<p-dataTable *ngIf="matchResultDatas && matchResultDatas.length > 0" [value]="matchResultDatas" styleClass="matchResult" scrollable="true">-->
+    <!--<p-header>匹配</p-header>-->
+    <!--<p-column field="dbNumber" [style]="{'width':'250px'}" header="匹配结果"></p-column>-->
+  <!--</p-dataTable>-->
+  <!--<p-dataTable *ngIf="uploadListDatas && uploadListDatas.length > 0" [value]="uploadListDatas" styleClass="uploadList" scrollable="true">-->
+    <!--<p-header>已上传清单</p-header>-->
+    <!--<p-column field="dbNumber" [style]="{'width':'100px'}" header="DB号"></p-column>-->
+    <!--<p-column field="itemDescr" [style]="{'width':'130px'}" header="ITEM"></p-column>-->
+    <!--<p-column field="carSeries" [style]="{'width':'200px'}" header="车系"></p-column>-->
+  <!--</p-dataTable>-->
+</div>
+

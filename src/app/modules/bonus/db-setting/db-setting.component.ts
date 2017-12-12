@@ -23,7 +23,7 @@ export class DbSettingComponent implements OnInit, OnChanges, OnDestroy {
   selectedType: string[];
   startTime: Date;
   endTime: Date;
-  showLoading:boolean;
+  showLoading: boolean;
   departments: OptionItem[];
   createdTypes: OptionItem[];
   dbSettingForm: FormGroup;
@@ -53,8 +53,9 @@ export class DbSettingComponent implements OnInit, OnChanges, OnDestroy {
     this.dbSettingForm = this._fb.group({
       department: ['', Validators.required],
       selectedType: ['', Validators.required],
-      startTime: [''],
-      endTime: [''],
+      description: ['', Validators.required],
+      startTime: ['', Validators.required],
+      endTime: ['', Validators.required],
       isCalSavingAmount: [false]
     });
 
@@ -106,21 +107,41 @@ export class DbSettingComponent implements OnInit, OnChanges, OnDestroy {
   toNodMainPage(formValue: Object) {
     let parsedData = formValue;
     parsedData['isCombination'] = this.isCombination;
-    let dbId = UUID.UUID().split('-')[0];
+    // let dbId = UUID.UUID().split('-')[0];
+    let dbId = UUID.UUID();
     let serviceType = 0;
     let seletedNodIds = this.searchedNODDataList.map(data => {
       return data.nodBaseInfoId;
     })
     let params = {
       combination_type: this.isCombination,
+      dbNumber: dbId,
       selectedNodIds: seletedNodIds,
-      isCalSavingAmount: parsedData['isCalSavingAmount']
+      isCalSavingAmount: parsedData['isCalSavingAmount'],
+      description: parsedData['description'],
+      department: parsedData['department']
     };
     this._bonusService.sendData(params);
     this._router.navigate(['bonus/create-db/promotion', dbId]);
   }
 
   searchNodNumber() {
+    let formData = this.dbSettingForm.value;
+
+    if(!formData['selectedType']){
+      window.alert('请选择查询类型');
+      return;
+    } else if(!formData['startTime']) {
+      window.alert('请选择开始时间');
+      return;
+    } else if(!formData['endTime']){
+      window.alert('请选择结束时间');
+      return;
+    } else if(formData['endTime'].getTime() < formData['startTime'].getTime()){
+      window.alert('结束时间不能小于开始时间');
+      return;
+    }
+
     this.nodSearchDialog = true;
 
     if (this.nodSearchText === '') {
@@ -150,12 +171,14 @@ export class DbSettingComponent implements OnInit, OnChanges, OnDestroy {
             end: endTime
           };
 
-          this.nodSHDataSubscription = this._bonusService.getNodSearchedDatas(datas)
-            .subscribe(nodSearchDatas => {
-              this.store$.dispatch({type: 'EMPTY_NODSEARCHEDDATA'});
-              this.store$.dispatch({type: 'ADD_NODSEARCHEDDATA', payload: nodSearchDatas});
-              this.nodSHDataSubscription.unsubscribe();
-            });
+          if (!this.nodSHDataSubscription || this.nodSHDataSubscription.closed === true) {
+            this.nodSHDataSubscription = this._bonusService.getNodSearchedDatas(datas)
+              .subscribe(nodSearchDatas => {
+                this.store$.dispatch({type: 'EMPTY_NODSEARCHEDDATA'});
+                this.store$.dispatch({type: 'ADD_NODSEARCHEDDATA', payload: nodSearchDatas});
+                this.nodSHDataSubscription.unsubscribe();
+              });
+          }
         }
       });
   }
@@ -212,8 +235,8 @@ export class DbSettingComponent implements OnInit, OnChanges, OnDestroy {
       return;
     }
 
-    let nodNumbers = this.selectedNod ? this.selectedNod : null;
-    let dbNumbers = this.selectedDB ? this.selectedDB : null;
+    let nodNumbers = this.selectedNod ? this.selectedNod.map(data => data.nodBaseInfoId) : null;
+    let dbNumbers = this.selectedDB ? this.selectedDB.map(data => data.dbBaseInfoId) : null;
 
     let params = {
       department: selectedDep,
@@ -231,13 +254,12 @@ export class DbSettingComponent implements OnInit, OnChanges, OnDestroy {
         this.showLoading = false;
         this.reportDownloadDialog = true;
         this.fileName = data['fileName'] + '.xls';
-        this.urlForReportAddress = 'http://10.203.102.119:8080/dfms-service-internal/rest/rewardDb/getExcel/' + data['fileName'];
+        this.urlForReportAddress = 'http://localhost:8080/service/rest/rewardDb/getExcel/' + data['fileName'];
       });
   }
 
-  closeReportDialog(){
+  closeReportDialog() {
     this.reportDownloadDialog = false;
   }
-
 
 }

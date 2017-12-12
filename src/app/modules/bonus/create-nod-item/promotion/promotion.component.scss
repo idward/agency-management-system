@@ -1,0 +1,29 @@
+.nod_item_page {
+  .nod_item_serviceType {
+    .header {
+      float: left;
+      font-size: 14px;
+      font-weight: bold;
+    }
+  }
+
+  .form-group {
+    margin: 10px 0;
+
+    input {
+      width: 56%;
+    }
+    label {
+      width: 20%;
+      margin-right: 5px;
+    }
+  }
+
+  .btn {
+    margin-top: 10px;
+
+    button {
+      width: 56%;
+    }
+  }
+}

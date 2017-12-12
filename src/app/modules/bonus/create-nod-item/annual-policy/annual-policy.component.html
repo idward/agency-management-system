@@ -7,20 +7,21 @@
         <span class="delete_icon" (click)="delCurrentRow(data)"></span>
       </ng-template>
     </p-column>
-    <p-column field="bonusTypeDesc" header="奖金类型描述" [editable]="true">
-      <ng-template let-col let-data="rowData" pTemplate="editor">
+    <p-column field="bonusTypeDesc" header="奖金类型描述">
+      <ng-template let-col let-data="rowData" pTemplate="body">
         <p-dropdown [(ngModel)]="data[col.field]" [options]="bonusTypeDescription" [autoWidth]="false"
-                    [style]="{'width':'100%'}" required="true" appendTo="body"></p-dropdown>
+                    [style]="{'width':'100%'}" required="true" appendTo="body"
+                    (onChange)="changeBonusTypeDesc($event)"></p-dropdown>
       </ng-template>
     </p-column>
-    <p-column field="issueBasis" header="发放依据" [editable]="true">
-      <ng-template let-col let-data="rowData" pTemplate="editor">
+    <p-column field="issueBasis" header="发放依据">
+      <ng-template let-col let-data="rowData" pTemplate="body">
         <p-dropdown [(ngModel)]="data[col.field]" [options]="issueBasis" [disabled]="data['isPercentUsed']"
                     [autoWidth]="false" [style]="{'width':'100%'}" required="true"
                     (onChange)="issueBasisChanged($event,data)" appendTo="body"></p-dropdown>
       </ng-template>
     </p-column>
-    <p-column field="carPoint" header="单车点数" [editable]="true">
+    <p-column field="carPoint" header="单车点数(%)" [editable]="true">
       <ng-template let-col let-data="rowData" pTemplate="editor">
         <input type="text" pInputText [(ngModel)]="data[col.field]" [disabled]="data['isPercentUsed']"
                (blur)="valueChangeByPercent(data[col.field],data)"/>
@@ -38,7 +39,7 @@
       </ng-template>
 
       <ng-template let-col let-data="rowData" pTemplate="editor">
-        <p-calendar [(ngModel)]="data[col.field]" appendTo="body"></p-calendar>
+        <p-calendar [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030" [(ngModel)]="data[col.field]" appendTo="body"></p-calendar>
       </ng-template>
     </p-column>
     <p-column field="expEndTime" header="输入结束有效期" [editable]="true" [style]=" {'overflow':'visible' }">
@@ -47,10 +48,12 @@
       </ng-template>
 
       <ng-template let-col let-data="rowData" pTemplate="editor">
-        <p-calendar [(ngModel)]="data[col.field]" appendTo="body"></p-calendar>
+        <p-calendar [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030" [(ngModel)]="data[col.field]" (onSelect)="changeDate($event,data)" appendTo="body"></p-calendar>
       </ng-template>
     </p-column>
-    <p-column field="remarks" header="备注" [editable]="true"></p-column>
+    <p-column field="remarks" [style]="{'overflow':'hidden','text-overflow': 'ellipsis'}" header="备注" [editable]="true">
+
+    </p-column>
     <p-footer>
       <div class="ui-helper-clearfix" style="width:100%">
         <button type="button" pButton icon="fa-plus" style="float:left"
@@ -60,13 +63,13 @@
                 (click)="saveData(1)" label="保存草稿">
         </button>
         <button type="button" pButton icon="fa-plus" style="float:left"
-                (click)="saveData(3)" label="保存">
+                (click)="saveData(3)" label="提交">
         </button>
       </div>
     </p-footer>
   </p-dataTable>
 
   <!-- 保存结果弹出框 -->
-  <p-growl [(value)]="saveResultInfo" styleClass="saveResult" sticky="true" life="2000"></p-growl>
+  <p-growl [(value)]="saveResultInfo" styleClass="saveResult apSave" sticky="true" life="2000"></p-growl>
 
 </div>

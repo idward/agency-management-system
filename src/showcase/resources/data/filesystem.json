@@ -20494,5 +20494,43 @@
         "itemBusinessType": "1"
       }
     ]
-  }
+  },
+  "dbList": [
+    {
+      "itemName": "第一个item",
+      "dbItemBaseInfoId": "11000",
+      "rewards": [
+        {
+          "code": "11",
+          "name": "金融",
+          "value": 1000
+        },
+        {
+          "code": "12",
+          "name": "保险",
+          "value": 1000
+        },
+        {
+          "code": "1",
+          "name": "拷车促销",
+          "value": 1000
+        },
+        {
+          "code": "13",
+          "name": "置换",
+          "value": 1000
+        },
+        {
+          "code": "2",
+          "name": "交车促销",
+          "value": 1000
+        },
+        {
+          "code": "3",
+          "name": "库存促销",
+          "value": 1000
+        }
+      ]
+    }
+  ]
 }

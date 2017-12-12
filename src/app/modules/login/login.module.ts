@@ -6,7 +6,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {LoginService} from "./login.service";
 
-import {InputTextModule, ButtonModule} from 'primeng/primeng';
+import {InputTextModule, ButtonModule, GrowlModule} from 'primeng/primeng';
 import {LoginComponent} from './login.component';
 
 @NgModule({
@@ -17,7 +17,8 @@ import {LoginComponent} from './login.component';
     HttpModule,
     BrowserAnimationsModule,
     InputTextModule,
-    ButtonModule
+    ButtonModule,
+    GrowlModule
   ],
   declarations: [
     LoginComponent

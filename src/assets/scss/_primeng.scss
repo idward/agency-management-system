@@ -43,6 +43,11 @@
     border: none;
   }
 
+  .ui-dialog-content.ui-widget-content {
+    overflow-y: auto;
+    height: 300px;
+  }
+
   .ui-state-highlight {
     color: #212121;
     background: none;
@@ -89,6 +94,7 @@
   .ui-dialog-content.ui-widget-content {
     height: 120px;
     text-align: center;
+    overflow: visible;
   }
 }
 
@@ -112,6 +118,17 @@
 
   .ui-treetable-footer.ui-widget-header {
     border-top: 1px solid #d9d9d9;
+  }
+
+  .ui-treetable-tablewrapper {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .nod_item_top {
+    .ui-chkbox-label {
+      vertical-align: inherit;
+    }
   }
 }
 
@@ -178,7 +195,7 @@
   }
 }
 
-.nod_item_page, .annual_policy {
+.nod_item_page, .annual_policy, .dbr-item, .login, .promotion {
   .saveResult {
     .ui-growl-item-container {
       height: 100px;
@@ -233,5 +250,100 @@
 .updateItem_area {
   .ui-datatable-scrollable-view {
     overflow-x: hidden;
+  }
+}
+
+.nodSave, .dbSave, .apSave, .dbrSave {
+  .ui-growl-message p {
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+  }
+}
+
+.dbr-item {
+  .dbSearchedList {
+    .ui-orderlist-controls {
+      display: none;
+    }
+
+    .ui-orderlist-list-container {
+      margin-top: 10px;
+      ul {
+        width: 200px;
+
+        li {
+          padding: 10px 0;
+          text-align: center;
+          border-bottom: 1px dashed #d8d8d8;
+
+          h3 {
+            font-size: 14px;
+            margin-bottom: 5px;
+          }
+        }
+      }
+    }
+
+    .db_selected_item, .db_selected_result {
+      .ui-tree {
+        height: 175px;
+      }
+    }
+  }
+}
+
+.dbr-item-content {
+  .dbItems.ui-datatable {
+    width: 1000px;
+    float: left;
+  }
+}
+
+.uploadList {
+  .ui-dialog.ui-widget .ui-dialog-titlebar {
+    padding: 10px 10px 5px 10px;
+  }
+  .ui-dialog-content.ui-widget-content {
+    overflow: visible;
+  }
+  .uploadList_condition {
+    .ui-button.ui-fileupload-choose {
+      color: #2399e5;
+      background: white;
+      float: left;
+    }
+  }
+  .ui-menu {
+    background: none;
+    border: 1px solid #2399e5;
+  }
+  .ui-menu .ui-menuitem .ui-menuitem-link {
+    color: #2196f3;
+  }
+  .ui-menu .ui-menuitem .ui-menuitem-link:hover {
+    background-color: #2196f3;
+    color: #ffffff;
+  }
+  .ui-shadow {
+    box-shadow: none;
+  }
+  .uploadList_content {
+    .ui-button.ui-widget {
+      color: #2399e5;
+      background: white;
+    }
+
+    .ui-button.ui-fileupload-choose {
+      margin-right: 10px;
+    }
+  }
+}
+
+.uploadResultList {
+  .btn_group {
+    .ui-button.ui-fileupload-choose {
+      float: left;
+    }
   }
 }

@@ -1,7 +1,7 @@
 import {OptionItem} from "../../model/optionItem/optionItem.model";
 
 export const TYPES: OptionItem[] = [
-  new OptionItem('促销方式', 'PROMOTION'),
+  new OptionItem('促销', 'PROMOTION'),
   new OptionItem('年度政策', 'ANNUAL_POLICY')
 ];
 
@@ -50,7 +50,18 @@ export const BONUSTYPEDESC: OptionItem[] = [
 
 export const ISSUEBASIS: OptionItem[] = [
   new OptionItem('请选择...', ''),
-  new OptionItem('交车', '交车'),
-  new OptionItem('拷车', '拷车'),
-  new OptionItem('经销商库存', '经销商库存')
+  new OptionItem('交车', '1'),
+  new OptionItem('拷车', '2')
 ];
+
+export const ReleaseLocation: OptionItem[] = [
+  new OptionItem('DOL', '1'),
+  new OptionItem('DMS', '2')
+];
+
+export const ControlTypes: OptionItem[] = [
+  new OptionItem('品牌','0'),
+  new OptionItem('车系','1'),
+  new OptionItem('车型','2'),
+];
+

@@ -1,17 +1,17 @@
 import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {Router, ActivatedRoute, Params} from '@angular/router';
-
-import {ConfirmationService, Message, TreeNode} from 'primeng/primeng';
-import * as _ from 'lodash';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 
 import {Store} from '@ngrx/store';
 import {Observable} from "rxjs/Observable";
 import {Subscription} from "rxjs/Subscription";
 import 'rxjs/Rx';
+import * as _ from 'lodash';
 
+import {ConfirmationService, Message, TreeNode} from 'primeng/primeng';
 import {OptionItem} from "../../../../model/optionItem/optionItem.model";
-import {SERVICETYPES} from "../../../../data/optionItem/optionItem.data";
-import {Nod} from "../../../../model/nod/nod.model";
+import {ControlTypes, SERVICETYPES} from "../../../../data/optionItem/optionItem.data";
+import {Nod, SelectedNodItem} from "../../../../model/nod/nod.model";
 import {NodItem} from "../../../../model/nod/nodItem.model";
 
 @Component({
@@ -22,7 +22,10 @@ import {NodItem} from "../../../../model/nod/nodItem.model";
 export class NodPromotionComponent implements OnInit, OnDestroy {
   nodItemCount: number = 0;
   nodItemOptions: OptionItem[] = [];
-  selectedNodItem: string;
+  controlTypeOptions: OptionItem[] = [];
+  selectedNodItem: SelectedNodItem;
+  createdItemName: string;
+  showLoading: boolean;
   files: Observable<TreeNode[]>;
   selectedFiles: TreeNode[];
   display: boolean = false;
@@ -32,6 +35,7 @@ export class NodPromotionComponent implements OnInit, OnDestroy {
   serviceTypes: OptionItem[];
   serviceType: string;
   selectedServiceType: string;
+  fastProcessDialog: boolean;
   nod: Nod;
   nodItem: Observable<NodItem []>;
   isShowServiceType: boolean = false;
@@ -41,12 +45,13 @@ export class NodPromotionComponent implements OnInit, OnDestroy {
   currentNodItem: NodItem;
   parsedData: Object = {};
   saveResultInfo: Message[];
+  createdItemForm: FormGroup;
 
   constructor(@Inject('BonusService') private _bonusService,
               @Inject('CarTreeService') private _carTreeService,
               @Inject(ConfirmationService) private _confirmService,
               private store$: Store<any>, private _router: Router,
-              private _route: ActivatedRoute) {
+              private _route: ActivatedRoute, private _form: FormBuilder) {
     const carTreeFilter$ = this.store$.select('carTreeFilter');
     const carDatasFilter$ = this.store$.select('carDatasFilter');
     const nodItemData$ = this.store$.select('nodItemDatas');
@@ -70,9 +75,16 @@ export class NodPromotionComponent implements OnInit, OnDestroy {
           return filter(this.currentNodItem.nodItem_data['cartree_model']);
         }
       });
+
+    this.createdItemForm = this._form.group({
+      createdItemName: ['', Validators.required],
+      selectedServiceType: ['', Validators.required]
+    });
+
   }
 
   ngOnInit(): void {
+    this.controlTypeOptions = ControlTypes;
     this._bonusService.getData().subscribe(data => this.parsedData = data);
 
     this.serviceTypes = SERVICETYPES;
@@ -88,11 +100,8 @@ export class NodPromotionComponent implements OnInit, OnDestroy {
         this.nod.nodYear = this.parsedData['year'];
         this.nod.nodList = nodItems;
         if (!_.isNil(nodItems) && nodItems.length > 0) {
-          this.currentNodItem = nodItems.filter(data => data.nodItem_id === this.selectedNodItem)[0];
+          this.currentNodItem = nodItems.filter(data => data.nodItem_id === this.selectedNodItem.itemValue)[0];
         }
-        // else {
-        //   this.currentNodItem = null;
-        // }
         this.nodItemCount = nodItems.length;
         if (!_.isNil(this.currentNodItem)) {
           this.cars = this.currentNodItem.nodItem_data['cartree_model'];
@@ -121,8 +130,8 @@ export class NodPromotionComponent implements OnInit, OnDestroy {
   }
 
   chooseNodItem(data: any) {
-    this.selectedNodItem = data;
-    let currentNodItem = this.nod.nodList.filter(data => data.nodItem_id === this.selectedNodItem)[0];
+    this.selectedNodItem.itemValue = data;
+    let currentNodItem = this.nod.nodList.filter(data => data.nodItem_id === this.selectedNodItem.itemValue)[0];
     this.serviceType = currentNodItem.nodItem_type;
     this.currentNodItem = currentNodItem;
     this.selectedCars = this.currentNodItem.nodItem_data['saved_cartree_model'];
@@ -131,26 +140,57 @@ export class NodPromotionComponent implements OnInit, OnDestroy {
     }
 
     this.cars = this.currentNodItem.nodItem_data['cartree_model'];
-
   }
 
-  createItem() {
+  createItem(formValue: any) {
+    let itemName = formValue.createdItemName;
     let nodItemData = [];
     this.isShowServiceType = false;
     let nodItem = this._bonusService.createNODItem(this.selectedServiceType);
+    nodItem = this.setInitialSettingCondition(nodItem);
     nodItemData.push(nodItem);
     this.serviceType = nodItem.nodItem_type;
 
-    this.nodItemOptions.push(new OptionItem('Item-' + nodItem.nodItem_id.split('-')[0], nodItem.nodItem_id));
-    this.selectedNodItem = nodItem.nodItem_id;
+    this.nodItemOptions.push(new OptionItem('Item-' + itemName, nodItem.nodItem_id));
+    this.selectedNodItem = {itemName: itemName, itemValue: nodItem.nodItem_id};
 
     this.store$.dispatch({type: 'CREATE_NODITEM', payload: nodItemData});
     this.selectedServiceType = undefined;
     this.selectedCars = undefined;
+    this.createdItemForm.reset();
+  }
+
+  setInitialSettingCondition(nodItem: any) {
+    let currentNodItem = nodItem;
+
+    let initialSettingCondition = {
+      'description': '',
+      'startTime': null,
+      'endTime': null,
+      'releaseTime': null,
+      'isApproval': false
+    };
+
+    if (nodItem['nodItem_type'] === 'PROMOTIONAL_AMOUNT') {
+      initialSettingCondition = Object.assign({}, initialSettingCondition, {'controlType': 0});
+    } else {
+      initialSettingCondition = Object.assign({}, initialSettingCondition,
+        {
+          'fastProcess': {
+            'rapidProcessType': '',
+            'period': '',
+            'releaseSystem': '',
+            'isNeedHold': false
+          }
+        });
+    }
+
+    currentNodItem.nodItem_data.setting_condition = initialSettingCondition;
+
+    return currentNodItem;
   }
 
   getCommonData(data: any) {
-
     let oldData = this.currentNodItem.nodItem_data['setting_condition'];
     let newData = data;
     let newSettingCondition = Object.assign({}, oldData, newData);
@@ -164,12 +204,12 @@ export class NodPromotionComponent implements OnInit, OnDestroy {
 
   deleteItem() {
     this._confirmService.confirm({
-      message: '您确认删除Item-' + this.selectedNodItem + '吗?',
+      message: '您确认删除Item-' + this.selectedNodItem.itemName + '吗?',
       header: '删除确认框',
       icon: 'fa fa-trash',
       accept: () => {
-        this.store$.dispatch({type: 'DELETE_NODITEM', payload: this.selectedNodItem});
-        this.nodItemOptions = this.nodItemOptions.filter(data => data.value !== this.selectedNodItem);
+        this.store$.dispatch({type: 'DELETE_NODITEM', payload: this.selectedNodItem.itemValue});
+        this.nodItemOptions = this.nodItemOptions.filter(data => data.value !== this.selectedNodItem.itemValue);
         if (this.nodItemOptions && this.nodItemOptions.length > 0) {
           this.chooseNodItem(this.nodItemOptions[0].value);
         }
@@ -180,6 +220,36 @@ export class NodPromotionComponent implements OnInit, OnDestroy {
   }
 
   saveData(data: any) {
+    if (this.currentNodItem.nodItem_data['promotional_ratio']) {
+      if (this.currentNodItem.nodItem_data['promotional_ratio'].length === 0) {
+        window.alert('请选择车系车型');
+        return;
+      }
+    } else if (this.currentNodItem.nodItem_data['promotional_amount']) {
+      if (this.currentNodItem.nodItem_data['promotional_amount'].length === 0) {
+        window.alert('请选择车系车型');
+        return;
+      }
+    }
+
+    if (this.currentNodItem.nodItem_data['setting_condition']) {
+      let settingCondition = this.currentNodItem.nodItem_data['setting_condition'];
+      let checkResult = this.checkIsFinishedCommonSetting(settingCondition);
+
+      if (!checkResult['status']) {
+        window.alert(checkResult['message']);
+        return;
+      } else {
+        let startTime = settingCondition['startTime'].getTime();
+        let endTime = settingCondition['endTime'].getTime();
+
+        if (endTime < startTime) {
+          window.alert('结束时间不能小于开始时间');
+          return;
+        }
+      }
+    }
+
     let type: number = data.type;
     this._bonusService.saveNodInfo(this.nod, type)
       .subscribe(data => {
@@ -188,7 +258,7 @@ export class NodPromotionComponent implements OnInit, OnDestroy {
             this.saveResultInfo.push({severity: 'success', summary: '', detail: '保存草稿成功！'});
           }
           if (type === 3) {
-            this.saveResultInfo.push({severity: 'success', summary: '', detail: '保存成功！'});
+            this.saveResultInfo.push({severity: 'success', summary: '', detail: `${data.code} 保存成功！`});
             setTimeout(() => {
               this._router.navigate(['bonus']);
             }, 3000);
@@ -224,12 +294,40 @@ export class NodPromotionComponent implements OnInit, OnDestroy {
       );
   }
 
-  previewAllItems() {
+  checkIsFinishedCommonSetting(commonSetting: object) {
+    let errorMessages = {
+      description: '请填写NOD描述',
+      startTime: '请选择开始时间',
+      endTime: '请选择结束时间',
+      releaseTime: '请选择发放截止时间',
+    };
 
+    let initialCommonSetting = {
+      description: '',
+      startTime: null,
+      endTime: null,
+      releaseTime: null
+    }
+
+    let cs = Object.assign({}, initialCommonSetting, commonSetting);
+
+    let checkResult = {};
+    checkResult['status'] = true;
+    checkResult['message'] = [];
+    for (let p in cs) {
+      if (cs[p] === '' || cs[p] === null) {
+        checkResult['status'] = false;
+        checkResult['message'].push(errorMessages[p]);
+        break;
+      }
+    }
+    return checkResult;
+  }
+
+  previewAllItems() {
   }
 
   sendItemsData() {
-
   }
 
   editCarCategory(evt: Event) {
@@ -250,6 +348,7 @@ export class NodPromotionComponent implements OnInit, OnDestroy {
     }
 
     if (this.cars.length === 0) {
+      this.showLoading = true;
       this.carTreeSubscription = this._carTreeService.getFilesystem()
         .subscribe(datas => {
           if (this.currentNodItem.nodItem_type === 'PROMOTIONAL_RATIO') {
@@ -259,6 +358,7 @@ export class NodPromotionComponent implements OnInit, OnDestroy {
           }
           this.currentNodItem.nodItem_data['cartree_model'] = this.createCarTree(datas);
           this.store$.dispatch({type: 'UPDATE_NODEITEM', payload: this.currentNodItem});
+          this.showLoading = false;
         });
     }
 

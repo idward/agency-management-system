@@ -1,0 +1,125 @@
+<div class="dbr-item">
+  <app-dbr-item-header [bonusTypeItemOptions]="bonusTypeItemOptions" [locationOptions]="locationOptions"
+                       [queryResultDatas]="queryResultDatas | async" [isApprovedDBrDatas]="isApprovedDBrDatas"
+                       (submitDBRDatasEvt)="submitDBRDatas()"
+                       (addDBEvt)="showDBList()" (uploadListEvt)="uploadList()" (commonSettingEvt)="setCommonSetting($event)">
+  </app-dbr-item-header>
+  <app-dbr-item-content [queryResultDatas]="queryResultDatas | async" [uploadListDatas]="uploadListDatas"
+  [matchResultDatas]="matchResultDatas"></app-dbr-item-content>
+
+
+  <p-dialog class="dbSearchedList" [modal]="true" [draggable]="true" [(visible)]="listForDBDialog"
+            [closable]="true" [width]="730" [height]="330" (onHide)="onHide()">
+    <p-header>
+      <div class="header">选择DB明细</div>
+    </p-header>
+    <div class="search">
+      <input id="dbListSearch" type="text" style="width: 200px;" pInputText [placeholder]="placeholder"
+             (focus)="onFocus()" (blur)="onBlur()" [(ngModel)]="dbListSearchText">
+    </div>
+    <div class="db_list">
+      <p-orderList [value]="dbQueryList | async" (onSelectionChange)="selectDBItem($event)">
+        <ng-template let-db pTemplate="item">
+          <div class="ui-helper-clearfix">
+            <h3>{{db.dbNumber}}</h3>
+            <h4>{{db.description}}</h4>
+          </div>
+        </ng-template>
+      </p-orderList>
+      <button pButton type="button" (click)="addDBItemData()" [disabled]="!selectedDBItem" label="确定"></button>
+    </div>
+    <div class="db_selected_item">
+      <p-tree [value]="DBItemTreeDatas" selectionMode="checkbox" [(selection)]="selectedDBItemTreeData"
+              (onNodeSelect)="selectNode($event)" (onNodeUnselect)="unSelectNode($event)"></p-tree>
+      <button pButton type="button" (click)="showDBItemData()" [disabled]="!DBItemTreeDatas" label="确定"></button>
+    </div>
+    <div class="db_selected_result">
+      <p-tree [value]="dbItemDatas | async"></p-tree>
+      <button pButton type="button" (click)="sendDBItemData()" [disabled]="!((dbItemDatas | async).length > 0)"
+              label="确定"></button>
+    </div>
+  </p-dialog>
+
+  <p-dialog class="uploadList" [modal]="true" [draggable]="true" [(visible)]="uploadConditionDialog"
+            [closable]="true" [width]="400" [height]="170">
+    <p-header>
+      <div class="header">数量条件</div>
+    </p-header>
+    <div class="uploadList_condition">
+      <div class="uploadList_content">
+        <p-fileUpload mode="basic" name="file" url="http://localhost:8080/service/rest/rewardDbr/dealerUploadDbrListInfo"
+                      maxFileSize="1000000" (onBeforeUpload)="onBasicUploadBefore($event)" (onUpload)="onBasicUploadAuto($event,1)"
+                      auto="true" chooseLabel="手工上传" styleClass="uploadByHand">
+        </p-fileUpload>
+        <!--<button pButton type="button" icon="fa fa-file-text-o" (click)="getBonusList()" label="奖金清单"></button>-->
+        <p-splitButton label="奖金清单" (onClick)="getBonusListCommand()" [model]="items"></p-splitButton>
+      </div>
+    </div>
+  </p-dialog>
+
+  <p-dialog class="singleBatchNumber" [modal]="true" [draggable]="true" [(visible)]="singleBatchNumberDialog"
+            [closable]="true" [width]="400" [height]="170">
+    <p-header>
+      <div class="header">指定批次号</div>
+    </p-header>
+    <div class="uploadList_condition_sbn">
+      <div class="uploadList_content_sbn">
+        <input type="text" style="width: 250px;" #bt pInputText placeholder="请输入查询批次号">
+        <button pButton (click)="querySingleBatchNumber(bt.value)" label="确定"></button>
+      </div>
+    </div>
+  </p-dialog>
+
+  <p-dialog class="historyBatchNumber" [modal]="true" [draggable]="true" [(visible)]="historyBatchNumberDialog"
+            [closable]="true" [width]="400">
+    <p-header>
+      <div class="header">浏览已存在批次号</div>
+    </p-header>
+    <div class="uploadList_condition_hbn">
+      <div class="uploadList_content_hbn">
+        <p-dataTable [scrollable]="true" [(selection)]="selectedBatchNumber" [rows]="10" [paginator]="true" [pageLinks]="3" [value]="batchNumbers">
+          <p-column [style]="{'width':'38px'}" selectionMode="single"></p-column>
+          <p-column field="batchNumber" [style]="{'width':'300px'}" header="批次号"></p-column>
+        </p-dataTable>
+        <button style="margin-top: 10px; width: 60%" pButton (click)="queryHistoryBatchNumber()" label="确定"></button>
+      </div>
+    </div>
+  </p-dialog>
+
+  <p-dialog class="uploadResultList" [modal]="true" [draggable]="true" [(visible)]="uploadResultDialog"
+            [closable]="true" [width]="800">
+    <p-header>
+      <div class="header">清单预览</div>
+    </p-header>
+    <div class="uploadList_condition_result">
+      <div class="uploadList_content_result">
+        <p-dataTable *ngIf="uploadResultDatas && uploadResultDatas.length > 0" [scrollable]="true"
+                     [rows]="10" [paginator]="true" [pageLinks]="3" [value]="uploadResultDatas">
+          <p-column field="dealerName" [style]="{'width':'300px'}" header="经销商"></p-column>
+          <p-column field="dealerCode" [style]="{'width':'100px'}" header="经销商Code"></p-column>
+          <p-column field="carSeries" [style]="{'width':'100px'}" header="车系"></p-column>
+          <p-column field="carPackage" [style]="{'width':'100px'}" header="配置"></p-column>
+          <p-column field="payableAmount" [style]="{'width':'70px'}" header="金额"></p-column>
+          <p-column field="checkResultMessage" [style]="{'width':'70px'}" header="结果">
+            <ng-template let-col let-db="rowData" pTemplate="body">
+              <span *ngIf="db[col.field] === null" style="color: green;">成功</span>
+              <span *ngIf="db[col.field] !== null" style="color: red;">失败</span>
+            </ng-template>
+          </p-column>
+        </p-dataTable>
+      </div>
+      <div class="btn_group" *ngIf="!isSourceFromBonusList">
+        <p-fileUpload mode="basic" name="file" url="http://localhost:8080/service/rest/rewardDbr/dealerUploadDbrListInfo"
+                      maxFileSize="1000000" (onBeforeUpload)="onBasicUploadBefore($event)" (onUpload)="onBasicUploadAuto($event,0)" auto="true" chooseLabel="重新上传">
+        </p-fileUpload>
+        <button pButton type="button" (click)="getUploadMatchedResult()" style="width: 100px" [disabled]="!matchResult" label="确定"></button>
+      </div>
+      <div class="btn_group" *ngIf="isSourceFromBonusList">
+        <button pButton type="button" (click)="getUploadMatchedResult()" style="width: 100%" [disabled]="!matchResult" label="确定"></button>
+      </div>
+    </div>
+  </p-dialog>
+
+  <!-- 保存结果弹出框 -->
+  <p-growl [(value)]="saveResultInfo" styleClass="saveResult dbrSave" sticky="true" life="2000"></p-growl>
+</div>

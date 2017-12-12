@@ -1,6 +1,10 @@
 <div class="bonus_setting_page">
   <form [formGroup]="dbSettingForm" (submit)="toNodMainPage(dbSettingForm.value,isCombination)" novalidate>
     <div class="form-group">
+      <label for="description">描述:</label>
+      <input id="description" type="text" pInputText="" formControlName="description">
+    </div>
+    <div class="form-group">
       <label for="department">使用部门:</label>
       <p-dropdown id="department" [style]="{'width':'70%'}" [options]="departments" formControlName="department"
                   [(ngModel)]="selectedDep" placeholder="请选择部门" required></p-dropdown>
@@ -19,8 +23,8 @@
     </div>
     <div class="form-group">
       <label>期间:</label>
-      <p-calendar class="calendar" [(ngModel)]="startTime" formControlName="startTime"></p-calendar>
-      <p-calendar class="calendar" [(ngModel)]="endTime" formControlName="endTime"></p-calendar>
+      <p-calendar class="calendar" [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030" [(ngModel)]="startTime" formControlName="startTime"></p-calendar>
+      <p-calendar class="calendar" [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030" [(ngModel)]="endTime" formControlName="endTime"></p-calendar>
     </div>
     <div class="form-group">
       <label>NOD号:</label>
@@ -36,8 +40,9 @@
       <p-checkbox label="是否计算Saving" binary="true" formControlName="isCalSavingAmount"></p-checkbox>
     </div>
 
-    <button pButton type="submit" [disabled]="!(dbSettingForm.valid && searchedNODDataList.length > 0)" label="合并" (click)="combinationValue(1)"></button>
-    <button pButton type="submit" [disabled]="!(dbSettingForm.valid && searchedNODDataList.length > 0)" label="不合并" (click)="combinationValue(2)"></button>
+    <button pButton type="submit" style="margin-left: 100px;" [disabled]="!(dbSettingForm.valid && searchedNODDataList.length > 0)" label="创建" (click)="combinationValue(2)"></button>
+    <!--<button pButton type="submit" [disabled]="!(dbSettingForm.valid && searchedNODDataList.length > 0)" label="合并" (click)="combinationValue(1)"></button>-->
+    <!--<button pButton type="submit" [disabled]="!(dbSettingForm.valid && searchedNODDataList.length > 0)" label="不合并" (click)="combinationValue(2)"></button>-->
   </form>
 
   <!-- 报表浏览 -->

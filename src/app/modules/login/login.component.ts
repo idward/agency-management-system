@@ -1,23 +1,22 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {LocalStorageService} from 'angular-2-local-storage';
-import {User} from "../../model/user/user.model";
+
+import {Message} from 'primeng/primeng';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  providers: [LocalStorageService]
 })
 export class LoginComponent implements OnInit {
-  user: User;
   loginForm: FormGroup;
+  username: string;
+  password: string;
+  loginResultInfo: Message[];
 
-  constructor(private _fb: FormBuilder, @Inject('loginService') private _loginService,
-              private _localstorge: LocalStorageService, private _router:Router) {
-    this.user = new User();
-
+  constructor(private _fb: FormBuilder, private _router: Router,
+              @Inject('AuthenticationService') private _authenService) {
     this.loginForm = this._fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -28,17 +27,22 @@ export class LoginComponent implements OnInit {
   }
 
   loginAuth(data: any) {
-    let user = new User();
-    user.username = data.username;
-    user.password = data.password;
-    this._loginService.loginAuth(user)
-      .subscribe(data => {
-        if (data.success) {
-          this._localstorge.set('token', data.data.tokenID);
-          let token = this._localstorge.get('token');
+    console.log(data);
+    let username = data.username;
+    let password = data.password;
+    this._authenService.login(username, password)
+      .subscribe(result => {
+        debugger;
+        if (result) {
+          this.loginResultInfo = [];
+          this.loginResultInfo.push({severity: 'success', summary: '', detail: '登录成功！'});
+          setTimeout(() => {
+            this._router.navigate(['/']);
+          }, 3000);
 
-          this._loginService.toMainPage(token)
-            .subscribe(data => console.log(data));
+        } else {
+          this.loginResultInfo = [];
+          this.loginResultInfo.push({severity: 'error', summary: '', detail: '登录失败, 用户名或密码不正确!'});
         }
       });
   }

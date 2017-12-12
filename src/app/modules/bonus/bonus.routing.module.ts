@@ -10,6 +10,8 @@ import {NodPromotionComponent} from "./create-nod-item/promotion/promotion.compo
 import {CreateDbItemComponent} from "./create-db-item/create-db-item.component";
 import {DBPromotionComponent} from "./create-db-item/promotion/promotion.component";
 import {DBAnnualPolicyComponent} from "./create-db-item/annual-policy/annual-policy.component";
+import {CreateDbrItemComponent} from "./create-dbr-item/create-dbr-item/create-dbr-item.component";
+import {AuthGuard} from "../../core/auth/auth.guard";
 
 const routes: Routes = [
   {
@@ -18,7 +20,8 @@ const routes: Routes = [
     children: [
       {
         path: 'nod',
-        component: NodSettingComponent
+        component: NodSettingComponent,
+        // canActivate: [AuthGuard]
       },
       {
         path: 'create-nod',
@@ -36,7 +39,8 @@ const routes: Routes = [
       },
       {
         path: 'db',
-        component: DbSettingComponent
+        component: DbSettingComponent,
+        // canActivate: [AuthGuard]
       },
       {
         path: 'create-db',
@@ -51,6 +55,11 @@ const routes: Routes = [
             component: DBAnnualPolicyComponent
           }
         ]
+      },
+      {
+        path: 'dbr',
+        component: CreateDbrItemComponent,
+        // canActivate: [AuthGuard]
       }
     ]
   }
@@ -66,5 +75,4 @@ const routes: Routes = [
 })
 
 export class BonusRoutesModule {
-}
-;
+};
